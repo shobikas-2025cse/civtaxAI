@@ -1,0 +1,2 @@
+platform,version,generated_at,municipality,fiscal_year,Total_Citizens,Total_Annual_Tax_Demand,Total_Amount_Collected,Total_Outstanding_Dues,Overall_Collection_Rate_pct,High_Risk_Citizens,Medium_Risk_Citizens,Low_Risk_Citizens,AutoPay_Enrolled,Total_Transactions,Total_Penalties_Applied,Total_Rewards_Issued,As_Of_Date
+CivTax AI,1.0,2024-04-01,Bangalore Municipal Corporation,2023-24,300,5338700,3242800,2095900,60.7,200,14,86,132,501,302,86,2024-03-31

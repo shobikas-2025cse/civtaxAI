@@ -1,0 +1,301 @@
+Citizen_ID,Name,Ward_ID,Ward_Name,Property_Type,Property_Area_sqft,Water_Connection,Waste_Service,Annual_Tax,Amount_Paid,Outstanding_Dues,Previous_Delays,Payment_Plan,AutoPay_Enabled,Preferred_Payment_Method,Last_Payment_Status,Avg_Days_Late,Reminders_Received,Rewards_Earned,Penalty_History,Payment_Delay_Risk,Registration_Date,Last_Payment_Date,Email,Phone,Ward_Collection_Rate_pct,Ward_High_Risk_Count,Ward_Rank
+C001,Rekha Menon,W02,Rajajinagar,Residential,2753,Yes,Yes,13800,13800,0,0,Quarterly,No,Net Banking,On-time,0,0,1,0,Low,2023-09-01,2024-09-08,c001@civtax.in,9128492780,61.6,30,5
+C002,Lakshmi Pillai,W04,Indiranagar,Commercial,4964,Yes,Yes,39700,39700,0,0,Monthly,No,UPI,On-time,3,1,1,0,Low,2021-10-10,2023-04-15,c002@civtax.in,9199585092,53.5,25,7
+C003,Anil Reddy,W07,Hebbal,Residential,3317,Yes,Yes,16600,8300,8300,3,Half-Yearly,No,UPI,Delayed,35,2,0,2,High,2018-07-07,2024-11-08,c003@civtax.in,9344703907,68.5,21,1
+C004,Ravi Hegde,W05,Jayanagar,Mixed-Use,2407,No,Yes,16800,16800,0,1,Monthly,Yes,UPI,On-time,42,1,0,0,High,2020-09-29,2023-06-17,c004@civtax.in,9596348124,61.7,23,4
+C005,Ashok Pillai,W07,Hebbal,Residential,2299,Yes,Yes,11500,5750,5750,4,Yearly,Yes,UPI,Delayed,17,0,0,1,High,2023-08-07,2024-02-10,c005@civtax.in,9790256940,68.5,21,1
+C006,Anita Sharma,W08,Electronic City,Residential,1643,Yes,Yes,8200,8200,0,0,Quarterly,No,UPI,On-time,1,0,1,0,Low,2019-03-26,2023-06-06,c006@civtax.in,9773715057,66.7,20,2
+C007,Usha Gupta,W03,Koramangala,Commercial,3958,Yes,Yes,31700,31700,0,2,Half-Yearly,Yes,Net Banking,On-time,0,0,0,2,Medium,2019-04-02,2023-10-28,c007@civtax.in,9566825638,64.1,31,3
+C008,Ravi Hegde,W03,Koramangala,Residential,2657,No,Yes,13300,9975,3325,2,Yearly,No,Credit Card,Delayed,32,1,0,0,High,2023-12-13,2023-01-01,c008@civtax.in,9743111853,64.1,31,3
+C009,Naresh Rao,W06,Whitefield,Residential,1416,No,Yes,7100,0,7100,4,Yearly,Yes,Credit Card,Delayed,5,0,0,3,High,2019-06-10,,c009@civtax.in,9808402051,49.1,23,8
+C010,Padma Patil,W08,Electronic City,Mixed-Use,1852,Yes,Yes,13000,9750,3250,1,Yearly,No,Offline,Delayed,12,2,0,1,High,2023-10-21,2024-04-07,c010@civtax.in,9229927269,66.7,20,2
+C011,Prasad Menon,W04,Indiranagar,Residential,3269,Yes,Yes,16300,8150,8150,2,Yearly,No,UPI,Delayed,4,0,0,1,High,2021-02-14,2024-11-16,c011@civtax.in,9621209849,53.5,25,7
+C012,Vikram Sharma,W04,Indiranagar,Residential,4372,Yes,Yes,21900,21900,0,1,Yearly,No,UPI,On-time,26,1,0,0,High,2022-07-08,2023-12-14,c012@civtax.in,9959629660,53.5,25,7
+C013,Naresh Kumar,W02,Rajajinagar,Residential,2058,Yes,Yes,10300,10300,0,0,Half-Yearly,No,UPI,On-time,4,0,1,0,Low,2019-01-18,2023-08-31,c013@civtax.in,9278575192,61.6,30,5
+C014,Kamala Kulkarni,W07,Hebbal,Residential,2251,No,No,11300,11300,0,0,Yearly,Yes,Debit Card,On-time,3,1,1,0,Low,2019-09-27,2023-07-14,c014@civtax.in,9418587604,68.5,21,1
+C015,Suresh Shetty,W04,Indiranagar,Mixed-Use,4941,Yes,Yes,34600,34600,0,0,Half-Yearly,No,Net Banking,On-time,0,0,1,0,Low,2018-10-06,2024-11-22,c015@civtax.in,9352548261,53.5,25,7
+C016,Kavitha Patel,W07,Hebbal,Residential,2516,Yes,Yes,12600,12600,0,0,Quarterly,No,UPI,On-time,2,0,1,0,Low,2022-06-10,2023-05-15,c016@civtax.in,9821221887,68.5,21,1
+C017,Padma Shah,W05,Jayanagar,Residential,1094,Yes,Yes,5500,2750,2750,2,Yearly,No,Net Banking,Delayed,8,2,0,0,High,2019-10-09,2024-03-24,c017@civtax.in,9995226828,61.7,23,4
+C018,Usha Shah,W05,Jayanagar,Commercial,4833,Yes,Yes,38700,38700,0,0,Quarterly,No,UPI,On-time,0,0,1,0,Low,2020-05-12,2023-12-18,c018@civtax.in,9318610946,61.7,23,4
+C019,Harish Hegde,W05,Jayanagar,Residential,2557,No,Yes,12800,12800,0,0,Half-Yearly,Yes,UPI,On-time,1,1,1,0,Low,2022-10-18,2024-07-28,c019@civtax.in,9110382761,61.7,23,4
+C020,Kavitha Nair,W02,Rajajinagar,Residential,1721,Yes,Yes,8600,8600,0,2,Yearly,Yes,UPI,On-time,2,2,0,0,Medium,2021-12-19,2024-07-27,c020@civtax.in,9536344399,61.6,30,5
+C021,Ravi Nair,W03,Koramangala,Industrial,2439,No,No,24400,6100,18300,4,Monthly,Yes,Offline,Delayed,21,3,0,1,High,2022-04-16,2023-02-09,c021@civtax.in,9605399561,64.1,31,3
+C022,Usha Singh,W04,Indiranagar,Residential,4270,Yes,Yes,21400,0,21400,5,Yearly,No,UPI,Defaulted,17,6,0,0,High,2023-09-18,,c022@civtax.in,9529151399,53.5,25,7
+C023,Prasad Nair,W06,Whitefield,Mixed-Use,1444,No,Yes,10100,10100,0,2,Monthly,Yes,Net Banking,On-time,22,2,0,1,High,2022-04-27,2024-08-13,c023@civtax.in,9304095531,49.1,23,8
+C024,Saraswathi Shetty,W05,Jayanagar,Residential,4072,Yes,No,20400,20400,0,2,Quarterly,No,Offline,On-time,23,3,0,0,High,2021-07-09,2024-11-10,c024@civtax.in,9233815413,61.7,23,4
+C025,Arjun Shah,W05,Jayanagar,Residential,3845,Yes,Yes,19200,19200,0,2,Yearly,No,UPI,On-time,11,2,0,1,High,2021-03-21,2023-08-04,c025@civtax.in,9561588882,61.7,23,4
+C026,Anita Menon,W06,Whitefield,Residential,4122,Yes,Yes,20600,5150,15450,4,Monthly,No,Offline,Delayed,18,4,0,4,High,2021-06-25,2023-08-19,c026@civtax.in,9966040317,49.1,23,8
+C027,Geetha Menon,W04,Indiranagar,Residential,878,Yes,Yes,4400,1100,3300,4,Yearly,Yes,Net Banking,Delayed,12,5,0,3,High,2019-08-28,2024-11-02,c027@civtax.in,9838328947,53.5,25,7
+C028,Indira Hegde,W01,Gandhinagar,Industrial,1373,Yes,Yes,13700,3425,10275,4,Quarterly,No,Net Banking,Delayed,7,3,0,1,High,2021-07-23,2024-03-29,c028@civtax.in,9757830420,58.4,27,6
+C029,Saroja Menon,W07,Hebbal,Commercial,4988,Yes,Yes,39900,0,39900,5,Half-Yearly,No,Credit Card,Defaulted,17,6,0,4,High,2021-01-29,,c029@civtax.in,9572309605,68.5,21,1
+C030,Sunil Gupta,W02,Rajajinagar,Commercial,2420,Yes,Yes,19400,14550,4850,2,Yearly,Yes,Offline,Delayed,45,1,0,0,High,2023-03-24,2024-03-01,c030@civtax.in,9166857303,61.6,30,5
+C031,Sunil Hegde,W04,Indiranagar,Commercial,3690,No,Yes,29500,7375,22125,3,Monthly,No,UPI,Delayed,0,2,0,2,High,2020-06-22,2024-05-14,c031@civtax.in,9335602191,53.5,25,7
+C032,Savitha Gowda,W05,Jayanagar,Residential,737,Yes,Yes,3700,925,2775,4,Quarterly,No,Credit Card,Delayed,39,4,0,0,High,2018-04-22,2023-03-27,c032@civtax.in,9790147183,61.7,23,4
+C033,Venkat Kumar,W07,Hebbal,Residential,4282,Yes,Yes,21400,10700,10700,1,Half-Yearly,Yes,Credit Card,Delayed,17,1,0,1,High,2018-08-02,2023-12-25,c033@civtax.in,9340756713,68.5,21,1
+C034,Vimala Patel,W02,Rajajinagar,Commercial,829,Yes,No,6600,6600,0,0,Yearly,Yes,UPI,On-time,5,0,1,0,Low,2022-02-19,2023-06-21,c034@civtax.in,9750572325,61.6,30,5
+C035,Savitha Menon,W02,Rajajinagar,Commercial,1841,No,Yes,14700,14700,0,0,Yearly,No,Debit Card,On-time,3,0,1,0,Low,2019-02-22,2024-12-14,c035@civtax.in,9929445037,61.6,30,5
+C036,Sunil Kulkarni,W05,Jayanagar,Industrial,1491,Yes,Yes,14900,14900,0,0,Half-Yearly,No,UPI,On-time,5,1,1,0,Low,2019-03-09,2024-03-19,c036@civtax.in,9488896443,61.7,23,4
+C037,Kavitha Reddy,W08,Electronic City,Commercial,4067,Yes,Yes,32500,8125,24375,3,Quarterly,No,Offline,Delayed,29,3,0,2,High,2021-02-16,2024-04-06,c037@civtax.in,9361846370,66.7,20,2
+C038,Arjun Naik,W08,Electronic City,Residential,3604,Yes,Yes,18000,18000,0,1,Half-Yearly,Yes,UPI,On-time,17,2,0,1,High,2020-02-22,2023-03-29,c038@civtax.in,9359154084,66.7,20,2
+C039,Savitha Singh,W07,Hebbal,Residential,2468,Yes,Yes,12300,12300,0,1,Monthly,Yes,UPI,On-time,44,0,0,1,High,2023-04-23,2024-07-20,c039@civtax.in,9670073085,68.5,21,1
+C040,Rekha Kulkarni,W06,Whitefield,Residential,3209,Yes,Yes,16000,8000,8000,1,Yearly,No,UPI,Delayed,34,2,0,0,High,2021-02-06,2024-08-26,c040@civtax.in,9916267011,49.1,23,8
+C041,Karthik Kulkarni,W05,Jayanagar,Mixed-Use,2090,Yes,Yes,14600,14600,0,1,Quarterly,Yes,UPI,On-time,3,2,0,1,Medium,2019-02-25,2023-01-13,c041@civtax.in,9716396766,61.7,23,4
+C042,Lakshmi Rao,W05,Jayanagar,Residential,4108,Yes,No,20500,20500,0,0,Monthly,Yes,UPI,On-time,3,0,1,0,Low,2021-05-29,2023-03-29,c042@civtax.in,9366493008,61.7,23,4
+C043,Ganesh Shetty,W02,Rajajinagar,Residential,3909,Yes,Yes,19500,19500,0,0,Half-Yearly,No,Net Banking,On-time,4,1,1,0,Low,2018-09-04,2024-09-16,c043@civtax.in,9894664845,61.6,30,5
+C044,Gopal Sharma,W02,Rajajinagar,Mixed-Use,2202,Yes,Yes,15400,15400,0,0,Yearly,No,UPI,On-time,3,1,1,0,Low,2020-08-06,2023-10-23,c044@civtax.in,9859088046,61.6,30,5
+C045,Naresh Menon,W05,Jayanagar,Commercial,4219,Yes,Yes,33800,33800,0,0,Monthly,No,Credit Card,On-time,1,1,1,0,Low,2019-09-03,2023-09-30,c045@civtax.in,9987588450,61.7,23,4
+C046,Prasad Hegde,W03,Koramangala,Residential,1859,Yes,Yes,9300,2325,6975,4,Monthly,Yes,Net Banking,Delayed,19,5,0,3,High,2023-07-16,2024-03-24,c046@civtax.in,9186373782,64.1,31,3
+C047,Sunita Kulkarni,W01,Gandhinagar,Industrial,3140,Yes,Yes,31400,31400,0,0,Quarterly,No,Net Banking,On-time,0,1,1,0,Low,2023-10-27,2024-10-29,c047@civtax.in,9574840200,58.4,27,6
+C048,Saroja Shah,W05,Jayanagar,Residential,4070,Yes,Yes,20400,20400,0,0,Yearly,Yes,Offline,On-time,1,1,1,0,Low,2022-06-29,2024-07-17,c048@civtax.in,9139403247,61.7,23,4
+C049,Anil Naik,W08,Electronic City,Residential,2567,Yes,No,12800,6400,6400,1,Half-Yearly,No,Offline,Delayed,34,1,0,1,High,2022-01-21,2024-09-29,c049@civtax.in,9912224654,66.7,20,2
+C050,Ravi Shah,W08,Electronic City,Commercial,922,Yes,Yes,7400,0,7400,6,Half-Yearly,No,UPI,Defaulted,40,3,0,5,High,2018-02-26,,c050@civtax.in,9692975437,66.7,20,2
+C051,Kavitha Patil,W07,Hebbal,Residential,1429,Yes,Yes,7100,1775,5325,4,Half-Yearly,No,Net Banking,Delayed,17,3,0,3,High,2019-08-16,2024-01-28,c051@civtax.in,9304666325,68.5,21,1
+C052,Harish Hegde,W03,Koramangala,Industrial,2763,Yes,Yes,27600,13800,13800,1,Monthly,Yes,UPI,Delayed,19,2,0,1,High,2023-06-07,2023-12-20,c052@civtax.in,9456954682,64.1,31,3
+C053,Ramesh Rao,W07,Hebbal,Residential,3136,No,No,15700,15700,0,0,Half-Yearly,No,Net Banking,On-time,2,1,1,0,Low,2023-07-22,2023-02-07,c053@civtax.in,9235555899,68.5,21,1
+C054,Saraswathi Shetty,W06,Whitefield,Industrial,4106,Yes,No,41100,41100,0,0,Yearly,No,Debit Card,On-time,0,1,1,0,Low,2022-06-17,2024-10-27,c054@civtax.in,9186237917,49.1,23,8
+C055,Anita Joshi,W06,Whitefield,Industrial,4871,Yes,Yes,48700,0,48700,3,Monthly,No,UPI,Delayed,4,1,0,2,High,2019-02-08,,c055@civtax.in,9916440738,49.1,23,8
+C056,Sunita Iyer,W02,Rajajinagar,Residential,2953,No,Yes,14800,7400,7400,4,Yearly,Yes,UPI,Delayed,33,3,0,4,High,2019-12-19,2023-03-22,c056@civtax.in,9754436820,61.6,30,5
+C057,Suresh Patil,W07,Hebbal,Commercial,2472,Yes,Yes,19800,19800,0,0,Quarterly,No,Offline,On-time,3,1,1,0,Low,2021-11-16,2024-08-24,c057@civtax.in,9421214426,68.5,21,1
+C058,Geetha Patel,W07,Hebbal,Commercial,4242,Yes,Yes,33900,16950,16950,1,Half-Yearly,Yes,Net Banking,Delayed,36,1,0,1,High,2018-02-03,2024-08-02,c058@civtax.in,9836371599,68.5,21,1
+C059,Karthik Nair,W01,Gandhinagar,Industrial,4569,Yes,No,45700,22850,22850,4,Yearly,No,UPI,Delayed,12,4,0,2,High,2018-06-11,2023-11-13,c059@civtax.in,9946764061,58.4,27,6
+C060,Ravi Patel,W08,Electronic City,Residential,3488,Yes,Yes,17400,17400,0,0,Quarterly,Yes,UPI,On-time,4,1,1,0,Low,2023-05-28,2023-10-30,c060@civtax.in,9901611993,66.7,20,2
+C061,Geetha Kumar,W06,Whitefield,Commercial,4336,No,Yes,34700,0,34700,6,Monthly,No,Debit Card,Defaulted,35,5,0,0,High,2020-12-19,,c061@civtax.in,9676140134,49.1,23,8
+C062,Manoj Reddy,W02,Rajajinagar,Residential,2647,Yes,Yes,13200,0,13200,6,Yearly,Yes,UPI,Defaulted,35,5,0,4,High,2023-03-17,,c062@civtax.in,9852775879,61.6,30,5
+C063,Naresh Joshi,W05,Jayanagar,Commercial,1455,Yes,No,11600,8700,2900,1,Half-Yearly,Yes,Credit Card,Delayed,8,1,0,1,Medium,2019-09-25,2024-02-29,c063@civtax.in,9803217037,61.7,23,4
+C064,Dinesh Sharma,W02,Rajajinagar,Commercial,3843,No,Yes,30700,15350,15350,3,Yearly,Yes,UPI,Delayed,23,0,0,2,High,2022-06-19,2023-10-10,c064@civtax.in,9303805386,61.6,30,5
+C065,Rekha Gowda,W02,Rajajinagar,Mixed-Use,4225,Yes,Yes,29600,29600,0,2,Monthly,Yes,UPI,On-time,8,1,0,0,High,2020-06-03,2023-08-27,c065@civtax.in,9452788129,61.6,30,5
+C066,Dinesh Menon,W03,Koramangala,Commercial,523,Yes,No,4200,0,4200,7,Half-Yearly,No,UPI,Defaulted,1,2,0,0,High,2021-08-19,,c066@civtax.in,9116944811,64.1,31,3
+C067,Rahul Naik,W03,Koramangala,Residential,1538,Yes,Yes,7700,3850,3850,3,Half-Yearly,No,Net Banking,Delayed,6,3,0,1,High,2021-05-20,2024-04-14,c067@civtax.in,9790781796,64.1,31,3
+C068,Karthik Patel,W01,Gandhinagar,Residential,4423,Yes,Yes,22100,22100,0,0,Quarterly,Yes,Credit Card,On-time,2,0,1,0,Low,2021-08-24,2024-01-26,c068@civtax.in,9741444618,58.4,27,6
+C069,Manoj Joshi,W05,Jayanagar,Residential,4024,Yes,Yes,20100,0,20100,5,Quarterly,No,Offline,Defaulted,13,3,0,3,High,2021-10-20,,c069@civtax.in,9988434627,61.7,23,4
+C070,Shantha Nair,W08,Electronic City,Residential,1278,Yes,Yes,6400,6400,0,0,Monthly,No,Net Banking,On-time,0,0,1,0,Low,2022-03-07,2023-05-14,c070@civtax.in,9697398528,66.7,20,2
+C071,Nirmala Singh,W01,Gandhinagar,Residential,3200,Yes,Yes,16000,0,16000,5,Monthly,Yes,Credit Card,Defaulted,3,2,0,4,High,2019-03-01,,c071@civtax.in,9720535283,58.4,27,6
+C072,Kamala Kumar,W04,Indiranagar,Residential,4450,Yes,Yes,22200,11100,11100,4,Half-Yearly,No,Net Banking,Delayed,27,4,0,4,High,2020-12-31,2023-01-30,c072@civtax.in,9293720285,53.5,25,7
+C073,Indira Pillai,W05,Jayanagar,Commercial,3031,No,Yes,24200,24200,0,0,Yearly,No,UPI,On-time,5,0,1,0,Low,2022-03-21,2024-03-05,c073@civtax.in,9587098457,61.7,23,4
+C074,Usha Patil,W06,Whitefield,Residential,3052,Yes,Yes,15300,7650,7650,2,Yearly,Yes,UPI,Delayed,39,0,0,2,High,2022-10-03,2024-05-12,c074@civtax.in,9751842899,49.1,23,8
+C075,Geetha Shetty,W08,Electronic City,Residential,2265,Yes,Yes,11300,5650,5650,1,Yearly,No,Net Banking,Delayed,42,1,0,0,High,2018-08-13,2023-01-08,c075@civtax.in,9319497661,66.7,20,2
+C076,Suresh Verma,W05,Jayanagar,Mixed-Use,1624,Yes,Yes,11400,11400,0,0,Half-Yearly,Yes,UPI,On-time,4,0,1,0,Low,2018-06-23,2024-03-22,c076@civtax.in,9120123575,61.7,23,4
+C077,Padma Reddy,W08,Electronic City,Industrial,3064,Yes,Yes,30600,15300,15300,3,Half-Yearly,Yes,UPI,Delayed,20,1,0,3,High,2022-11-24,2023-04-19,c077@civtax.in,9361259074,66.7,20,2
+C078,Dinesh Rao,W07,Hebbal,Residential,4792,Yes,Yes,24000,6000,18000,3,Yearly,No,UPI,Delayed,40,0,0,1,High,2020-08-25,2023-04-16,c078@civtax.in,9257243284,68.5,21,1
+C079,Ashok Rao,W05,Jayanagar,Residential,1752,Yes,Yes,8800,8800,0,0,Monthly,No,Offline,On-time,4,1,1,0,Low,2022-12-07,2023-03-11,c079@civtax.in,9603500181,61.7,23,4
+C080,Radha Shetty,W08,Electronic City,Commercial,2750,Yes,Yes,22000,22000,0,0,Half-Yearly,Yes,UPI,On-time,2,0,1,0,Low,2023-09-08,2024-01-29,c080@civtax.in,9596832859,66.7,20,2
+C081,Rahul Menon,W01,Gandhinagar,Residential,2042,Yes,Yes,10200,10200,0,0,Yearly,Yes,Credit Card,On-time,2,0,1,0,Low,2022-11-29,2024-03-25,c081@civtax.in,9662714327,58.4,27,6
+C082,Sanjay Shetty,W03,Koramangala,Residential,2817,Yes,Yes,14100,3525,10575,3,Yearly,No,UPI,Delayed,21,0,0,3,High,2019-09-08,2023-12-08,c082@civtax.in,9187512088,64.1,31,3
+C083,Indira Reddy,W03,Koramangala,Industrial,3041,No,Yes,30400,15200,15200,1,Quarterly,No,UPI,Delayed,24,2,0,1,High,2022-10-01,2024-06-04,c083@civtax.in,9488509962,64.1,31,3
+C084,Saraswathi Shetty,W01,Gandhinagar,Residential,1976,No,Yes,9900,4950,4950,3,Yearly,No,UPI,Delayed,18,0,0,0,High,2019-06-21,2024-09-03,c084@civtax.in,9504499880,58.4,27,6
+C085,Venkat Pillai,W03,Koramangala,Residential,1856,Yes,Yes,9300,6975,2325,1,Quarterly,No,Net Banking,Delayed,28,0,0,0,High,2022-02-15,2024-11-25,c085@civtax.in,9712483158,64.1,31,3
+C086,Kamala Nair,W08,Electronic City,Residential,2808,Yes,Yes,14000,10500,3500,1,Yearly,Yes,Net Banking,Delayed,16,0,0,1,High,2023-10-15,2023-05-08,c086@civtax.in,9406084084,66.7,20,2
+C087,Geetha Naik,W02,Rajajinagar,Commercial,2734,Yes,Yes,21900,0,21900,4,Yearly,No,Credit Card,Delayed,22,0,0,3,High,2022-03-12,,c087@civtax.in,9353164777,61.6,30,5
+C088,Karthik Kulkarni,W07,Hebbal,Mixed-Use,3571,Yes,Yes,25000,25000,0,0,Quarterly,Yes,UPI,On-time,0,1,1,0,Low,2023-01-12,2024-09-22,c088@civtax.in,9105638424,68.5,21,1
+C089,Sunil Shetty,W02,Rajajinagar,Residential,2266,Yes,Yes,11300,0,11300,3,Half-Yearly,Yes,UPI,Delayed,19,0,0,0,High,2023-02-16,,c089@civtax.in,9167438668,61.6,30,5
+C090,Sunil Iyer,W02,Rajajinagar,Commercial,4594,Yes,Yes,36800,36800,0,2,Yearly,Yes,Net Banking,On-time,39,2,0,0,High,2018-12-17,2024-06-20,c090@civtax.in,9487195336,61.6,30,5
+C091,Dinesh Reddy,W02,Rajajinagar,Mixed-Use,4957,Yes,No,34700,17350,17350,2,Half-Yearly,No,Net Banking,Delayed,23,2,0,2,High,2021-11-13,2023-09-04,c091@civtax.in,9886989426,61.6,30,5
+C092,Suresh Patil,W02,Rajajinagar,Commercial,3223,Yes,Yes,25800,12900,12900,1,Quarterly,No,Offline,Delayed,44,1,0,0,High,2018-06-01,2023-10-28,c092@civtax.in,9316456682,61.6,30,5
+C093,Deepa Gupta,W01,Gandhinagar,Commercial,843,Yes,Yes,6700,5025,1675,1,Monthly,No,UPI,Delayed,41,0,0,1,High,2021-01-24,2023-05-08,c093@civtax.in,9958287383,58.4,27,6
+C094,Shantha Reddy,W06,Whitefield,Residential,3776,Yes,Yes,18900,18900,0,1,Monthly,No,Net Banking,On-time,33,1,0,0,High,2022-10-30,2024-09-08,c094@civtax.in,9982982227,49.1,23,8
+C095,Rahul Singh,W03,Koramangala,Residential,3131,Yes,Yes,15700,15700,0,0,Half-Yearly,No,UPI,On-time,3,1,1,0,Low,2022-11-17,2023-10-09,c095@civtax.in,9786624943,64.1,31,3
+C096,Kavitha Singh,W01,Gandhinagar,Residential,3827,Yes,Yes,19100,0,19100,3,Monthly,Yes,Net Banking,Delayed,28,0,0,1,High,2022-01-23,,c096@civtax.in,9511086777,58.4,27,6
+C097,Priya Iyer,W01,Gandhinagar,Commercial,4185,No,Yes,33500,0,33500,3,Quarterly,No,UPI,Delayed,41,2,0,1,High,2023-08-07,,c097@civtax.in,9655924752,58.4,27,6
+C098,Suresh Patil,W07,Hebbal,Industrial,1464,Yes,Yes,14600,7300,7300,1,Monthly,Yes,Credit Card,Delayed,31,0,0,0,High,2019-12-09,2024-12-31,c098@civtax.in,9577934499,68.5,21,1
+C099,Manoj Nair,W02,Rajajinagar,Commercial,3118,Yes,Yes,24900,24900,0,2,Yearly,Yes,UPI,On-time,45,1,0,1,High,2020-04-03,2023-05-23,c099@civtax.in,9354193540,61.6,30,5
+C100,Sunil Gowda,W08,Electronic City,Residential,3522,Yes,No,17600,17600,0,0,Monthly,Yes,UPI,On-time,5,1,1,0,Low,2018-10-30,2023-05-09,c100@civtax.in,9440405868,66.7,20,2
+C101,Indira Rao,W02,Rajajinagar,Residential,4738,Yes,Yes,23700,0,23700,4,Quarterly,Yes,Debit Card,Delayed,27,4,0,0,High,2021-05-30,,c101@civtax.in,9276799196,61.6,30,5
+C102,Nirmala Shetty,W03,Koramangala,Residential,2347,Yes,No,11700,0,11700,5,Monthly,Yes,Net Banking,Defaulted,35,2,0,1,High,2023-12-26,,c102@civtax.in,9200317984,64.1,31,3
+C103,Ganesh Patel,W03,Koramangala,Residential,1763,Yes,Yes,8800,0,8800,5,Yearly,No,UPI,Defaulted,1,0,0,0,High,2020-05-13,,c103@civtax.in,9923515952,64.1,31,3
+C104,Vimala Reddy,W07,Hebbal,Commercial,748,Yes,Yes,6000,6000,0,0,Monthly,No,Credit Card,On-time,5,1,1,0,Low,2018-09-03,2023-06-11,c104@civtax.in,9572022811,68.5,21,1
+C105,Prasad Hegde,W07,Hebbal,Residential,2171,Yes,Yes,10900,0,10900,5,Yearly,No,UPI,Defaulted,25,1,0,2,High,2019-03-11,,c105@civtax.in,9442648079,68.5,21,1
+C106,Anil Iyer,W04,Indiranagar,Residential,2691,Yes,Yes,13500,13500,0,0,Monthly,No,Net Banking,On-time,1,1,1,0,Low,2023-08-03,2024-06-11,c106@civtax.in,9601238919,53.5,25,7
+C107,Venkat Shah,W08,Electronic City,Industrial,4574,Yes,No,45700,45700,0,2,Monthly,Yes,UPI,On-time,3,2,0,1,Medium,2018-02-03,2023-04-21,c107@civtax.in,9562705171,66.7,20,2
+C108,Usha Shetty,W03,Koramangala,Industrial,3496,Yes,Yes,35000,35000,0,1,Quarterly,Yes,Net Banking,On-time,4,1,0,1,Medium,2019-05-02,2023-05-12,c108@civtax.in,9203810954,64.1,31,3
+C109,Venkat Naik,W07,Hebbal,Residential,3277,Yes,Yes,16400,16400,0,0,Quarterly,Yes,UPI,On-time,0,0,1,0,Low,2023-02-15,2023-06-02,c109@civtax.in,9750967273,68.5,21,1
+C110,Priya Singh,W03,Koramangala,Residential,3109,Yes,No,15500,3875,11625,3,Yearly,Yes,Credit Card,Delayed,34,3,0,2,High,2021-09-18,2024-11-20,c110@civtax.in,9217687031,64.1,31,3
+C111,Indira Shetty,W07,Hebbal,Residential,718,Yes,Yes,3600,0,3600,3,Monthly,No,UPI,Delayed,3,4,0,3,High,2022-04-07,,c111@civtax.in,9258672959,68.5,21,1
+C112,Karthik Naik,W04,Indiranagar,Residential,1400,Yes,Yes,7000,7000,0,1,Half-Yearly,Yes,Net Banking,On-time,39,1,0,0,High,2020-04-29,2024-07-28,c112@civtax.in,9449019278,53.5,25,7
+C113,Anil Menon,W08,Electronic City,Residential,3070,No,Yes,15400,11550,3850,2,Half-Yearly,No,Credit Card,Delayed,43,2,0,2,High,2021-02-16,2024-07-25,c113@civtax.in,9420511037,66.7,20,2
+C114,Naresh Verma,W04,Indiranagar,Mixed-Use,2938,Yes,Yes,20600,10300,10300,3,Half-Yearly,No,Net Banking,Delayed,17,2,0,0,High,2022-06-05,2023-12-20,c114@civtax.in,9930071496,53.5,25,7
+C115,Usha Rao,W03,Koramangala,Residential,2856,No,Yes,14300,0,14300,6,Quarterly,No,UPI,Defaulted,34,4,0,4,High,2019-03-24,,c115@civtax.in,9761078179,64.1,31,3
+C116,Sunil Kulkarni,W04,Indiranagar,Residential,4850,Yes,Yes,24200,24200,0,0,Yearly,No,Offline,On-time,1,0,1,0,Low,2023-05-10,2024-10-28,c116@civtax.in,9314164216,53.5,25,7
+C117,Geetha Kulkarni,W05,Jayanagar,Residential,984,No,Yes,4900,2450,2450,2,Half-Yearly,No,Debit Card,Delayed,11,3,0,0,High,2020-02-03,2023-10-24,c117@civtax.in,9140229006,61.7,23,4
+C118,Anil Nair,W01,Gandhinagar,Residential,1379,No,Yes,6900,5175,1725,1,Quarterly,No,Credit Card,Delayed,8,2,0,1,Medium,2021-09-16,2023-06-16,c118@civtax.in,9885033297,58.4,27,6
+C119,Prasad Gupta,W08,Electronic City,Commercial,2025,Yes,Yes,16200,16200,0,0,Quarterly,Yes,Net Banking,On-time,5,1,1,0,Low,2018-12-22,2024-02-15,c119@civtax.in,9818608005,66.7,20,2
+C120,Sanjay Singh,W02,Rajajinagar,Residential,1651,Yes,No,8300,8300,0,0,Half-Yearly,Yes,UPI,On-time,2,1,1,0,Low,2020-08-25,2023-03-05,c120@civtax.in,9817029885,61.6,30,5
+C121,Manoj Menon,W02,Rajajinagar,Residential,1808,Yes,Yes,9000,0,9000,5,Quarterly,Yes,UPI,Defaulted,18,2,0,4,High,2019-07-02,,c121@civtax.in,9613443905,61.6,30,5
+C122,Harish Naik,W03,Koramangala,Residential,3560,Yes,Yes,17800,17800,0,1,Half-Yearly,No,UPI,On-time,15,2,0,0,High,2022-01-21,2023-03-21,c122@civtax.in,9705771555,64.1,31,3
+C123,Saroja Reddy,W02,Rajajinagar,Residential,4986,No,Yes,24900,24900,0,2,Yearly,No,Net Banking,On-time,43,1,0,2,High,2023-09-22,2024-04-01,c123@civtax.in,9968326513,61.6,30,5
+C124,Savitha Reddy,W01,Gandhinagar,Residential,4704,Yes,Yes,23500,11750,11750,2,Quarterly,Yes,UPI,Delayed,16,0,0,2,High,2018-07-05,2024-03-09,c124@civtax.in,9469935052,58.4,27,6
+C125,Ramesh Patil,W02,Rajajinagar,Residential,993,No,Yes,5000,0,5000,6,Yearly,Yes,Offline,Defaulted,41,6,0,2,High,2022-03-27,,c125@civtax.in,9503346325,61.6,30,5
+C126,Nirmala Patil,W02,Rajajinagar,Commercial,4917,Yes,Yes,39300,39300,0,0,Monthly,Yes,UPI,On-time,1,0,1,0,Low,2022-10-04,2024-06-28,c126@civtax.in,9507245006,61.6,30,5
+C127,Kavitha Pillai,W04,Indiranagar,Residential,3335,Yes,Yes,16700,0,16700,5,Monthly,Yes,Offline,Defaulted,39,6,0,0,High,2018-10-03,,c127@civtax.in,9208337018,53.5,25,7
+C128,Ganesh Gupta,W01,Gandhinagar,Residential,898,Yes,Yes,4500,2250,2250,1,Half-Yearly,No,Offline,Delayed,8,2,0,1,Medium,2021-08-06,2023-08-31,c128@civtax.in,9424017094,58.4,27,6
+C129,Deepa Singh,W03,Koramangala,Mixed-Use,4770,Yes,Yes,33400,33400,0,0,Monthly,No,Credit Card,On-time,5,1,1,0,Low,2022-04-11,2024-06-21,c129@civtax.in,9442238518,64.1,31,3
+C130,Kamala Naik,W07,Hebbal,Residential,2956,Yes,Yes,14800,11100,3700,1,Monthly,Yes,Offline,Delayed,29,0,0,1,High,2019-07-04,2024-02-02,c130@civtax.in,9360767346,68.5,21,1
+C131,Anil Gowda,W05,Jayanagar,Residential,1147,No,Yes,5700,5700,0,0,Quarterly,Yes,UPI,On-time,5,0,1,0,Low,2020-06-07,2024-05-05,c131@civtax.in,9324292944,61.7,23,4
+C132,Kavitha Hegde,W06,Whitefield,Residential,625,Yes,Yes,3100,775,2325,3,Quarterly,No,Credit Card,Delayed,44,4,0,1,High,2021-08-10,2023-10-17,c132@civtax.in,9508732434,49.1,23,8
+C133,Ashok Joshi,W08,Electronic City,Residential,3443,Yes,Yes,17200,0,17200,5,Half-Yearly,No,Offline,Defaulted,20,1,0,2,High,2018-07-07,,c133@civtax.in,9704006325,66.7,20,2
+C134,Saraswathi Patel,W04,Indiranagar,Commercial,632,Yes,No,5100,5100,0,2,Half-Yearly,Yes,UPI,On-time,24,1,0,1,High,2023-06-25,2024-10-19,c134@civtax.in,9894133105,53.5,25,7
+C135,Deepa Kumar,W08,Electronic City,Residential,3385,Yes,Yes,16900,8450,8450,1,Monthly,No,Net Banking,Delayed,3,2,0,0,Medium,2022-08-17,2023-05-21,c135@civtax.in,9777210736,66.7,20,2
+C136,Arjun Hegde,W04,Indiranagar,Residential,1737,Yes,Yes,8700,4350,4350,1,Quarterly,No,Net Banking,Delayed,30,2,0,1,High,2022-08-12,2023-01-13,c136@civtax.in,9117959560,53.5,25,7
+C137,Anil Shetty,W05,Jayanagar,Residential,2848,Yes,Yes,14200,0,14200,3,Monthly,No,UPI,Delayed,6,4,0,1,High,2023-11-27,,c137@civtax.in,9371031968,61.7,23,4
+C138,Geetha Verma,W06,Whitefield,Residential,3751,Yes,No,18800,9400,9400,1,Yearly,No,UPI,Delayed,5,2,0,0,Medium,2022-03-25,2024-07-19,c138@civtax.in,9611106584,49.1,23,8
+C139,Ganesh Kulkarni,W01,Gandhinagar,Commercial,1903,Yes,Yes,15200,7600,7600,2,Yearly,No,Debit Card,Delayed,33,0,0,0,High,2021-01-15,2023-02-17,c139@civtax.in,9179830621,58.4,27,6
+C140,Ravi Gowda,W05,Jayanagar,Industrial,769,Yes,Yes,7700,7700,0,0,Yearly,Yes,Credit Card,On-time,3,0,1,0,Low,2020-09-11,2024-08-03,c140@civtax.in,9996199211,61.7,23,4
+C141,Shantha Menon,W07,Hebbal,Commercial,4928,Yes,Yes,39400,39400,0,0,Monthly,No,Net Banking,On-time,2,0,1,0,Low,2018-11-08,2023-12-15,c141@civtax.in,9749794986,68.5,21,1
+C142,Anita Shetty,W07,Hebbal,Mixed-Use,3173,Yes,Yes,22200,0,22200,7,Half-Yearly,Yes,Debit Card,Defaulted,27,2,0,6,High,2021-04-24,,c142@civtax.in,9956905222,68.5,21,1
+C143,Padma Patel,W04,Indiranagar,Commercial,1172,Yes,Yes,9400,2350,7050,4,Yearly,Yes,UPI,Delayed,5,0,0,2,High,2019-02-23,2023-05-16,c143@civtax.in,9193734690,53.5,25,7
+C144,Ramesh Reddy,W03,Koramangala,Residential,4697,Yes,Yes,23500,17625,5875,1,Yearly,No,UPI,Delayed,24,0,0,1,High,2020-09-21,2024-08-08,c144@civtax.in,9659531734,64.1,31,3
+C145,Kavitha Kulkarni,W03,Koramangala,Commercial,1888,Yes,Yes,15100,11325,3775,1,Yearly,Yes,Net Banking,Delayed,30,0,0,1,High,2020-03-11,2024-04-13,c145@civtax.in,9214860711,64.1,31,3
+C146,Ashok Shetty,W03,Koramangala,Residential,3741,Yes,Yes,18700,4675,14025,4,Yearly,Yes,Credit Card,Delayed,41,4,0,1,High,2020-04-02,2024-05-05,c146@civtax.in,9437351729,64.1,31,3
+C147,Anil Gowda,W03,Koramangala,Mixed-Use,3114,Yes,Yes,21800,21800,0,1,Quarterly,Yes,UPI,On-time,25,1,0,0,High,2020-01-07,2024-11-29,c147@civtax.in,9924223452,64.1,31,3
+C148,Nirmala Menon,W01,Gandhinagar,Mixed-Use,4281,No,Yes,30000,0,30000,4,Monthly,Yes,Credit Card,Delayed,26,5,0,3,High,2020-10-31,,c148@civtax.in,9807233980,58.4,27,6
+C149,Naresh Shetty,W03,Koramangala,Commercial,3588,Yes,No,28700,21525,7175,1,Half-Yearly,No,Debit Card,Delayed,44,1,0,0,High,2018-12-15,2023-04-22,c149@civtax.in,9925658123,64.1,31,3
+C150,Vikram Patel,W04,Indiranagar,Commercial,3408,Yes,Yes,27300,13650,13650,2,Quarterly,No,Debit Card,Delayed,21,3,0,0,High,2020-06-28,2024-06-06,c150@civtax.in,9901927335,53.5,25,7
+C151,Lakshmi Singh,W04,Indiranagar,Residential,3704,Yes,Yes,18500,0,18500,3,Yearly,No,Net Banking,Delayed,18,3,0,0,High,2021-07-01,,c151@civtax.in,9468365044,53.5,25,7
+C152,Vikram Iyer,W08,Electronic City,Commercial,4768,Yes,Yes,38100,28575,9525,1,Quarterly,Yes,UPI,Delayed,45,0,0,0,High,2020-09-26,2024-06-12,c152@civtax.in,9287317728,66.7,20,2
+C153,Savitha Joshi,W03,Koramangala,Residential,3992,No,Yes,20000,15000,5000,1,Yearly,No,Net Banking,Delayed,1,2,0,0,Medium,2022-05-12,2023-01-05,c153@civtax.in,9856704108,64.1,31,3
+C154,Ashok Shetty,W04,Indiranagar,Residential,1012,Yes,Yes,5100,5100,0,2,Half-Yearly,Yes,UPI,On-time,42,3,0,2,High,2022-05-11,2024-09-17,c154@civtax.in,9521490916,53.5,25,7
+C155,Nirmala Nair,W02,Rajajinagar,Residential,4250,Yes,Yes,21200,0,21200,3,Yearly,No,UPI,Delayed,8,2,0,0,High,2020-01-20,,c155@civtax.in,9500834337,61.6,30,5
+C156,Gopal Rao,W03,Koramangala,Residential,3926,Yes,Yes,19600,14700,4900,1,Half-Yearly,No,Credit Card,Delayed,11,2,0,0,High,2020-02-06,2023-11-19,c156@civtax.in,9584258607,64.1,31,3
+C157,Ravi Reddy,W01,Gandhinagar,Industrial,578,Yes,Yes,5800,4350,1450,1,Quarterly,No,Net Banking,Delayed,31,1,0,1,High,2018-05-07,2023-08-14,c157@civtax.in,9413629152,58.4,27,6
+C158,Padma Hegde,W01,Gandhinagar,Residential,4904,Yes,Yes,24500,24500,0,2,Monthly,No,Net Banking,On-time,36,0,0,1,High,2018-06-20,2024-03-27,c158@civtax.in,9686642360,58.4,27,6
+C159,Kavitha Pillai,W04,Indiranagar,Mixed-Use,1338,Yes,Yes,9400,9400,0,0,Monthly,Yes,UPI,On-time,0,1,1,0,Low,2021-12-07,2024-12-28,c159@civtax.in,9755263618,53.5,25,7
+C160,Ganesh Patel,W07,Hebbal,Residential,1640,Yes,Yes,8200,2050,6150,4,Quarterly,No,Net Banking,Delayed,10,2,0,2,High,2023-10-09,2024-11-26,c160@civtax.in,9975293837,68.5,21,1
+C161,Geetha Kulkarni,W02,Rajajinagar,Residential,3871,No,No,19400,0,19400,5,Yearly,No,UPI,Defaulted,45,2,0,1,High,2019-08-06,,c161@civtax.in,9720005941,61.6,30,5
+C162,Ashok Gowda,W05,Jayanagar,Commercial,3573,Yes,Yes,28600,0,28600,5,Yearly,No,UPI,Defaulted,23,3,0,3,High,2018-01-11,,c162@civtax.in,9931221434,61.7,23,4
+C163,Ashok Shah,W02,Rajajinagar,Commercial,4255,Yes,Yes,34000,0,34000,5,Monthly,Yes,Debit Card,Defaulted,13,3,0,2,High,2021-10-15,,c163@civtax.in,9687670209,61.6,30,5
+C164,Vimala Kumar,W03,Koramangala,Residential,4475,Yes,Yes,22400,5600,16800,3,Yearly,No,Credit Card,Delayed,1,0,0,1,High,2022-10-19,2023-07-27,c164@civtax.in,9839369897,64.1,31,3
+C165,Geetha Shah,W03,Koramangala,Industrial,2972,Yes,No,29700,29700,0,0,Quarterly,Yes,UPI,On-time,5,0,1,0,Low,2020-08-17,2024-03-15,c165@civtax.in,9803821904,64.1,31,3
+C166,Karthik Kulkarni,W02,Rajajinagar,Commercial,508,Yes,Yes,4100,4100,0,2,Half-Yearly,Yes,UPI,On-time,21,0,0,1,High,2018-10-18,2023-08-23,c166@civtax.in,9511318205,61.6,30,5
+C167,Indira Gowda,W02,Rajajinagar,Commercial,1339,Yes,Yes,10700,10700,0,0,Half-Yearly,No,Credit Card,On-time,5,0,1,0,Low,2018-02-04,2024-09-16,c167@civtax.in,9797953888,61.6,30,5
+C168,Ramesh Singh,W03,Koramangala,Residential,2245,Yes,Yes,11200,11200,0,1,Quarterly,No,UPI,On-time,6,0,0,0,Medium,2022-10-25,2023-11-19,c168@civtax.in,9949412096,64.1,31,3
+C169,Shyam Naik,W03,Koramangala,Residential,1190,Yes,Yes,6000,3000,3000,3,Yearly,No,UPI,Delayed,42,2,0,1,High,2020-02-12,2024-02-06,c169@civtax.in,9417335858,64.1,31,3
+C170,Ganesh Joshi,W01,Gandhinagar,Commercial,2460,Yes,Yes,19700,14775,4925,1,Quarterly,No,Debit Card,Delayed,23,1,0,0,High,2022-02-05,2024-07-13,c170@civtax.in,9833303441,58.4,27,6
+C171,Shantha Verma,W03,Koramangala,Commercial,1097,Yes,Yes,8800,8800,0,0,Yearly,Yes,Offline,On-time,4,1,1,0,Low,2018-12-04,2024-10-17,c171@civtax.in,9676132087,64.1,31,3
+C172,Shantha Menon,W03,Koramangala,Residential,3038,Yes,No,15200,0,15200,7,Yearly,Yes,Net Banking,Defaulted,41,1,0,4,High,2018-08-26,,c172@civtax.in,9362508142,64.1,31,3
+C173,Saroja Singh,W02,Rajajinagar,Industrial,1450,Yes,Yes,14500,7250,7250,1,Quarterly,No,UPI,Delayed,45,0,0,0,High,2023-11-13,2024-06-13,c173@civtax.in,9940725996,61.6,30,5
+C174,Ganesh Reddy,W05,Jayanagar,Residential,1539,Yes,Yes,7700,1925,5775,3,Yearly,No,UPI,Delayed,27,2,0,0,High,2023-07-26,2024-04-11,c174@civtax.in,9648447868,61.7,23,4
+C175,Arjun Menon,W06,Whitefield,Residential,1867,Yes,Yes,9300,9300,0,0,Quarterly,No,UPI,On-time,4,0,1,0,Low,2018-07-08,2024-04-28,c175@civtax.in,9490816787,49.1,23,8
+C176,Ashok Patel,W07,Hebbal,Industrial,1966,No,Yes,19700,19700,0,2,Monthly,No,Net Banking,On-time,20,1,0,1,High,2018-11-16,2024-08-08,c176@civtax.in,9500299721,68.5,21,1
+C177,Anita Hegde,W02,Rajajinagar,Residential,931,Yes,Yes,4700,0,4700,7,Monthly,Yes,Net Banking,Defaulted,18,4,0,5,High,2023-02-14,,c177@civtax.in,9108556837,61.6,30,5
+C178,Sunil Kumar,W06,Whitefield,Residential,2989,Yes,Yes,14900,7450,7450,1,Monthly,No,Offline,Delayed,34,0,0,0,High,2020-08-12,2024-07-08,c178@civtax.in,9471969615,49.1,23,8
+C179,Usha Reddy,W01,Gandhinagar,Mixed-Use,511,Yes,Yes,3600,0,3600,3,Yearly,Yes,Debit Card,Delayed,26,3,0,0,High,2018-06-29,,c179@civtax.in,9348541776,58.4,27,6
+C180,Karthik Menon,W07,Hebbal,Commercial,3551,Yes,Yes,28400,28400,0,2,Half-Yearly,No,UPI,On-time,37,0,0,1,High,2021-04-09,2023-09-25,c180@civtax.in,9438238241,68.5,21,1
+C181,Harish Patil,W07,Hebbal,Commercial,3172,Yes,Yes,25400,25400,0,0,Yearly,No,Net Banking,On-time,1,0,1,0,Low,2021-07-10,2024-02-21,c181@civtax.in,9229640083,68.5,21,1
+C182,Rahul Pillai,W06,Whitefield,Mixed-Use,2200,Yes,Yes,15400,0,15400,5,Yearly,No,UPI,Defaulted,45,5,0,4,High,2021-09-04,,c182@civtax.in,9259261469,49.1,23,8
+C183,Vimala Nair,W02,Rajajinagar,Commercial,3414,Yes,Yes,27300,27300,0,0,Monthly,Yes,Debit Card,On-time,3,0,1,0,Low,2019-07-27,2023-05-05,c183@civtax.in,9112838650,61.6,30,5
+C184,Anil Patil,W01,Gandhinagar,Commercial,2320,Yes,Yes,18600,9300,9300,1,Quarterly,No,Net Banking,Delayed,16,0,0,0,High,2019-06-12,2023-04-05,c184@civtax.in,9990514408,58.4,27,6
+C185,Sunita Patel,W06,Whitefield,Residential,4276,Yes,No,21400,10700,10700,1,Quarterly,No,UPI,Delayed,27,0,0,1,High,2021-02-20,2024-04-01,c185@civtax.in,9259591761,49.1,23,8
+C186,Indira Menon,W01,Gandhinagar,Commercial,2513,Yes,Yes,20100,0,20100,5,Half-Yearly,Yes,UPI,Defaulted,26,1,0,5,High,2018-03-21,,c186@civtax.in,9510704185,58.4,27,6
+C187,Indira Singh,W06,Whitefield,Residential,4470,Yes,Yes,22400,16800,5600,1,Yearly,Yes,Net Banking,Delayed,1,1,0,0,Medium,2020-08-11,2023-06-13,c187@civtax.in,9207518427,49.1,23,8
+C188,Kavitha Gowda,W04,Indiranagar,Commercial,2683,Yes,Yes,21500,0,21500,3,Monthly,No,Net Banking,Delayed,24,2,0,1,High,2021-07-26,,c188@civtax.in,9965661638,53.5,25,7
+C189,Rahul Reddy,W06,Whitefield,Industrial,731,Yes,Yes,7300,5475,1825,2,Yearly,No,Credit Card,Delayed,31,2,0,0,High,2018-08-19,2023-08-27,c189@civtax.in,9746030501,49.1,23,8
+C190,Lakshmi Gowda,W04,Indiranagar,Residential,4415,Yes,No,22100,22100,0,0,Yearly,No,Credit Card,On-time,2,0,1,0,Low,2019-08-04,2023-04-24,c190@civtax.in,9665104817,53.5,25,7
+C191,Sunita Hegde,W06,Whitefield,Mixed-Use,3560,Yes,Yes,24900,18675,6225,2,Yearly,Yes,Debit Card,Delayed,27,3,0,2,High,2022-01-01,2023-08-17,c191@civtax.in,9814609188,49.1,23,8
+C192,Shyam Gupta,W03,Koramangala,Residential,2912,Yes,Yes,14600,0,14600,6,Monthly,Yes,Debit Card,Defaulted,36,0,0,1,High,2020-06-23,,c192@civtax.in,9786815488,64.1,31,3
+C193,Arjun Patel,W02,Rajajinagar,Mixed-Use,1652,Yes,Yes,11600,8700,2900,1,Yearly,No,Debit Card,Delayed,45,2,0,1,High,2020-05-08,2023-09-13,c193@civtax.in,9844292151,61.6,30,5
+C194,Venkat Gowda,W02,Rajajinagar,Residential,1385,Yes,Yes,6900,3450,3450,1,Half-Yearly,Yes,Net Banking,Delayed,24,1,0,1,High,2020-07-12,2023-06-16,c194@civtax.in,9584566178,61.6,30,5
+C195,Shyam Shetty,W02,Rajajinagar,Commercial,773,Yes,Yes,6200,0,6200,6,Yearly,Yes,UPI,Defaulted,4,1,0,2,High,2023-06-01,,c195@civtax.in,9856456108,61.6,30,5
+C196,Nirmala Menon,W01,Gandhinagar,Residential,1851,Yes,Yes,9300,9300,0,0,Yearly,No,Net Banking,On-time,4,1,1,0,Low,2019-01-28,2023-02-20,c196@civtax.in,9521875543,58.4,27,6
+C197,Venkat Nair,W08,Electronic City,Residential,3455,Yes,Yes,17300,0,17300,4,Quarterly,No,UPI,Delayed,13,1,0,2,High,2021-06-17,,c197@civtax.in,9942754807,66.7,20,2
+C198,Sanjay Menon,W07,Hebbal,Residential,2670,Yes,Yes,13400,13400,0,0,Monthly,Yes,Net Banking,On-time,2,1,1,0,Low,2021-01-05,2024-07-31,c198@civtax.in,9166184772,68.5,21,1
+C199,Venkat Gowda,W03,Koramangala,Commercial,1292,Yes,Yes,10300,10300,0,2,Monthly,No,Net Banking,On-time,24,3,0,2,High,2020-08-23,2024-05-02,c199@civtax.in,9420890008,64.1,31,3
+C200,Anil Rao,W02,Rajajinagar,Residential,784,Yes,No,3900,0,3900,4,Quarterly,No,UPI,Delayed,28,1,0,1,High,2018-06-24,,c200@civtax.in,9554595339,61.6,30,5
+C201,Kamala Verma,W02,Rajajinagar,Mixed-Use,4066,Yes,Yes,28500,28500,0,0,Quarterly,Yes,Offline,On-time,0,0,1,0,Low,2021-08-28,2023-10-10,c201@civtax.in,9658010933,61.6,30,5
+C202,Vikram Shah,W08,Electronic City,Industrial,601,Yes,Yes,6000,6000,0,2,Half-Yearly,Yes,UPI,On-time,37,0,0,0,High,2021-11-09,2024-02-25,c202@civtax.in,9383614547,66.7,20,2
+C203,Venkat Patel,W07,Hebbal,Commercial,4375,Yes,Yes,35000,35000,0,0,Quarterly,No,UPI,On-time,2,0,1,0,Low,2022-03-06,2023-01-21,c203@civtax.in,9462780939,68.5,21,1
+C204,Shyam Reddy,W05,Jayanagar,Residential,4527,No,Yes,22600,0,22600,7,Yearly,Yes,Offline,Defaulted,20,4,0,6,High,2020-02-09,,c204@civtax.in,9574289591,61.7,23,4
+C205,Geetha Rao,W04,Indiranagar,Industrial,3835,Yes,Yes,38400,0,38400,5,Monthly,No,UPI,Defaulted,19,5,0,4,High,2023-11-18,,c205@civtax.in,9710607239,53.5,25,7
+C206,Meena Kumar,W01,Gandhinagar,Residential,2144,Yes,Yes,10700,10700,0,1,Monthly,No,UPI,On-time,29,2,0,1,High,2020-09-17,2024-01-17,c206@civtax.in,9624830763,58.4,27,6
+C207,Deepa Iyer,W08,Electronic City,Residential,4387,Yes,Yes,21900,21900,0,0,Monthly,No,Offline,On-time,2,0,1,0,Low,2020-05-27,2023-08-15,c207@civtax.in,9795118868,66.7,20,2
+C208,Shyam Kumar,W04,Indiranagar,Commercial,2704,Yes,Yes,21600,0,21600,5,Monthly,No,Net Banking,Defaulted,8,5,0,1,High,2020-07-05,,c208@civtax.in,9371002172,53.5,25,7
+C209,Prasad Singh,W05,Jayanagar,Commercial,2755,Yes,Yes,22000,11000,11000,1,Yearly,No,Offline,Delayed,39,1,0,0,High,2021-03-03,2023-11-02,c209@civtax.in,9834883010,61.7,23,4
+C210,Indira Menon,W02,Rajajinagar,Residential,3254,No,Yes,16300,0,16300,5,Yearly,No,Credit Card,Defaulted,19,1,0,1,High,2018-08-21,,c210@civtax.in,9964823687,61.6,30,5
+C211,Manoj Hegde,W07,Hebbal,Commercial,1646,Yes,Yes,13200,0,13200,7,Yearly,Yes,UPI,Defaulted,2,3,0,5,High,2023-05-03,,c211@civtax.in,9821413281,68.5,21,1
+C212,Anita Menon,W06,Whitefield,Residential,1892,Yes,Yes,9500,9500,0,0,Yearly,Yes,UPI,On-time,4,0,1,0,Low,2021-12-26,2023-08-17,c212@civtax.in,9899089320,49.1,23,8
+C213,Anil Naik,W05,Jayanagar,Residential,3214,Yes,Yes,16100,12075,4025,1,Yearly,Yes,Net Banking,Delayed,37,2,0,0,High,2019-05-06,2024-11-28,c213@civtax.in,9509814203,61.7,23,4
+C214,Saroja Gupta,W05,Jayanagar,Residential,1735,Yes,Yes,8700,4350,4350,1,Quarterly,No,Net Banking,Delayed,20,2,0,0,High,2019-12-26,2023-11-17,c214@civtax.in,9781288086,61.7,23,4
+C215,Geetha Joshi,W01,Gandhinagar,Residential,2740,Yes,Yes,13700,10275,3425,2,Yearly,No,Offline,Delayed,8,3,0,2,High,2023-05-10,2024-01-28,c215@civtax.in,9105013454,58.4,27,6
+C216,Karthik Nair,W01,Gandhinagar,Residential,3556,No,Yes,17800,4450,13350,3,Half-Yearly,Yes,UPI,Delayed,15,1,0,2,High,2022-04-21,2024-05-30,c216@civtax.in,9732080338,58.4,27,6
+C217,Anil Iyer,W05,Jayanagar,Residential,874,Yes,Yes,4400,1100,3300,3,Quarterly,Yes,Credit Card,Delayed,8,2,0,3,High,2022-07-11,2023-01-20,c217@civtax.in,9345262270,61.7,23,4
+C218,Deepa Shetty,W04,Indiranagar,Commercial,1574,Yes,Yes,12600,12600,0,2,Yearly,No,Offline,On-time,24,2,0,2,High,2018-07-16,2024-11-08,c218@civtax.in,9216085930,53.5,25,7
+C219,Vikram Naik,W01,Gandhinagar,Residential,1448,Yes,Yes,7200,5400,1800,2,Half-Yearly,Yes,Offline,Delayed,40,0,0,1,High,2021-01-10,2024-09-29,c219@civtax.in,9750294914,58.4,27,6
+C220,Sunil Shah,W03,Koramangala,Residential,1359,Yes,Yes,6800,6800,0,0,Monthly,No,Net Banking,On-time,2,0,1,0,Low,2019-10-19,2023-02-10,c220@civtax.in,9688559516,64.1,31,3
+C221,Vikram Patel,W08,Electronic City,Industrial,4437,Yes,Yes,44400,22200,22200,3,Monthly,No,Offline,Delayed,9,0,0,0,High,2020-08-04,2024-04-12,c221@civtax.in,9417851397,66.7,20,2
+C222,Arjun Rao,W05,Jayanagar,Residential,1317,Yes,Yes,6600,0,6600,5,Half-Yearly,No,Net Banking,Defaulted,7,0,0,0,High,2019-11-30,,c222@civtax.in,9452896879,61.7,23,4
+C223,Ravi Nair,W06,Whitefield,Industrial,2697,No,Yes,27000,6750,20250,4,Yearly,Yes,Debit Card,Delayed,17,3,0,3,High,2019-06-27,2024-12-13,c223@civtax.in,9879977998,49.1,23,8
+C224,Karthik Kulkarni,W01,Gandhinagar,Mixed-Use,1805,Yes,No,12600,12600,0,1,Quarterly,Yes,Net Banking,On-time,22,2,0,0,High,2023-06-23,2023-04-26,c224@civtax.in,9541613113,58.4,27,6
+C225,Indira Naik,W08,Electronic City,Residential,2643,Yes,Yes,13200,0,13200,5,Half-Yearly,No,Offline,Defaulted,14,5,0,2,High,2019-01-26,,c225@civtax.in,9564766900,66.7,20,2
+C226,Saroja Iyer,W04,Indiranagar,Residential,3652,Yes,Yes,18300,0,18300,5,Quarterly,Yes,Debit Card,Defaulted,32,6,0,3,High,2018-11-03,,c226@civtax.in,9906841821,53.5,25,7
+C227,Anita Kulkarni,W08,Electronic City,Residential,3210,No,Yes,16000,16000,0,0,Quarterly,Yes,UPI,On-time,3,1,1,0,Low,2023-01-06,2023-11-20,c227@civtax.in,9227460504,66.7,20,2
+C228,Rekha Patil,W08,Electronic City,Commercial,645,Yes,Yes,5200,5200,0,2,Yearly,Yes,Net Banking,On-time,39,2,0,2,High,2021-10-28,2024-01-08,c228@civtax.in,9986170931,66.7,20,2
+C229,Dinesh Shah,W01,Gandhinagar,Commercial,4222,Yes,Yes,33800,25350,8450,2,Quarterly,Yes,Net Banking,Delayed,6,1,0,0,High,2023-11-09,2024-01-18,c229@civtax.in,9853869899,58.4,27,6
+C230,Anil Gupta,W02,Rajajinagar,Residential,1844,Yes,Yes,9200,2300,6900,3,Half-Yearly,Yes,UPI,Delayed,7,3,0,1,High,2019-03-18,2024-02-29,c230@civtax.in,9149929379,61.6,30,5
+C231,Prasad Iyer,W02,Rajajinagar,Commercial,4190,Yes,Yes,33500,25125,8375,2,Monthly,Yes,Offline,Delayed,35,3,0,2,High,2019-12-13,2023-05-12,c231@civtax.in,9211190223,61.6,30,5
+C232,Karthik Rao,W07,Hebbal,Commercial,3136,Yes,Yes,25100,0,25100,7,Monthly,No,UPI,Defaulted,21,4,0,7,High,2022-08-18,,c232@civtax.in,9746955700,68.5,21,1
+C233,Karthik Iyer,W05,Jayanagar,Commercial,4987,No,Yes,39900,0,39900,6,Quarterly,Yes,Net Banking,Defaulted,18,5,0,5,High,2023-08-26,,c233@civtax.in,9682495784,61.7,23,4
+C234,Shantha Kumar,W06,Whitefield,Commercial,3385,Yes,Yes,27100,0,27100,6,Quarterly,No,Credit Card,Defaulted,34,4,0,6,High,2023-11-12,,c234@civtax.in,9214321799,49.1,23,8
+C235,Rahul Singh,W01,Gandhinagar,Residential,934,Yes,Yes,4700,2350,2350,3,Yearly,Yes,UPI,Delayed,3,2,0,1,High,2023-01-28,2023-04-15,c235@civtax.in,9761541819,58.4,27,6
+C236,Deepa Kumar,W04,Indiranagar,Commercial,3685,Yes,Yes,29500,14750,14750,4,Yearly,No,Debit Card,Delayed,24,3,0,2,High,2020-10-26,2023-07-27,c236@civtax.in,9766323040,53.5,25,7
+C237,Prasad Nair,W08,Electronic City,Commercial,3512,Yes,Yes,28100,14050,14050,2,Monthly,No,UPI,Delayed,11,0,0,0,High,2022-03-26,2023-02-11,c237@civtax.in,9560106760,66.7,20,2
+C238,Saroja Gowda,W05,Jayanagar,Residential,1565,Yes,Yes,7800,7800,0,0,Half-Yearly,No,UPI,On-time,2,0,1,0,Low,2022-01-06,2023-03-16,c238@civtax.in,9941847352,61.7,23,4
+C239,Padma Shah,W06,Whitefield,Residential,2006,Yes,Yes,10000,10000,0,0,Half-Yearly,Yes,UPI,On-time,1,1,1,0,Low,2020-06-13,2024-09-25,c239@civtax.in,9669618855,49.1,23,8
+C240,Meena Verma,W08,Electronic City,Mixed-Use,572,Yes,Yes,4000,4000,0,0,Quarterly,No,UPI,On-time,0,1,1,0,Low,2020-11-16,2024-07-07,c240@civtax.in,9877362892,66.7,20,2
+C241,Vikram Iyer,W05,Jayanagar,Residential,4734,Yes,Yes,23700,0,23700,4,Half-Yearly,Yes,Credit Card,Delayed,12,2,0,4,High,2023-12-25,,c241@civtax.in,9107871158,61.7,23,4
+C242,Priya Patil,W02,Rajajinagar,Residential,2246,No,Yes,11200,11200,0,0,Half-Yearly,No,Debit Card,On-time,3,0,1,0,Low,2021-09-20,2023-02-08,c242@civtax.in,9193974854,61.6,30,5
+C243,Ramesh Nair,W02,Rajajinagar,Residential,2563,Yes,Yes,12800,12800,0,0,Yearly,Yes,Net Banking,On-time,3,1,1,0,Low,2023-12-31,2023-01-07,c243@civtax.in,9788722430,61.6,30,5
+C244,Harish Verma,W02,Rajajinagar,Commercial,872,Yes,Yes,7000,0,7000,6,Yearly,No,UPI,Defaulted,5,4,0,6,High,2022-06-07,,c244@civtax.in,9982747173,61.6,30,5
+C245,Kamala Hegde,W01,Gandhinagar,Residential,4870,Yes,Yes,24400,0,24400,4,Monthly,Yes,Net Banking,Delayed,19,5,0,2,High,2019-08-03,,c245@civtax.in,9232322744,58.4,27,6
+C246,Sunita Menon,W01,Gandhinagar,Residential,3728,Yes,No,18600,9300,9300,1,Quarterly,No,UPI,Delayed,26,2,0,0,High,2020-11-01,2023-07-18,c246@civtax.in,9223075021,58.4,27,6
+C247,Anil Gowda,W03,Koramangala,Commercial,945,No,No,7600,0,7600,7,Half-Yearly,No,UPI,Defaulted,4,4,0,1,High,2023-06-19,,c247@civtax.in,9455248480,64.1,31,3
+C248,Lakshmi Gowda,W06,Whitefield,Residential,2421,Yes,Yes,12100,0,12100,5,Yearly,No,Net Banking,Defaulted,19,5,0,4,High,2022-02-01,,c248@civtax.in,9967261018,49.1,23,8
+C249,Vimala Patil,W06,Whitefield,Mixed-Use,1881,Yes,Yes,13200,13200,0,0,Quarterly,Yes,Credit Card,On-time,1,1,1,0,Low,2022-01-09,2023-11-09,c249@civtax.in,9622881542,49.1,23,8
+C250,Prasad Kumar,W02,Rajajinagar,Residential,1171,Yes,Yes,5900,5900,0,0,Half-Yearly,Yes,Credit Card,On-time,0,0,1,0,Low,2022-07-18,2024-08-27,c250@civtax.in,9328450041,61.6,30,5
+C251,Prasad Naik,W01,Gandhinagar,Residential,4952,No,Yes,24800,6200,18600,3,Yearly,Yes,Credit Card,Delayed,37,2,0,1,High,2019-01-06,2024-02-11,c251@civtax.in,9490697670,58.4,27,6
+C252,Rahul Menon,W01,Gandhinagar,Commercial,1858,Yes,Yes,14900,14900,0,0,Quarterly,No,Credit Card,On-time,1,1,1,0,Low,2023-06-21,2023-08-26,c252@civtax.in,9167496657,58.4,27,6
+C253,Indira Patel,W05,Jayanagar,Residential,850,Yes,Yes,4200,0,4200,4,Half-Yearly,No,Credit Card,Delayed,2,5,0,2,High,2020-12-14,,c253@civtax.in,9721300772,61.7,23,4
+C254,Saroja Kulkarni,W03,Koramangala,Residential,3600,Yes,Yes,18000,4500,13500,4,Half-Yearly,Yes,Credit Card,Delayed,33,3,0,2,High,2018-01-28,2024-05-28,c254@civtax.in,9249216081,64.1,31,3
+C255,Saraswathi Nair,W08,Electronic City,Residential,1131,Yes,Yes,5700,5700,0,0,Yearly,No,Credit Card,On-time,5,0,1,0,Low,2023-05-27,2024-11-22,c255@civtax.in,9614123310,66.7,20,2
+C256,Deepa Iyer,W08,Electronic City,Residential,1820,Yes,Yes,9100,9100,0,0,Yearly,No,UPI,On-time,4,0,1,0,Low,2020-11-23,2023-07-04,c256@civtax.in,9654738715,66.7,20,2
+C257,Sunil Shetty,W07,Hebbal,Residential,652,No,Yes,3300,0,3300,4,Monthly,Yes,Net Banking,Delayed,30,3,0,1,High,2019-08-08,,c257@civtax.in,9953212504,68.5,21,1
+C258,Anil Naik,W03,Koramangala,Commercial,4684,Yes,Yes,37500,18750,18750,1,Half-Yearly,No,UPI,Delayed,24,0,0,0,High,2023-08-28,2024-12-01,c258@civtax.in,9550751463,64.1,31,3
+C259,Shantha Naik,W03,Koramangala,Commercial,1953,Yes,Yes,15600,15600,0,0,Monthly,No,UPI,On-time,3,0,1,0,Low,2022-09-20,2024-01-15,c259@civtax.in,9146641502,64.1,31,3
+C260,Venkat Menon,W07,Hebbal,Residential,4449,Yes,Yes,22200,16650,5550,2,Quarterly,No,Offline,Delayed,6,3,0,0,High,2018-12-10,2023-10-18,c260@civtax.in,9742411514,68.5,21,1
+C261,Vikram Rao,W07,Hebbal,Residential,544,Yes,Yes,2700,2025,675,2,Yearly,Yes,Offline,Delayed,44,2,0,1,High,2022-10-12,2024-10-29,c261@civtax.in,9728536453,68.5,21,1
+C262,Padma Hegde,W05,Jayanagar,Residential,4891,Yes,Yes,24500,24500,0,0,Quarterly,No,Net Banking,On-time,4,1,1,0,Low,2023-06-05,2023-09-17,c262@civtax.in,9429266242,61.7,23,4
+C263,Geetha Gupta,W06,Whitefield,Commercial,3761,Yes,Yes,30100,15050,15050,3,Quarterly,Yes,Offline,Delayed,10,0,0,1,High,2018-08-02,2023-06-14,c263@civtax.in,9517796891,49.1,23,8
+C264,Radha Naik,W01,Gandhinagar,Commercial,1690,Yes,Yes,13500,13500,0,0,Yearly,Yes,Net Banking,On-time,5,1,1,0,Low,2021-03-19,2024-12-29,c264@civtax.in,9741531280,58.4,27,6
+C265,Rahul Singh,W01,Gandhinagar,Mixed-Use,1935,Yes,Yes,13500,13500,0,0,Quarterly,No,UPI,On-time,0,0,1,0,Low,2020-09-06,2024-11-01,c265@civtax.in,9100308454,58.4,27,6
+C266,Kamala Gowda,W03,Koramangala,Residential,2760,Yes,Yes,13800,13800,0,1,Quarterly,No,Offline,On-time,4,0,0,1,Medium,2021-11-26,2023-12-22,c266@civtax.in,9975652436,64.1,31,3
+C267,Meena Naik,W05,Jayanagar,Residential,2093,Yes,Yes,10500,10500,0,0,Yearly,No,Net Banking,On-time,4,1,1,0,Low,2020-11-21,2024-07-04,c267@civtax.in,9973110318,61.7,23,4
+C268,Sanjay Reddy,W05,Jayanagar,Commercial,3589,Yes,Yes,28700,0,28700,3,Monthly,No,Net Banking,Delayed,37,0,0,3,High,2022-04-17,,c268@civtax.in,9780389168,61.7,23,4
+C269,Saraswathi Reddy,W04,Indiranagar,Commercial,2383,Yes,Yes,19100,19100,0,1,Half-Yearly,No,UPI,On-time,18,0,0,1,High,2020-01-02,2024-05-02,c269@civtax.in,9437018334,53.5,25,7
+C270,Manoj Pillai,W06,Whitefield,Residential,2704,Yes,Yes,13500,0,13500,6,Yearly,No,UPI,Defaulted,15,4,0,1,High,2020-10-19,,c270@civtax.in,9998007554,49.1,23,8
+C271,Radha Gupta,W06,Whitefield,Residential,1373,Yes,Yes,6900,0,6900,6,Half-Yearly,Yes,Credit Card,Defaulted,2,7,0,2,High,2023-07-10,,c271@civtax.in,9716885481,49.1,23,8
+C272,Geetha Iyer,W05,Jayanagar,Residential,4687,Yes,Yes,23400,17550,5850,2,Yearly,No,Net Banking,Delayed,34,0,0,2,High,2023-02-16,2023-05-04,c272@civtax.in,9849734394,61.7,23,4
+C273,Venkat Shetty,W08,Electronic City,Residential,568,Yes,Yes,2800,2100,700,2,Yearly,No,UPI,Delayed,35,2,0,0,High,2021-11-06,2024-01-10,c273@civtax.in,9297475805,66.7,20,2
+C274,Vikram Patel,W08,Electronic City,Residential,3933,Yes,Yes,19700,0,19700,5,Yearly,Yes,UPI,Defaulted,36,5,0,1,High,2020-08-23,,c274@civtax.in,9696291839,66.7,20,2
+C275,Nirmala Patel,W07,Hebbal,Industrial,2106,Yes,No,21100,21100,0,0,Monthly,Yes,Net Banking,On-time,5,1,1,0,Low,2018-07-15,2024-02-12,c275@civtax.in,9206273380,68.5,21,1
+C276,Meena Singh,W03,Koramangala,Residential,2583,Yes,Yes,12900,9675,3225,1,Yearly,Yes,Net Banking,Delayed,16,1,0,0,High,2020-03-25,2024-08-13,c276@civtax.in,9718361962,64.1,31,3
+C277,Saraswathi Joshi,W03,Koramangala,Mixed-Use,2831,Yes,Yes,19800,9900,9900,1,Quarterly,No,UPI,Delayed,18,1,0,0,High,2022-07-16,2023-03-15,c277@civtax.in,9184945787,64.1,31,3
+C278,Ravi Iyer,W03,Koramangala,Residential,3068,Yes,Yes,15300,15300,0,0,Quarterly,Yes,Net Banking,On-time,2,1,1,0,Low,2018-04-05,2023-05-09,c278@civtax.in,9881439680,64.1,31,3
+C279,Sanjay Shetty,W04,Indiranagar,Commercial,1155,Yes,Yes,9200,9200,0,0,Monthly,No,UPI,On-time,3,0,1,0,Low,2019-09-29,2023-03-28,c279@civtax.in,9803121225,53.5,25,7
+C280,Vimala Hegde,W07,Hebbal,Residential,2526,Yes,Yes,12600,12600,0,0,Half-Yearly,Yes,UPI,On-time,2,1,1,0,Low,2021-01-20,2024-07-15,c280@civtax.in,9577648615,68.5,21,1
+C281,Naresh Menon,W03,Koramangala,Mixed-Use,4917,Yes,Yes,34400,25800,8600,2,Quarterly,No,Net Banking,Delayed,40,2,0,1,High,2019-01-02,2024-03-28,c281@civtax.in,9430570947,64.1,31,3
+C282,Nirmala Kumar,W06,Whitefield,Residential,1775,Yes,Yes,8900,2225,6675,4,Monthly,Yes,Net Banking,Delayed,0,5,0,3,High,2022-10-30,2023-10-27,c282@civtax.in,9741027901,49.1,23,8
+C283,Anita Joshi,W04,Indiranagar,Commercial,4990,Yes,Yes,39900,29925,9975,2,Half-Yearly,Yes,Offline,Delayed,24,3,0,0,High,2020-09-08,2024-06-13,c283@civtax.in,9920916739,53.5,25,7
+C284,Radha Kulkarni,W05,Jayanagar,Residential,4857,Yes,Yes,24300,0,24300,5,Yearly,Yes,Net Banking,Defaulted,39,3,0,2,High,2020-02-09,,c284@civtax.in,9444288576,61.7,23,4
+C285,Saroja Pillai,W01,Gandhinagar,Residential,4882,Yes,No,24400,24400,0,0,Yearly,Yes,UPI,On-time,0,0,1,0,Low,2021-11-01,2024-03-06,c285@civtax.in,9434552915,58.4,27,6
+C286,Sunita Pillai,W08,Electronic City,Mixed-Use,4298,Yes,Yes,30100,30100,0,0,Monthly,Yes,UPI,On-time,3,0,1,0,Low,2020-10-21,2024-01-26,c286@civtax.in,9989328868,66.7,20,2
+C287,Ramesh Shah,W01,Gandhinagar,Residential,2539,Yes,No,12700,12700,0,0,Monthly,Yes,Offline,On-time,0,0,1,0,Low,2021-08-16,2023-06-12,c287@civtax.in,9775559969,58.4,27,6
+C288,Ashok Kumar,W01,Gandhinagar,Commercial,4767,Yes,Yes,38100,38100,0,0,Half-Yearly,Yes,Offline,On-time,0,0,1,0,Low,2019-11-17,2023-10-10,c288@civtax.in,9727813474,58.4,27,6
+C289,Anita Shetty,W02,Rajajinagar,Residential,2491,Yes,Yes,12500,3125,9375,4,Half-Yearly,No,UPI,Delayed,5,1,0,1,High,2021-10-18,2024-10-02,c289@civtax.in,9164480705,61.6,30,5
+C290,Priya Verma,W01,Gandhinagar,Residential,1760,Yes,Yes,8800,8800,0,0,Yearly,No,Offline,On-time,2,1,1,0,Low,2022-01-07,2023-05-18,c290@civtax.in,9369183038,58.4,27,6
+C291,Indira Rao,W01,Gandhinagar,Residential,4084,Yes,Yes,20400,10200,10200,1,Quarterly,No,UPI,Delayed,29,1,0,0,High,2023-01-15,2023-10-30,c291@civtax.in,9979843968,58.4,27,6
+C292,Suresh Hegde,W05,Jayanagar,Residential,4219,Yes,Yes,21100,21100,0,1,Yearly,Yes,Credit Card,On-time,39,0,0,1,High,2022-05-07,2023-07-14,c292@civtax.in,9662715631,61.7,23,4
+C293,Vikram Kulkarni,W08,Electronic City,Commercial,1762,Yes,Yes,14100,7050,7050,2,Yearly,No,UPI,Delayed,8,1,0,0,High,2020-02-24,2023-04-12,c293@civtax.in,9134163406,66.7,20,2
+C294,Vimala Sharma,W07,Hebbal,Commercial,4807,Yes,Yes,38500,38500,0,0,Yearly,No,UPI,On-time,1,1,1,0,Low,2022-01-18,2024-07-25,c294@civtax.in,9898302819,68.5,21,1
+C295,Manoj Hegde,W07,Hebbal,Commercial,977,Yes,Yes,7800,7800,0,0,Yearly,Yes,Debit Card,On-time,4,0,1,0,Low,2022-04-28,2023-07-14,c295@civtax.in,9307360430,68.5,21,1
+C296,Sunita Hegde,W04,Indiranagar,Residential,1965,Yes,Yes,9800,0,9800,3,Monthly,No,Offline,Delayed,44,3,0,0,High,2022-07-03,,c296@civtax.in,9641909751,53.5,25,7
+C297,Ashok Shetty,W06,Whitefield,Commercial,4873,No,Yes,39000,39000,0,1,Yearly,No,UPI,On-time,23,1,0,1,High,2020-09-12,2024-07-30,c297@civtax.in,9685861719,49.1,23,8
+C298,Arjun Shah,W04,Indiranagar,Residential,2581,Yes,Yes,12900,0,12900,6,Yearly,Yes,UPI,Defaulted,1,2,0,2,High,2020-06-27,,c298@civtax.in,9330664237,53.5,25,7
+C299,Savitha Menon,W06,Whitefield,Residential,2760,No,Yes,13800,10350,3450,2,Quarterly,Yes,Net Banking,Delayed,9,1,0,1,High,2020-08-12,2023-09-20,c299@civtax.in,9970884334,49.1,23,8
+C300,Rahul Gowda,W05,Jayanagar,Residential,3775,Yes,Yes,18900,18900,0,0,Yearly,No,Net Banking,On-time,5,0,1,0,Low,2022-04-12,2023-03-22,c300@civtax.in,9937649523,61.7,23,4

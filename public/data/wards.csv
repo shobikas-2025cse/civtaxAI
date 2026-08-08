@@ -1,0 +1,9 @@
+Ward_ID,Ward_Name,Total_Citizens,Total_Annual_Tax,Total_Collected,Total_Outstanding,Collection_Rate_pct,High_Risk_Count,Compliance_Score,Rank
+W07,Hebbal,36,655600,449000,206600,68.5,21,41.7,1
+W08,Electronic City,34,598300,399200,199100,66.7,20,41.2,2
+W03,Koramangala,43,771500,494600,276900,64.1,31,27.9,3
+W05,Jayanagar,40,673600,415525,258075,61.7,23,42.5,4
+W02,Rajajinagar,45,763600,470700,292900,61.6,30,33.3,5
+W01,Gandhinagar,40,704600,411675,292925,58.4,27,32.5,6
+W04,Indiranagar,32,610400,326550,283850,53.5,25,21.9,7
+W06,Whitefield,30,561100,275550,285550,49.1,23,23.3,8

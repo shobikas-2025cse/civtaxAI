@@ -1,0 +1,158 @@
+@import "tailwindcss";
+
+@theme {
+  --color-mustard: #E5A100;
+  --color-mustard-dark: #C48A00;
+  --color-mustard-light: #FFD54F;
+  --color-mustard-50: rgba(229, 161, 0, 0.05);
+  --color-mustard-100: rgba(229, 161, 0, 0.12);
+  --color-mustard-200: rgba(229, 161, 0, 0.25);
+  --color-mustard-300: #FFD54F;
+  --color-mustard-400: #FFCA28;
+  --color-mustard-500: #E5A100;
+  --color-mustard-600: #C48A00;
+  --color-mustard-700: #A37200;
+  --color-civic-black: #121212;
+  --color-civic-dark: #1E1E1E;
+  --color-civic-card: #252525;
+  --color-civic-border: #333333;
+  --color-civic-gray: #8E8E93;
+  --color-civic-light: #E5E5EA;
+  --color-civic-white: #FFFFFF;
+  --color-success: #22C55E;
+  --color-warning: #F59E0B;
+  --color-danger: #EF4444;
+  --color-info: #3B82F6;
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+/* Base styles */
+html, body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background-color: #121212;
+  color: #FFFFFF;
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+  width: 100%;
+}
+
+#root {
+  width: 100%;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Glassmorphism Card System */
+.civic-card {
+  background-color: #1E1E1E;
+  border: 1px solid #333333;
+  border-radius: 1.25rem;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+}
+
+.civic-card-hover:hover {
+  border-color: #E5A100;
+  box-shadow: 0 12px 32px rgba(229, 161, 0, 0.12);
+  transform: translateY(-2px);
+}
+
+.civic-card-accent {
+  background: linear-gradient(135deg, #252525 0%, #1E1E1E 100%);
+  border: 1px solid rgba(229, 161, 0, 0.3);
+}
+
+/* Login page hero overlay */
+.login-hero-overlay {
+  background: linear-gradient(
+    135deg,
+    rgba(18, 18, 18, 0.9) 0%,
+    rgba(18, 18, 18, 0.75) 50%,
+    rgba(18, 18, 18, 0.6) 100%
+  );
+}
+
+/* OTP input styling */
+.otp-input {
+  width: 48px;
+  height: 56px;
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 700;
+  border: 2px solid #333333;
+  border-radius: 12px;
+  background: #1E1E1E;
+  color: #FFFFFF;
+  transition: all 0.2s ease;
+  outline: none;
+}
+
+.otp-input:focus {
+  border-color: #E5A100;
+  box-shadow: 0 0 0 3px rgba(229, 161, 0, 0.25);
+}
+
+.otp-input.filled {
+  border-color: #E5A100;
+  background: rgba(229, 161, 0, 0.15);
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-slide-in-right {
+  animation: slideInRight 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #121212;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #333333;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #E5A100;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  height: 6px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #E5A100;
+  border-radius: 3px;
+}
