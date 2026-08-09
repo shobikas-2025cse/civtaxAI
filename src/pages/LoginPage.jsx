@@ -192,8 +192,8 @@ export default function LoginPage() {
       {/* Outer Main Card Container matching reference frame */}
       <div className="w-full max-w-[1440px] bg-[#0A0C10] border border-[#1E222D] rounded-[28px] overflow-hidden shadow-2xl flex flex-col lg:flex-row relative">
 
-        {/* LEFT HERO PANEL — Smart City Night Backdrop (IDENTICAL TO REFERENCE IMAGE) */}
-        <div className="relative lg:w-[60%] w-full min-h-[500px] lg:min-h-[780px] overflow-hidden flex flex-col justify-between p-6 sm:p-10 lg:p-12 border-b lg:border-b-0 lg:border-r border-[#1E222D]">
+        {/* LEFT HERO PANEL — Smart City Night Backdrop */}
+        <div className="relative lg:w-[60%] w-full min-h-[520px] lg:min-h-[800px] overflow-hidden flex flex-col justify-between p-6 sm:p-10 lg:p-12 border-b lg:border-b-0 lg:border-r border-[#1E222D]">
 
           {/* Generated Smart City Night Image Background */}
           <img
@@ -202,7 +202,7 @@ export default function LoginPage() {
             className="absolute inset-0 w-full h-full object-cover object-center transform scale-105 transition-transform duration-10000 ease-out"
           />
 
-          {/* Dark Overlay Vignette */}
+          {/* Dark Overlay Vignette for crisp text readability */}
           <div className="absolute inset-0 bg-gradient-to-t from-[#0A0C10] via-[#0A0C10]/60 to-[#0A0C10]/40" />
           <div className="absolute inset-0 bg-gradient-to-r from-[#0A0C10]/95 via-[#0A0C10]/70 to-transparent" />
 
@@ -212,8 +212,8 @@ export default function LoginPage() {
             {/* Top Brand Header */}
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-[#FF8C00] rounded-xl flex items-center justify-center shadow-lg shadow-[#FF8C00]/25">
-                  <Landmark className="w-6 h-6 text-black font-extrabold" />
+                <div className="w-10 h-10 bg-[#FF8C00] rounded-xl flex items-center justify-center shadow-lg shadow-[#FF8C00]/25 flex-shrink-0">
+                  <Landmark className="w-5 h-5 text-black font-extrabold" />
                 </div>
                 <div>
                   <div className="flex items-center gap-1.5">
@@ -223,22 +223,28 @@ export default function LoginPage() {
                   <p className="text-[11px] text-gray-400 font-medium">Smart City. Smart Citizens.</p>
                 </div>
               </div>
+
+              {/* Decorative Accent Dot Grid */}
+              <div className="hidden sm:grid grid-cols-6 gap-1.5 opacity-25">
+                {Array.from({ length: 18 }).map((_, i) => (
+                  <div key={i} className="w-1 h-1 rounded-full bg-gray-400" />
+                ))}
+              </div>
             </div>
 
             {/* Main Hero Content */}
             <div className="my-auto space-y-6 max-w-xl">
 
               {/* Pill Badge */}
-              <div className="inline-flex items-center gap-2 bg-[#171A21]/90 border border-[#2B313E] px-4 py-1.5 rounded-full text-xs font-semibold text-gray-200 backdrop-blur-md">
+              <div className="inline-flex items-center gap-2 bg-[#12151C]/90 border border-[#242A38] px-4 py-1.5 rounded-full text-xs font-semibold text-gray-200 backdrop-blur-md">
                 <Users className="w-3.5 h-3.5 text-[#FF8C00]" />
                 <span>Citizen Engagement & Behaviour</span>
               </div>
 
-              {/* Main Heading */}
-              <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black leading-[1.1] text-white tracking-tight">
+              {/* Main Heading — Clean without 'Rewarded.' */}
+              <h1 className="text-3xl sm:text-5xl lg:text-[56px] font-extrabold leading-[1.12] text-white tracking-tight">
                 Smart Municipal<br />
-                Tax Payments,<br />
-                <span className="text-[#FF8C00]">Rewarded.</span>
+                Tax Payments
               </h1>
 
               {/* Description */}
@@ -246,10 +252,10 @@ export default function LoginPage() {
                 Pay property tax, water tax & more on time. Earn rewards, climb leaderboards, and help build a better city.
               </p>
 
-              {/* 4 Stat Circles Grid matching image */}
+              {/* 4 Stat Circles Grid */}
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-2">
 
-                <div className="space-y-1">
+                <div className="space-y-1.5">
                   <div className="w-9 h-9 bg-[#171A21]/90 border border-[#2B313E] rounded-full flex items-center justify-center text-[#FF8C00]">
                     <IndianRupee className="w-4 h-4" />
                   </div>
@@ -257,7 +263,7 @@ export default function LoginPage() {
                   <p className="text-gray-400 text-xs font-medium">Tax Collected</p>
                 </div>
 
-                <div className="space-y-1">
+                <div className="space-y-1.5">
                   <div className="w-9 h-9 bg-[#171A21]/90 border border-[#2B313E] rounded-full flex items-center justify-center text-cyan-400">
                     <Users className="w-4 h-4" />
                   </div>
@@ -265,7 +271,7 @@ export default function LoginPage() {
                   <p className="text-gray-400 text-xs font-medium">Active Citizens</p>
                 </div>
 
-                <div className="space-y-1">
+                <div className="space-y-1.5">
                   <div className="w-9 h-9 bg-[#171A21]/90 border border-[#2B313E] rounded-full flex items-center justify-center text-[#FF8C00]">
                     <Moon className="w-4 h-4" />
                   </div>
@@ -273,7 +279,7 @@ export default function LoginPage() {
                   <p className="text-gray-400 text-xs font-medium">On-time Rate</p>
                 </div>
 
-                <div className="space-y-1">
+                <div className="space-y-1.5">
                   <div className="w-9 h-9 bg-[#171A21]/90 border border-[#2B313E] rounded-full flex items-center justify-center text-amber-300">
                     <Trophy className="w-4 h-4" />
                   </div>
@@ -284,7 +290,7 @@ export default function LoginPage() {
               </div>
 
               {/* Trust Badge Bar */}
-              <div className="bg-[#12151C]/90 border border-[#242A38] rounded-2xl p-3.5 flex items-center gap-3 text-xs text-gray-300 backdrop-blur-md">
+              <div className="bg-[#12151C]/90 border border-[#242A38] rounded-2xl p-4 flex items-center gap-3 text-xs text-gray-300 backdrop-blur-md">
                 <ShieldCheck className="w-4 h-4 text-[#FF8C00] flex-shrink-0" />
                 <span>
                   <strong className="text-white">Trusted by thousands of citizens</strong> across the nation.
@@ -293,21 +299,18 @@ export default function LoginPage() {
 
             </div>
 
-            {/* Bottom Footer Bar */}
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs text-gray-400 border-t border-[#1E222D] pt-4">
-              <div className="flex items-center gap-4 flex-wrap">
-                <span className="flex items-center gap-1.5">
+            {/* Bottom Footer Bar — Only 100% Secure & Your Data is Safe */}
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs text-gray-400 border-t border-[#1E222D] pt-5">
+              <div className="flex items-center gap-6 flex-wrap">
+                <span className="flex items-center gap-1.5 text-gray-300 font-medium">
                   <ShieldCheck className="w-3.5 h-3.5 text-[#FF8C00]" /> 100% Secure
                 </span>
-                <span className="flex items-center gap-1.5">
-                  <ShieldCheck className="w-3.5 h-3.5 text-[#FF8C00]" /> Government Verified
-                </span>
-                <span className="flex items-center gap-1.5">
+                <span className="flex items-center gap-1.5 text-gray-300 font-medium">
                   <ShieldCheck className="w-3.5 h-3.5 text-[#FF8C00]" /> Your Data is Safe
                 </span>
               </div>
 
-              <a href="#terms" className="text-gray-400 hover:text-[#FF8C00] flex items-center gap-1 transition-colors">
+              <a href="#terms" className="text-gray-400 hover:text-[#FF8C00] flex items-center gap-1 transition-colors font-medium">
                 Terms & Conditions <ArrowRight className="w-3 h-3" />
               </a>
             </div>
@@ -315,10 +318,11 @@ export default function LoginPage() {
           </div>
         </div>
 
-        {/* RIGHT PANEL — 2-STEP ROLE SELECTION & LOGIN LOGIC */}
-        <div className="lg:w-[40%] w-full bg-[#08090C] p-6 sm:p-10 lg:p-12 flex flex-col justify-between space-y-8">
+        {/* RIGHT PANEL — PITCH-BLACK HIGH-CONTRAST PORTAL GATEWAY */}
+        <div className="lg:w-[40%] w-full bg-[#060709] p-6 sm:p-8 lg:p-10 flex flex-col justify-between space-y-6">
 
-          <div className="bg-[#0E1017] border border-[#1F2432] rounded-3xl p-6 sm:p-8 space-y-6 shadow-xl">
+          {/* Main Solid Pitch-Black Gateway Card with Crisp Borders & Generous Spacing */}
+          <div className="bg-[#0A0A0C] border border-[#1E222D] rounded-[28px] p-6 sm:p-8 space-y-6 shadow-2xl relative">
 
             {/* ========================================================================= */}
             {/* STATE 1: ROLE SELECTION (3 Options: Citizen, Tax Collector, System Admin) */}
@@ -338,15 +342,15 @@ export default function LoginPage() {
                   {/* Card 1: Citizen */}
                   <div
                     onClick={() => handleSelectRole('citizen')}
-                    className="p-4 sm:p-5 rounded-2xl bg-[#141722] border-2 border-[#252C3D] hover:border-[#FF8C00] hover:bg-[#FF8C00]/5 cursor-pointer transition-all duration-200 flex items-center justify-between group shadow-sm"
+                    className="p-5 rounded-2xl bg-[#10121A] border-2 border-[#202533] hover:border-[#FF8C00] hover:bg-[#FF8C00]/5 cursor-pointer transition-all duration-200 flex items-center justify-between group shadow-sm"
                   >
-                    <div className="flex items-center gap-3.5">
-                      <div className="w-11 h-11 rounded-xl bg-[#FF8C00]/20 border border-[#FF8C00]/40 flex items-center justify-center text-[#FF8C00] group-hover:scale-105 transition-transform flex-shrink-0">
+                    <div className="flex items-center gap-4">
+                      <div className="w-12 h-12 rounded-xl bg-[#FF8C00]/15 border border-[#FF8C00]/30 flex items-center justify-center text-[#FF8C00] group-hover:scale-105 transition-transform flex-shrink-0">
                         <UserCheck className="w-5 h-5" />
                       </div>
                       <div>
                         <h3 className="font-bold text-white text-base group-hover:text-[#FF8C00] transition-colors">Citizen</h3>
-                        <p className="text-gray-400 text-xs mt-0.5">Pay taxes, claim early-bird rebates, earn XP & perks.</p>
+                        <p className="text-gray-400 text-xs mt-1">Pay taxes, claim early-bird rebates, earn XP & perks.</p>
                       </div>
                     </div>
                     <ChevronRight className="w-5 h-5 text-gray-500 group-hover:text-[#FF8C00] group-hover:translate-x-0.5 transition-all flex-shrink-0" />
@@ -355,35 +359,35 @@ export default function LoginPage() {
                   {/* Card 2: Tax Collector */}
                   <div
                     onClick={() => handleSelectRole('collector')}
-                    className="p-4 sm:p-5 rounded-2xl bg-[#141722] border-2 border-[#252C3D] hover:border-cyan-400 hover:bg-cyan-500/5 cursor-pointer transition-all duration-200 flex items-center justify-between group shadow-sm"
+                    className="p-5 rounded-2xl bg-[#10121A] border-2 border-[#202533] hover:border-cyan-400 hover:bg-cyan-500/5 cursor-pointer transition-all duration-200 flex items-center justify-between group shadow-sm"
                   >
-                    <div className="flex items-center gap-3.5">
-                      <div className="w-11 h-11 rounded-xl bg-cyan-500/20 border border-cyan-500/40 flex items-center justify-center text-cyan-400 group-hover:scale-105 transition-transform flex-shrink-0">
+                    <div className="flex items-center gap-4">
+                      <div className="w-12 h-12 rounded-xl bg-cyan-500/15 border border-cyan-500/30 flex items-center justify-center text-cyan-400 group-hover:scale-105 transition-transform flex-shrink-0">
                         <Briefcase className="w-5 h-5" />
                       </div>
                       <div>
                         <h3 className="font-bold text-white text-base group-hover:text-cyan-400 transition-colors">Tax Collector</h3>
-                        <p className="text-gray-400 text-xs mt-0.5">Doorstep collections, spot receipts & field assessments.</p>
+                        <p className="text-gray-400 text-xs mt-1">Doorstep collections, spot receipts & field assessments.</p>
                       </div>
                     </div>
                     <ChevronRight className="w-5 h-5 text-gray-500 group-hover:text-cyan-400 group-hover:translate-x-0.5 transition-all flex-shrink-0" />
                   </div>
 
-                  {/* Card 3: System Admin (Visually distinct & subtle border at the bottom) */}
+                  {/* Card 3: System Admin (Visually distinct & subtle border at bottom) */}
                   <div
                     onClick={() => handleSelectRole('admin')}
-                    className="p-3.5 sm:p-4 rounded-xl bg-[#0F1118] border border-[#252836] hover:border-amber-400/60 hover:bg-[#181A24] cursor-pointer transition-all duration-200 flex items-center justify-between group mt-6"
+                    className="p-4 rounded-xl bg-[#0C0D12] border border-[#1E222D] hover:border-amber-400/60 hover:bg-[#141620] cursor-pointer transition-all duration-200 flex items-center justify-between group mt-5"
                   >
-                    <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 rounded-lg bg-[#1D202D] border border-[#303648] flex items-center justify-center text-gray-400 group-hover:text-amber-400 flex-shrink-0">
+                    <div className="flex items-center gap-3.5">
+                      <div className="w-9 h-9 rounded-lg bg-[#161822] border border-[#2B3040] flex items-center justify-center text-gray-400 group-hover:text-amber-400 flex-shrink-0">
                         <Settings className="w-4 h-4" />
                       </div>
                       <div>
                         <div className="flex items-center gap-2">
                           <h4 className="font-semibold text-gray-200 text-xs group-hover:text-white transition-colors">System Admin</h4>
-                          <span className="text-[9px] font-bold text-gray-500 bg-[#171922] px-1.5 py-0.5 rounded border border-[#2A2E3D]">ULB Superuser</span>
+                          <span className="text-[9px] font-bold text-gray-400 bg-[#161822] px-1.5 py-0.5 rounded border border-[#262B3A]">ULB Superuser</span>
                         </div>
-                        <p className="text-gray-500 text-[11px]">System management and analytics.</p>
+                        <p className="text-gray-500 text-[11px] mt-0.5">System management and analytics.</p>
                       </div>
                     </div>
                     <ChevronRight className="w-4 h-4 text-gray-600 group-hover:text-gray-300 transition-colors flex-shrink-0" />
@@ -391,14 +395,14 @@ export default function LoginPage() {
                 </div>
 
                 {/* 3 Feature Pills */}
-                <div className="flex items-center justify-between text-[11px] text-gray-400 font-medium pt-3 border-t border-[#1F2432]">
-                  <span className="flex items-center gap-1 text-green-400">
+                <div className="flex items-center justify-between text-[11px] text-gray-400 font-medium pt-3 border-t border-[#1E222D]">
+                  <span className="flex items-center gap-1.5 text-green-400">
                     <ShieldCheck className="w-3.5 h-3.5" /> OTP Verified
                   </span>
-                  <span className="flex items-center gap-1 text-amber-300">
+                  <span className="flex items-center gap-1.5 text-amber-300">
                     <Trophy className="w-3.5 h-3.5" /> Earn Rewards
                   </span>
-                  <span className="flex items-center gap-1 text-amber-400">
+                  <span className="flex items-center gap-1.5 text-amber-400">
                     <Zap className="w-3.5 h-3.5" /> Instant Pay
                   </span>
                 </div>
@@ -437,7 +441,7 @@ export default function LoginPage() {
                     </div>
 
                     {/* Demo Helper Pills */}
-                    <div className="space-y-1.5 bg-[#141722] border border-[#252C3D] rounded-2xl p-3">
+                    <div className="space-y-2 bg-[#10121A] border border-[#202533] rounded-2xl p-3.5">
                       <span className="text-[11px] text-gray-400 block font-medium">Demo: Click to auto-fill</span>
                       <div className="flex flex-wrap gap-2">
                         {currentRoleConfig.demos.map((demo) => (
@@ -445,10 +449,11 @@ export default function LoginPage() {
                             key={demo.phone}
                             type="button"
                             onClick={() => setPhone(demo.phone)}
-                            className={`flex-1 py-1.5 px-2.5 rounded-lg text-xs font-bold border transition-all ${phone === demo.phone
+                            className={`flex-1 py-2 px-3 rounded-xl text-xs font-bold border transition-all ${
+                              phone === demo.phone
                                 ? 'border-[#FF8C00] bg-[#FF8C00]/20 text-[#FF8C00]'
-                                : 'border-[#252C3D] text-gray-400 hover:text-white'
-                              }`}
+                                : 'border-[#202533] text-gray-400 hover:text-white bg-[#0A0A0C]'
+                            }`}
                           >
                             {demo.label}
                           </button>
@@ -462,7 +467,7 @@ export default function LoginPage() {
                           {currentRoleConfig.label}
                         </label>
                         <div className="relative">
-                          <div className="absolute left-3.5 top-1/2 -translate-y-1/2 flex items-center gap-1.5 text-gray-300 text-sm font-semibold">
+                          <div className="absolute left-4 top-1/2 -translate-y-1/2 flex items-center gap-1.5 text-gray-300 text-sm font-semibold">
                             <span>🇮🇳</span>
                             <span>{currentRoleConfig.prefix}</span>
                           </div>
@@ -475,15 +480,15 @@ export default function LoginPage() {
                               setError('');
                             }}
                             placeholder={currentRoleConfig.placeholder}
-                            className="w-full bg-[#141722] border border-[#252C3D] focus:border-[#FF8C00] rounded-xl py-3.5 pl-20 pr-10 text-white text-base font-semibold placeholder-gray-500 focus:outline-none transition-colors"
+                            className="w-full bg-[#10121A] border border-[#202533] focus:border-[#FF8C00] rounded-2xl py-4 pl-20 pr-12 text-white text-base font-semibold placeholder-gray-500 focus:outline-none transition-colors"
                             autoFocus
                           />
-                          <Phone className="absolute right-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
+                          <Phone className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
                         </div>
                       </div>
 
                       {error && (
-                        <p className="text-red-400 text-xs flex items-center gap-1.5 bg-red-500/10 border border-red-500/30 p-2.5 rounded-lg font-medium">
+                        <p className="text-red-400 text-xs flex items-center gap-1.5 bg-red-500/10 border border-red-500/30 p-3 rounded-xl font-medium">
                           <span className="w-1.5 h-1.5 bg-red-400 rounded-full" />
                           {error}
                         </p>
@@ -492,7 +497,7 @@ export default function LoginPage() {
                       <button
                         type="submit"
                         disabled={isLoading || phone.length < 10}
-                        className="w-full bg-[#FF8C00] hover:bg-[#E07B00] text-black font-extrabold py-3.5 rounded-xl text-base transition-all duration-300 disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center gap-2 shadow-lg shadow-[#FF8C00]/20"
+                        className="w-full bg-[#FF8C00] hover:bg-[#E07B00] text-black font-extrabold py-4 rounded-2xl text-base transition-all duration-300 disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center gap-2 shadow-lg shadow-[#FF8C00]/20"
                       >
                         {isLoading ? (
                           <div className="w-5 h-5 border-2 border-black/30 border-t-black rounded-full animate-spin" />
@@ -506,14 +511,14 @@ export default function LoginPage() {
                     </form>
 
                     {/* 3 Feature Pills */}
-                    <div className="flex items-center justify-between text-[11px] text-gray-300 font-medium pt-2 border-t border-[#1F2432]">
-                      <span className="flex items-center gap-1 text-green-400">
+                    <div className="flex items-center justify-between text-[11px] text-gray-400 font-medium pt-2 border-t border-[#1E222D]">
+                      <span className="flex items-center gap-1.5 text-green-400">
                         <ShieldCheck className="w-3.5 h-3.5" /> OTP Verified
                       </span>
-                      <span className="flex items-center gap-1 text-amber-300">
+                      <span className="flex items-center gap-1.5 text-amber-300">
                         <Trophy className="w-3.5 h-3.5" /> Earn Rewards
                       </span>
-                      <span className="flex items-center gap-1 text-amber-400">
+                      <span className="flex items-center gap-1.5 text-amber-400">
                         <Zap className="w-3.5 h-3.5" /> Instant Pay
                       </span>
                     </div>
@@ -545,10 +550,11 @@ export default function LoginPage() {
                             value={digit}
                             onChange={(e) => handleOTPChange(i, e.target.value.replace(/\D/g, ''))}
                             onKeyDown={(e) => handleOTPKeyDown(i, e)}
-                            className={`w-11 h-13 sm:w-12 sm:h-14 text-center text-lg font-extrabold border rounded-xl bg-[#141722] text-white focus:outline-none transition-all ${digit
+                            className={`w-11 h-13 sm:w-12 sm:h-14 text-center text-lg font-extrabold border rounded-xl bg-[#10121A] text-white focus:outline-none transition-all ${
+                              digit
                                 ? 'border-[#FF8C00] bg-[#FF8C00]/10 shadow-md shadow-[#FF8C00]/10'
-                                : 'border-[#252C3D] focus:border-[#FF8C00]'
-                              }`}
+                                : 'border-[#202533] focus:border-[#FF8C00]'
+                            }`}
                           />
                         ))}
                       </div>
@@ -558,7 +564,7 @@ export default function LoginPage() {
                       </p>
 
                       {error && (
-                        <p className="text-red-400 text-xs text-center flex items-center justify-center gap-1.5 bg-red-500/10 border border-red-500/30 p-2.5 rounded-lg font-medium">
+                        <p className="text-red-400 text-xs text-center flex items-center justify-center gap-1.5 bg-red-500/10 border border-red-500/30 p-3 rounded-xl font-medium">
                           <span className="w-1.5 h-1.5 bg-red-400 rounded-full" />
                           {error}
                         </p>
@@ -567,7 +573,7 @@ export default function LoginPage() {
                       <button
                         type="submit"
                         disabled={isLoading || otp.join('').length !== 6}
-                        className="w-full bg-[#FF8C00] hover:bg-[#E07B00] text-black font-extrabold py-3.5 rounded-xl text-base transition-all duration-300 disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center gap-2 shadow-lg shadow-[#FF8C00]/20"
+                        className="w-full bg-[#FF8C00] hover:bg-[#E07B00] text-black font-extrabold py-4 rounded-2xl text-base transition-all duration-300 disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center gap-2 shadow-lg shadow-[#FF8C00]/20"
                       >
                         {isLoading ? (
                           <div className="w-5 h-5 border-2 border-black/30 border-t-black rounded-full animate-spin" />
@@ -617,20 +623,20 @@ export default function LoginPage() {
           </div>
 
           {/* Graphic Banner Box at Bottom Right matching reference image */}
-          <div className="bg-[#0E1017] border border-[#1F2432] rounded-2xl p-5 text-center space-y-3 relative overflow-hidden">
+          <div className="bg-[#0A0A0C] border border-[#1E222D] rounded-[24px] p-6 text-center space-y-3 relative overflow-hidden shadow-xl">
             <div className="flex items-center justify-center gap-3 py-2">
-              <div className="w-12 h-12 rounded-xl bg-[#171A24] border border-[#2A3144] flex items-center justify-center text-2xl shadow">
+              <div className="w-12 h-12 rounded-2xl bg-[#10121A] border border-[#202533] flex items-center justify-center text-2xl shadow">
                 🏛️
               </div>
-              <div className="w-10 h-10 rounded-xl bg-green-500/20 border border-green-500/40 flex items-center justify-center text-green-400 shadow">
+              <div className="w-12 h-12 rounded-2xl bg-green-500/15 border border-green-500/30 flex items-center justify-center text-green-400 shadow">
                 <CheckCircle2 className="w-6 h-6" />
               </div>
-              <div className="w-12 h-12 rounded-xl bg-[#171A24] border border-[#2A3144] flex items-center justify-center text-2xl shadow">
+              <div className="w-12 h-12 rounded-2xl bg-[#10121A] border border-[#202533] flex items-center justify-center text-2xl shadow">
                 🪙
               </div>
             </div>
 
-            <p className="text-gray-200 text-xs font-semibold leading-relaxed">
+            <p className="text-gray-300 text-xs font-semibold leading-relaxed">
               Every payment you make builds a <strong className="text-[#FF8C00]">stronger, smarter city.</strong>
             </p>
           </div>
