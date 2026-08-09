@@ -70,8 +70,8 @@ export default function LoginPage() {
       prefix: '+91',
       demos: [
         { label: '9128492780 (Rekha)', phone: '9128492780' },
-        { label: '9344703907 (Anil)', phone: '9344703907' },
-        { label: '9876543210 (Rajesh)', phone: '9876543210' }
+        { label: '9803217037 (Naresh)', phone: '9803217037' },
+        { label: '9344703907 (Anil)', phone: '9344703907' }
       ]
     },
     collector: {

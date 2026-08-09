@@ -176,15 +176,24 @@ export function AuthProvider({ children }) {
     // Call tax service to record transaction
     taxService.payTax(user.id, taxId, paymentMethod);
 
-    const clearedArrears = 50;
-    const paidAmount = user.outstandingDues || 8300;
+    const currentTaxes = taxDataStore[user.id] || getTaxes();
+    const targetBill = currentTaxes.find(t => t.id === taxId);
+    
+    // If a specific bill was selected (e.g. Water Tax), calculate its exact amount
+    const paidAmount = targetBill 
+      ? Number(targetBill.amount || 0)
+      : Number(user.outstandingDues || 8300);
+      
+    const clearedArrears = (targetBill && targetBill.arrears) ? Number(targetBill.arrears) : 0;
+    const currentOutstanding = Number(user.outstandingDues !== undefined ? user.outstandingDues : 8300);
+    const newOutstanding = Math.max(0, currentOutstanding - paidAmount);
 
     // Record in local history
     const newRecord = {
       id: 'PAY' + Date.now().toString().slice(-4),
       citizenId: user.id,
       citizenName: user.name,
-      type: 'Property & Municipal Tax',
+      type: targetBill ? `${targetBill.type} Payment` : 'Property & Municipal Tax',
       amount: paidAmount + clearedArrears,
       date: new Date().toISOString().split('T')[0],
       method: paymentMethod,
@@ -195,10 +204,10 @@ export function AuthProvider({ children }) {
 
     setPaymentHistory(prev => [newRecord, ...prev]);
 
-    // Update tax items store to mark as paid
+    // Update tax items store to mark this specific bill as paid
     setTaxDataStore(prev => {
-      const current = prev[user.id] || [];
-      const updated = current.map(t => t.id === taxId ? { ...t, status: 'paid', paidOn: newRecord.date, arrears: 0 } : t);
+      const current = prev[user.id] || currentTaxes;
+      const updated = current.map(t => (t.id === taxId || (!taxId && newOutstanding === 0)) ? { ...t, status: 'paid', paidOn: newRecord.date, arrears: 0 } : t);
       return { ...prev, [user.id]: updated };
     });
 
@@ -206,20 +215,20 @@ export function AuthProvider({ children }) {
     const addedXp = 150;
     const newXp = (user.xp || 0) + addedXp;
     const newStreak = (user.streak || 0) + 1;
-    const newCreditScore = Math.min(900, (user.civicCreditScore || 700) + 25);
+    const newCreditScore = Math.min(900, (user.civicCreditScore || 700) + (newOutstanding === 0 ? 25 : 10));
 
     const updatedUser = {
       ...user,
-      outstandingDues: 0,
+      outstandingDues: newOutstanding,
       amountPaid: (user.amountPaid || 0) + paidAmount,
       xp: newXp,
       streak: newStreak,
       civicCreditScore: newCreditScore,
       civicCreditTier: newCreditScore > 800 ? 'Excellent (Top 2% Taxpayer)' : 'Good Civic Standing',
-      status: 'Compliant',
-      riskScore: Math.max(12, (user.riskScore || 50) - 40),
-      riskCategory: 'Low Risk',
-      tier: 'Gold Model Citizen 🌟'
+      status: newOutstanding === 0 ? 'Compliant' : user.status,
+      riskScore: newOutstanding === 0 ? 18 : Math.max(25, (user.riskScore || 50) - 20),
+      riskCategory: newOutstanding === 0 ? 'Low Risk' : user.riskCategory,
+      tier: newCreditScore > 800 ? 'Gold Model Citizen 🌟' : (newCreditScore > 650 ? 'Silver Tier' : user.tier)
     };
 
     setUser(updatedUser);
@@ -230,7 +239,7 @@ export function AuthProvider({ children }) {
 
     // Set reward modal payload
     const rewardPayload = {
-      taxType: 'Property & Municipal Tax',
+      taxType: targetBill ? targetBill.type : 'Property & Municipal Tax',
       amountPaid: paidAmount + clearedArrears,
       clearedArrears,
       addedXp,
