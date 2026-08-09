@@ -69,8 +69,8 @@ export default function LoginPage() {
       placeholder: 'Enter 10-digit number',
       prefix: '+91',
       demos: [
-        { label: '9128492780 (Rekha - Low Risk)', phone: '9128492780' },
-        { label: '9344703907 (Anil - High Risk)', phone: '9344703907' },
+        { label: '9128492780 (Rekha)', phone: '9128492780' },
+        { label: '9344703907 (Anil)', phone: '9344703907' },
         { label: '9876543210 (Rajesh)', phone: '9876543210' }
       ]
     },
