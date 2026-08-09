@@ -34,7 +34,7 @@ function useCountUp(endValue, duration = 2000, isPercentage = false, prefix = ''
 
 export default function LoginPage() {
   const { login } = useAuth();
-  
+
   // 2-Step State Logic
   // role: null (State 1: Role Selection) | 'citizen' | 'collector' | 'admin' (State 2: Login Form)
   const [selectedRole, setSelectedRole] = useState(null);
@@ -188,13 +188,13 @@ export default function LoginPage() {
 
   return (
     <div className="min-h-screen w-full bg-[#050608] text-white selection:bg-[#FF8C00] selection:text-black overflow-x-hidden font-sans p-3 sm:p-6 lg:p-8 flex items-center justify-center">
-      
+
       {/* Outer Main Card Container matching reference frame */}
       <div className="w-full max-w-[1440px] bg-[#0A0C10] border border-[#1E222D] rounded-[28px] overflow-hidden shadow-2xl flex flex-col lg:flex-row relative">
-        
+
         {/* LEFT HERO PANEL — Smart City Night Backdrop (IDENTICAL TO REFERENCE IMAGE) */}
         <div className="relative lg:w-[60%] w-full min-h-[500px] lg:min-h-[780px] overflow-hidden flex flex-col justify-between p-6 sm:p-10 lg:p-12 border-b lg:border-b-0 lg:border-r border-[#1E222D]">
-          
+
           {/* Generated Smart City Night Image Background */}
           <img
             src="/city-hero-night.png"
@@ -208,7 +208,7 @@ export default function LoginPage() {
 
           {/* Content Layer */}
           <div className="relative z-10 flex flex-col justify-between h-full space-y-8">
-            
+
             {/* Top Brand Header */}
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
@@ -227,7 +227,7 @@ export default function LoginPage() {
 
             {/* Main Hero Content */}
             <div className="my-auto space-y-6 max-w-xl">
-              
+
               {/* Pill Badge */}
               <div className="inline-flex items-center gap-2 bg-[#171A21]/90 border border-[#2B313E] px-4 py-1.5 rounded-full text-xs font-semibold text-gray-200 backdrop-blur-md">
                 <Users className="w-3.5 h-3.5 text-[#FF8C00]" />
@@ -248,7 +248,7 @@ export default function LoginPage() {
 
               {/* 4 Stat Circles Grid matching image */}
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-2">
-                
+
                 <div className="space-y-1">
                   <div className="w-9 h-9 bg-[#171A21]/90 border border-[#2B313E] rounded-full flex items-center justify-center text-[#FF8C00]">
                     <IndianRupee className="w-4 h-4" />
@@ -317,9 +317,9 @@ export default function LoginPage() {
 
         {/* RIGHT PANEL — 2-STEP ROLE SELECTION & LOGIN LOGIC */}
         <div className="lg:w-[40%] w-full bg-[#08090C] p-6 sm:p-10 lg:p-12 flex flex-col justify-between space-y-8">
-          
+
           <div className="bg-[#0E1017] border border-[#1F2432] rounded-3xl p-6 sm:p-8 space-y-6 shadow-xl">
-            
+
             {/* ========================================================================= */}
             {/* STATE 1: ROLE SELECTION (3 Options: Citizen, Tax Collector, System Admin) */}
             {/* ========================================================================= */}
@@ -410,7 +410,7 @@ export default function LoginPage() {
             {/* ========================================================================= */}
             {selectedRole && (
               <div className="space-y-6 animate-fade-in-up">
-                
+
                 {/* Back to Role Selection Button */}
                 <button
                   onClick={handleBackToRoles}
@@ -445,11 +445,10 @@ export default function LoginPage() {
                             key={demo.phone}
                             type="button"
                             onClick={() => setPhone(demo.phone)}
-                            className={`flex-1 py-1.5 px-2.5 rounded-lg text-xs font-bold border transition-all ${
-                              phone === demo.phone 
-                                ? 'border-[#FF8C00] bg-[#FF8C00]/20 text-[#FF8C00]' 
+                            className={`flex-1 py-1.5 px-2.5 rounded-lg text-xs font-bold border transition-all ${phone === demo.phone
+                                ? 'border-[#FF8C00] bg-[#FF8C00]/20 text-[#FF8C00]'
                                 : 'border-[#252C3D] text-gray-400 hover:text-white'
-                            }`}
+                              }`}
                           >
                             {demo.label}
                           </button>
@@ -546,11 +545,10 @@ export default function LoginPage() {
                             value={digit}
                             onChange={(e) => handleOTPChange(i, e.target.value.replace(/\D/g, ''))}
                             onKeyDown={(e) => handleOTPKeyDown(i, e)}
-                            className={`w-11 h-13 sm:w-12 sm:h-14 text-center text-lg font-extrabold border rounded-xl bg-[#141722] text-white focus:outline-none transition-all ${
-                              digit
+                            className={`w-11 h-13 sm:w-12 sm:h-14 text-center text-lg font-extrabold border rounded-xl bg-[#141722] text-white focus:outline-none transition-all ${digit
                                 ? 'border-[#FF8C00] bg-[#FF8C00]/10 shadow-md shadow-[#FF8C00]/10'
                                 : 'border-[#252C3D] focus:border-[#FF8C00]'
-                            }`}
+                              }`}
                           />
                         ))}
                       </div>
@@ -631,7 +629,7 @@ export default function LoginPage() {
                 🪙
               </div>
             </div>
-            
+
             <p className="text-gray-200 text-xs font-semibold leading-relaxed">
               Every payment you make builds a <strong className="text-[#FF8C00]">stronger, smarter city.</strong>
             </p>
