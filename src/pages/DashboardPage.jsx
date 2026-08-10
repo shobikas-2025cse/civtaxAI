@@ -125,14 +125,14 @@ export default function DashboardPage() {
               <div className="flex items-center gap-2">
                 <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse" />
                 <p className="text-[#FF8C00] text-xs font-bold uppercase tracking-wider">
-                  Citizen Portal • Verified Resident
+                  Citizen Portal • {user?.status === 'Defaulter' ? 'Action Required' : 'Active Resident'}
                 </p>
               </div>
               <h1 className="text-2xl sm:text-3xl lg:text-4xl font-black text-white tracking-tight">
-                {user?.name || 'Rajesh Kumar'}
+                {user?.name || 'Citizen'}
               </h1>
               <p className="text-gray-400 text-xs sm:text-sm">
-                {user?.ward || 'Ward 12 - Jubilee Hills'} • Property ID: <span className="text-gray-200 font-mono font-bold">{user?.propertyId || 'PROP-JH-4521'}</span>
+                {user?.ward || 'Ward 02 - Rajajinagar'} • Property ID: <span className="text-gray-200 font-mono font-bold">{user?.propertyId || 'PROP-W02-0001'}</span>
               </p>
             </div>
 
@@ -146,10 +146,10 @@ export default function DashboardPage() {
                 </div>
                 <div>
                   <p className="text-gray-400 text-[10px] uppercase font-bold tracking-wider">Civic Credit Score</p>
-                  <div className="flex items-center gap-1.5">
+                  <div className="flex items-center gap-2">
                     <span className="text-xl font-black text-amber-400">{user?.civicCreditScore || 780}</span>
                     <span className="text-[11px] font-bold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/30">
-                      Gold Tier 🌟
+                      {user?.civicCreditScore >= 800 ? 'Gold Tier 🌟' : user?.civicCreditScore >= 650 ? 'Silver Tier' : 'Needs Action 🚨'}
                     </span>
                   </div>
                 </div>
@@ -158,12 +158,12 @@ export default function DashboardPage() {
               {/* Ward Ranking Badge Card */}
               <div className="bg-[#161A28] border border-[#2B3349] px-4 py-3 rounded-2xl flex items-center gap-3.5 shadow-md">
                 <div className="w-11 h-11 rounded-xl bg-cyan-500/20 border border-cyan-500/40 text-cyan-400 flex items-center justify-center font-black text-lg">
-                  #12
+                  #{user?.rank || (user?.civicCreditScore >= 800 ? 3 : 12)}
                 </div>
                 <div>
                   <p className="text-gray-400 text-[10px] uppercase font-bold tracking-wider">Ward Ranking</p>
-                  <p className="text-sm font-black text-white">#12 in Ward 5 (Tech Park)</p>
-                  <p className="text-[10px] text-gray-400">Top 5% on-time taxpayer</p>
+                  <p className="text-sm font-black text-white">#{user?.rank || (user?.civicCreditScore >= 800 ? 3 : 12)} in {user?.wardName || 'Ward'}</p>
+                  <p className="text-[10px] text-gray-400">Top {user?.civicCreditScore >= 800 ? '2%' : '15%'} on-time taxpayer</p>
                 </div>
               </div>
 
@@ -192,16 +192,16 @@ export default function DashboardPage() {
             <div className="bg-[#111420] p-3.5 rounded-2xl border border-[#202636]">
               <p className="text-gray-400 text-[10px] font-bold uppercase tracking-wider">Payment Streak</p>
               <p className="text-xl sm:text-2xl font-black text-emerald-400 mt-0.5 flex items-center gap-1">
-                <Flame className="w-5 h-5 text-orange-400 fill-orange-400" /> {user?.streak || 6} Months
+                <Flame className="w-5 h-5 text-orange-400 fill-orange-400" /> {user?.streak || 3} Months
               </p>
             </div>
             <div className="bg-[#111420] p-3.5 rounded-2xl border border-[#202636]">
               <p className="text-gray-400 text-[10px] font-bold uppercase tracking-wider">Total Taxes Paid</p>
-              <p className="text-xl sm:text-2xl font-black text-white mt-0.5">{user?.metrics?.totalTaxesPaid || '₹38,800'}</p>
+              <p className="text-xl sm:text-2xl font-black text-white mt-0.5">₹{(user?.amountPaid || 0).toLocaleString()}</p>
             </div>
             <div className="bg-[#111420] p-3.5 rounded-2xl border border-[#202636]">
               <p className="text-gray-400 text-[10px] font-bold uppercase tracking-wider">Citizen XP Score</p>
-              <p className="text-xl sm:text-2xl font-black text-amber-300 mt-0.5">{user?.xp || 2450} XP</p>
+              <p className="text-xl sm:text-2xl font-black text-amber-300 mt-0.5">{user?.xp || 2250} XP</p>
             </div>
           </div>
 
