@@ -2,16 +2,15 @@
  * Unified API Client Architecture for CivTax AI
  * 
  * Supports two interchangeable runtime modes:
- * 1. CSV Data Layer (Current temporary data source via csvDataLoader)
- * 2. FastAPI + PostgreSQL Backend (Set VITE_USE_BACKEND=true & VITE_API_URL)
+ * 1. FastAPI + SQLite/PostgreSQL Backend (when running at http://localhost:8000/api/v1)
+ * 2. Pre-bundled Municipal Dataset (Instant automatic fallback when backend is offline)
  * 
- * UI components interact exclusively with this service layer, meaning
- * switching from CSV to FastAPI/PostgreSQL requires ZERO changes to UI code.
+ * UI components interact seamlessly with this service layer without needing any changes.
  */
 
 import { csvDataLoader } from './csvDataLoader';
 
-// Defaults to live FastAPI backend at http://localhost:8000/api/v1
+// Defaults to live FastAPI backend at http://localhost:8000/api/v1 with auto-fallback
 const USE_BACKEND = import.meta.env.VITE_USE_BACKEND !== 'false';
 const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000/api/v1';
 
@@ -32,53 +31,77 @@ class ApiClient {
 
   async get(endpoint, params = {}) {
     if (this.useBackend) {
-      const url = new URL(`${this.baseUrl}${endpoint}`);
-      Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
-      const res = await fetch(url.toString(), {
-        method: 'GET',
-        headers: this.getHeaders()
-      });
-      if (!res.ok) throw new Error(`API Error: ${res.statusText}`);
-      return await res.json();
+      try {
+        const url = new URL(`${this.baseUrl}${endpoint}`);
+        Object.keys(params).forEach(key => {
+          if (params[key] !== undefined && params[key] !== null) {
+            url.searchParams.append(key, params[key]);
+          }
+        });
+        const res = await fetch(url.toString(), {
+          method: 'GET',
+          headers: this.getHeaders()
+        });
+        if (res.ok) {
+          return await res.json();
+        }
+      } catch (err) {
+        // Backend server is offline or unreachable - return null to trigger graceful fallback
+        return null;
+      }
     }
-    // Handled by service layer in CSV mode
     return null;
   }
 
   async post(endpoint, body = {}) {
     if (this.useBackend) {
-      const res = await fetch(`${this.baseUrl}${endpoint}`, {
-        method: 'POST',
-        headers: this.getHeaders(),
-        body: JSON.stringify(body)
-      });
-      if (!res.ok) throw new Error(`API Error: ${res.statusText}`);
-      return await res.json();
+      try {
+        const res = await fetch(`${this.baseUrl}${endpoint}`, {
+          method: 'POST',
+          headers: this.getHeaders(),
+          body: JSON.stringify(body)
+        });
+        if (res.ok) {
+          return await res.json();
+        }
+      } catch (err) {
+        return null;
+      }
     }
     return null;
   }
 
   async put(endpoint, body = {}) {
     if (this.useBackend) {
-      const res = await fetch(`${this.baseUrl}${endpoint}`, {
-        method: 'PUT',
-        headers: this.getHeaders(),
-        body: JSON.stringify(body)
-      });
-      if (!res.ok) throw new Error(`API Error: ${res.statusText}`);
-      return await res.json();
+      try {
+        const res = await fetch(`${this.baseUrl}${endpoint}`, {
+          method: 'PUT',
+          headers: this.getHeaders(),
+          body: JSON.stringify(body)
+        });
+        if (res.ok) {
+          return await res.json();
+        }
+      } catch (err) {
+        return null;
+      }
     }
     return null;
   }
 
   async delete(endpoint) {
     if (this.useBackend) {
-      const res = await fetch(`${this.baseUrl}${endpoint}`, {
-        method: 'DELETE',
-        headers: this.getHeaders()
-      });
-      if (!res.ok) throw new Error(`API Error: ${res.statusText}`);
-      return await res.json();
+      try {
+        const res = await fetch(`${this.baseUrl}${endpoint}`, {
+          method: 'DELETE',
+          headers: this.getHeaders()
+        });
+        if (res.ok) {
+          return await res.json();
+        }
+      } catch (err) {
+        return null;
+      }
     }
     return null;
   }

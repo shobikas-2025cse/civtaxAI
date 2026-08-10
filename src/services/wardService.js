@@ -4,7 +4,14 @@ import { csvDataLoader } from './csvDataLoader';
 class WardService {
   async getWardSummaries() {
     if (apiClient.useBackend) {
-      return await apiClient.get('/wards');
+      try {
+        const backendWards = await apiClient.get('/wards');
+        if (backendWards && Array.isArray(backendWards) && backendWards.length > 0) {
+          return backendWards;
+        }
+      } catch (e) {
+        console.info('Using local ward summaries fallback');
+      }
     }
     const rawWards = csvDataLoader.getWards();
     return rawWards.map(w => ({

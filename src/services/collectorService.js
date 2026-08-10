@@ -4,7 +4,12 @@ import { csvDataLoader } from './csvDataLoader';
 class CollectorService {
   async getDashboardMetrics() {
     if (apiClient.useBackend) {
-      return await apiClient.get('/collector/metrics');
+      try {
+        const data = await apiClient.get('/collector/metrics');
+        if (data && data.totalCollected) return data;
+      } catch (e) {
+        console.info('Using local collector metrics fallback');
+      }
     }
     const summary = csvDataLoader.getSummary();
     const citizens = csvDataLoader.getCitizens();
@@ -30,15 +35,20 @@ class CollectorService {
       pendingDues: totalPendingStr,
       pendingDuesAmount: totalPendingAmt,
       autoPayEnrolled: autoPayCount,
-      totalCitizens: summary.Total_Citizens || 300,
-      highRiskCount: summary.High_Risk_Citizens || 200,
+      totalCitizens: Number(summary.Total_Citizens || 300),
+      highRiskCount: Number(summary.High_Risk_Citizens || 42),
       totalTransactions: transactions.length || 501
     };
   }
 
   async getCollectionStages() {
     if (apiClient.useBackend) {
-      return await apiClient.get('/collector/stages');
+      try {
+        const data = await apiClient.get('/collector/stages');
+        if (data && Array.isArray(data) && data.length > 0) return data;
+      } catch (e) {
+        console.info('Using local collection stages fallback');
+      }
     }
     const citizens = csvDataLoader.getCitizens();
     const total = citizens.length || 300;
@@ -59,7 +69,12 @@ class CollectorService {
 
   async getPaymentMethodSplit() {
     if (apiClient.useBackend) {
-      return await apiClient.get('/collector/payment-methods');
+      try {
+        const data = await apiClient.get('/collector/payment-methods');
+        if (data && Array.isArray(data) && data.length > 0) return data;
+      } catch (e) {
+        console.info('Using local payment method split fallback');
+      }
     }
     const transactions = csvDataLoader.getTransactions();
     const total = transactions.length || 1;
@@ -81,11 +96,16 @@ class CollectorService {
 
   async getDefaulterQueue(limit = 10) {
     if (apiClient.useBackend) {
-      return await apiClient.get('/collector/defaulters', { limit });
+      try {
+        const data = await apiClient.get('/collector/defaulters', { limit });
+        if (data && Array.isArray(data) && data.length > 0) return data;
+      } catch (e) {
+        console.info('Using local defaulter queue fallback');
+      }
     }
     const raw = csvDataLoader.getCitizens();
     const highRisk = raw
-      .filter(c => c.Payment_Delay_Risk === 'High' || c.Outstanding_Dues > 0)
+      .filter(c => c.Payment_Delay_Risk === 'High' || Number(c.Outstanding_Dues || 0) > 0)
       .slice(0, limit);
 
     return highRisk.map((c, i) => ({
@@ -97,6 +117,7 @@ class CollectorService {
       amount: Number(c.Outstanding_Dues || c.Annual_Tax),
       daysOverdue: Number(c.Avg_Days_Late || 30),
       riskScore: c.Payment_Delay_Risk === 'High' ? 92 : 75,
+      phone: c.Phone || '9876543210',
       aiChannel: c.Phone ? 'WhatsApp Reminder' : 'Doorstep Kiosk',
       schedule: i % 2 === 0 ? 'Scheduled Today, 4:00 PM' : 'Scheduled Tomorrow, 10:00 AM'
     }));
