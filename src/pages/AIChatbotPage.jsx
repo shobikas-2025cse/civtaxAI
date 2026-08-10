@@ -203,42 +203,42 @@ function RiskPanel({ rp, user }) {
               strokeDasharray={`${dash} ${circumf}`}
               style={{ transition: 'stroke-dasharray 1.2s ease' }}
             />
-            <text x="54" y="52" textAnchor="middle" fill="white" fontSize="18" fontWeight="900">{rp.score}</text>
-            <text x="54" y="64" textAnchor="middle" fill="#9CA3AF" fontSize="9">/100</text>
+            <text x="54" y="52" textAnchor="middle" fill="#000000" fontSize="18" fontWeight="900">{rp.score}</text>
+            <text x="54" y="64" textAnchor="middle" fill="#000000" fontSize="9" fontWeight="700">/100</text>
           </svg>
-          <span className="text-[11px] font-black mt-0.5" style={{ color: rp.color }}>{rp.label}</span>
+          <span className="text-[11px] font-black mt-0.5 text-black">{rp.label}</span>
         </div>
 
         {/* Details */}
         <div className="flex-1 space-y-2 min-w-0">
           <div className="flex items-center gap-2">
             <Icon className="w-4 h-4 flex-shrink-0" style={{ color: rp.color }} />
-            <span className="text-white font-extrabold text-sm sm:text-base">AI Risk Assessment · {user?.name}</span>
+            <span className="text-black font-extrabold text-sm sm:text-base">AI Risk Assessment · {user?.name}</span>
           </div>
-          <p className="text-gray-300 text-xs sm:text-sm leading-relaxed">{rp.projection}</p>
+          <p className="text-black text-xs sm:text-sm leading-relaxed font-semibold">{rp.projection}</p>
 
           {/* Quick stats row */}
           <div className="flex flex-wrap gap-3 pt-1">
-            <div className="flex items-center gap-1.5 text-xs">
-              <Star className="w-3.5 h-3.5 text-[#E5B80B]" />
-              <span className="text-gray-400">Civic Score:</span>
-              <span className="text-white font-bold">{rp.civic}</span>
+            <div className="flex items-center gap-1.5 text-xs text-black">
+              <Star className="w-3.5 h-3.5 text-[#B8860B]" />
+              <span className="text-black font-medium">Civic Score:</span>
+              <span className="text-black font-black">{rp.civic}</span>
             </div>
-            <div className="flex items-center gap-1.5 text-xs">
-              <Zap className="w-3.5 h-3.5 text-[#FFDC69]" />
-              <span className="text-gray-400">Streak:</span>
-              <span className="text-white font-bold">{rp.streak} mo</span>
+            <div className="flex items-center gap-1.5 text-xs text-black">
+              <Zap className="w-3.5 h-3.5 text-[#B8860B]" />
+              <span className="text-black font-medium">Streak:</span>
+              <span className="text-black font-black">{rp.streak} mo</span>
             </div>
             {rp.overdueTotal > 0 && (
-              <div className="flex items-center gap-1.5 text-xs">
-                <AlertTriangle className="w-3.5 h-3.5 text-red-400" />
-                <span className="text-red-400 font-bold">₹{rp.overdueTotal.toLocaleString()} overdue</span>
+              <div className="flex items-center gap-1.5 text-xs text-black">
+                <AlertTriangle className="w-3.5 h-3.5 text-red-600" />
+                <span className="text-black font-black">₹{rp.overdueTotal.toLocaleString()} overdue</span>
               </div>
             )}
             {rp.overdueTotal === 0 && (
-              <div className="flex items-center gap-1.5 text-xs">
-                <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
-                <span className="text-emerald-400 font-bold">No overdue dues</span>
+              <div className="flex items-center gap-1.5 text-xs text-black">
+                <ShieldCheck className="w-3.5 h-3.5 text-emerald-700" />
+                <span className="text-black font-black">No overdue dues</span>
               </div>
             )}
           </div>
