@@ -6,6 +6,8 @@ import {
   CreditCard, CheckCircle2, Award, Zap, Trophy, FileText, Check, Flame, 
   ArrowRight, X, RefreshCw, Layers, Shield
 } from 'lucide-react';
+import PaymentAuthenticationModal from '../components/PaymentAuthenticationModal';
+import { generateReceiptPDF } from '../utils/generateReceiptPDF';
 
 export default function DashboardPage() {
   const { user, getTaxes, payTax, getPaymentHistory } = useAuth();
@@ -22,6 +24,7 @@ export default function DashboardPage() {
   
   // Payment Modal State
   const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [selectedTaxToPay, setSelectedTaxToPay] = useState(null);
   const [paymentMode, setPaymentMode] = useState('yearly'); // 'monthly' | 'yearly'
   const [isAutoPayEnabled, setIsAutoPayEnabled] = useState(true);
@@ -48,10 +51,11 @@ export default function DashboardPage() {
     setSelectedTaxToPay(taxItem);
     setPaymentSuccessData(null);
     setIsPaymentModalOpen(true);
+    setIsAuthModalOpen(false);
   };
 
-  // Execute Payment Simulation
-  const handleExecutePayment = () => {
+  // Execute Payment Simulation (Triggered after successful demo PIN authentication)
+  const handleExecutePayment = (authData = null) => {
     setIsProcessingPayment(true);
     const targetTaxId = selectedTaxToPay ? selectedTaxToPay.id : (overdueTaxes[0]?.id || pendingTaxes[0]?.id || 'TAX001');
     
@@ -68,44 +72,32 @@ export default function DashboardPage() {
         : Math.round(paymentAmount / 3);
 
       setPaymentSuccessData({
-        txnId: 'TXN-' + Math.floor(100000 + Math.random() * 900000),
+        txnId: authData?.txnId || ('TXN-' + Math.floor(100000 + Math.random() * 900000)),
         amountPaid: discountedAmount,
         discountApplied: paymentMode === 'yearly' ? Math.round(paymentAmount * 0.05) : 0,
         mode: paymentMode,
         autoPay: isAutoPayEnabled,
-        date: new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }),
+        date: authData?.date || new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }),
         rewardCertificate: paymentMode === 'yearly' ? '🌟 Gold Model Citizen Tax Compliance Certificate' : null
       });
-    }, 1000);
+    }, 600);
   };
 
-  // Simulate PDF Download
-  const handleDownloadPDF = (receiptId, taxType) => {
+  // Download PDF Receipt
+  const handleDownloadPDF = (receiptId, taxType, itemRecord = null) => {
     setDownloadingReceiptId(receiptId);
     setTimeout(() => {
       setDownloadingReceiptId(null);
-      // Create a mock download blob trigger
-      const element = document.createElement('a');
-      const file = new Blob([
-        `=====================================================\n` +
-        `GOVERNMENT OF TELANGANA — CIVTAX AI MUNICIPAL RECEIPT\n` +
-        `=====================================================\n` +
-        `Receipt ID: ${receiptId}\n` +
-        `Citizen: ${user?.name || 'Citizen'}\n` +
-        `Property ID: ${user?.propertyId || 'PROP-JH-4521'}\n` +
-        `Ward: ${user?.ward || 'Ward 12'}\n` +
-        `Tax Category: ${taxType}\n` +
-        `Payment Status: 100% CLEARED & VERIFIED (256-Bit SSL)\n` +
-        `Date: ${new Date().toISOString().split('T')[0]}\n` +
-        `Civic Credit Score: +25 XP Boosted\n` +
-        `=====================================================\n`
-      ], { type: 'text/plain' });
-      element.href = URL.createObjectURL(file);
-      element.download = `CivTax_Receipt_${receiptId}.txt`;
-      document.body.appendChild(element);
-      element.click();
-      document.body.removeChild(element);
-    }, 800);
+      const itemData = itemRecord || {
+        id: receiptId,
+        receiptId: receiptId,
+        type: taxType,
+        amountPaid: paymentSuccessData?.amountPaid || 11650,
+        date: paymentSuccessData?.date || new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }),
+        method: paymentSuccessData?.mode === 'yearly' ? 'Yearly Lump Sum (5% Rebate)' : 'Monthly Auto-Debit (Instalment 1/3)'
+      };
+      generateReceiptPDF(itemData, user);
+    }, 300);
   };
 
   return (
@@ -665,7 +657,7 @@ export default function DashboardPage() {
 
                       {/* Download PDF Button */}
                       <button
-                        onClick={() => handleDownloadPDF(item.id, item.type)}
+                        onClick={() => handleDownloadPDF(item.id, item.type, item)}
                         disabled={downloadingReceiptId === item.id}
                         className="bg-[#1F2433] hover:bg-[#E5B80B] hover:text-black border border-[#30384E] text-gray-200 font-bold px-4 py-2 rounded-xl text-xs flex items-center gap-1.5 transition-all cursor-pointer shadow-sm"
                       >
@@ -814,10 +806,10 @@ export default function DashboardPage() {
                   </div>
                 )}
 
-                {/* CTA Execution Button */}
+                {/* CTA Execution Button - Opens Secure Authentication Modal */}
                 <button
                   type="button"
-                  onClick={handleExecutePayment}
+                  onClick={() => setIsAuthModalOpen(true)}
                   disabled={isProcessingPayment}
                   className="w-full bg-[#E5B80B] hover:bg-[#D1A000] text-black font-black py-4 rounded-2xl text-base flex items-center justify-center gap-2 shadow-lg shadow-[#E5B80B]/25 transition-all cursor-pointer"
                 >
@@ -875,6 +867,24 @@ export default function DashboardPage() {
           </div>
         </div>
       )}
+
+      {/* Secure Payment Authentication Modal Step */}
+      <PaymentAuthenticationModal
+        isOpen={isAuthModalOpen}
+        onClose={() => setIsAuthModalOpen(false)}
+        onSuccess={(authData) => {
+          setIsAuthModalOpen(false);
+          handleExecutePayment(authData);
+        }}
+        taxName={selectedTaxToPay ? selectedTaxToPay.type : 'Consolidated Municipal Dues'}
+        amountPaid={
+          selectedTaxToPay 
+            ? (paymentMode === 'yearly' ? Math.round((selectedTaxToPay.amount + (selectedTaxToPay.arrears || 0)) * 0.95) : Math.round((selectedTaxToPay.amount + (selectedTaxToPay.arrears || 0)) / 3))
+            : (paymentMode === 'yearly' ? Math.round(totalDue * 0.95) : Math.round(totalDue / 3))
+        }
+        paymentMethod={paymentMode === 'yearly' ? 'Yearly Lump Sum (5% Rebate)' : 'Monthly Auto-Debit (Instalment 1/3)'}
+        isAutoPayEnabled={paymentMode === 'monthly' && isAutoPayEnabled}
+      />
 
     </div>
   );

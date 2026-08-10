@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { CreditCard, Smartphone, Building, CheckCircle, XCircle, ArrowLeft, Download, Percent, ShieldCheck, Sparkles, Zap } from 'lucide-react';
 import PostPaymentRewardModal from '../components/PostPaymentRewardModal';
+import PaymentAuthenticationModal from '../components/PaymentAuthenticationModal';
+import { generateReceiptPDF } from '../utils/generateReceiptPDF';
 
 export default function PaymentPage() {
   const { user, getTaxes, payTax } = useAuth();
@@ -10,6 +12,7 @@ export default function PaymentPage() {
   const [selectedTax, setSelectedTax] = useState(null);
   const [paymentMethod, setPaymentMethod] = useState('upi');
   const [step, setStep] = useState('select'); // 'select' | 'review' | 'processing' | 'success'
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [rewardLoopData, setRewardLoopData] = useState(null);
 
   const paymentMethods = [
@@ -32,13 +35,14 @@ export default function PaymentPage() {
       const reward = payTax(selectedTax.id, paymentMethod === 'upi' ? 'One-Tap UPI' : 'Credit/Debit Card');
       setRewardLoopData(reward);
       setStep('success');
-    }, 1800);
+    }, 1200);
   };
 
   const resetPayment = () => {
     setSelectedTax(null);
     setPaymentMethod('upi');
     setStep('select');
+    setIsAuthModalOpen(false);
     setRewardLoopData(null);
   };
 
@@ -211,11 +215,24 @@ export default function PaymentPage() {
         </div>
 
         <button
-          onClick={handleOneTapPay}
-          className="w-full bg-mustard hover:bg-mustard-dark text-civic-black font-black py-4 rounded-xl text-lg transition-all shadow-xl flex items-center justify-center gap-2"
+          onClick={() => setIsAuthModalOpen(true)}
+          className="w-full bg-mustard hover:bg-mustard-dark text-civic-black font-black py-4 rounded-xl text-lg transition-all shadow-xl flex items-center justify-center gap-2 cursor-pointer"
         >
           <Zap className="w-5 h-5 fill-civic-black" /> Pay ₹{Math.round(finalAmount).toLocaleString()} Now (One-Tap)
         </button>
+
+        {/* Payment Authentication Modal */}
+        <PaymentAuthenticationModal
+          isOpen={isAuthModalOpen}
+          onClose={() => setIsAuthModalOpen(false)}
+          onSuccess={() => {
+            setIsAuthModalOpen(false);
+            handleOneTapPay();
+          }}
+          taxName={selectedTax?.type || 'Municipal Tax'}
+          amountPaid={Math.round(finalAmount)}
+          paymentMethod={paymentMethod === 'upi' ? 'One-Tap UPI Gateway' : (paymentMethod === 'card' ? 'Saved Card / Debit Card' : 'Net Banking')}
+        />
       </div>
     );
   }
@@ -244,9 +261,25 @@ export default function PaymentPage() {
           <CheckCircle className="w-16 h-16 text-green-400 mx-auto" />
           <h2 className="text-2xl font-extrabold text-white">Payment & Arrears Cleared!</h2>
           <p className="text-gray-400 text-sm">Download official municipal e-receipt below:</p>
+          
+          <button
+            onClick={() => generateReceiptPDF({
+              id: rewardLoopData?.receiptId || 'RCP-' + Date.now().toString().slice(-6),
+              receiptId: rewardLoopData?.receiptId || 'RCP-' + Date.now().toString().slice(-6),
+              type: selectedTax?.type || 'Property Tax',
+              amountPaid: rewardLoopData?.amountPaid || selectedTax?.amount || 11650,
+              date: new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }),
+              method: paymentMethod === 'upi' ? 'One-Tap UPI Gateway' : 'Credit/Debit Card'
+            }, user)}
+            className="w-full bg-[#181D2C] hover:bg-[#22293E] border border-[#2B3349] text-white font-bold py-3.5 rounded-xl text-xs flex items-center justify-center gap-2 transition-all cursor-pointer shadow-md"
+          >
+            <Download className="w-4 h-4 text-[#E5B80B]" />
+            Download Official PDF Receipt
+          </button>
+
           <button
             onClick={resetPayment}
-            className="w-full bg-mustard text-civic-black font-extrabold py-3 rounded-xl"
+            className="w-full bg-mustard text-civic-black font-extrabold py-3.5 rounded-xl transition-all cursor-pointer"
           >
             Back to Payments
           </button>
