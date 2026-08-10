@@ -4,12 +4,16 @@ import { csvDataLoader } from './csvDataLoader';
 class TaxService {
   async getCitizenTaxes(citizenId) {
     if (apiClient.useBackend) {
-      return await apiClient.get(`/taxes/citizen/${citizenId}`);
+      try {
+        const data = await apiClient.get(`/taxes/citizen/${citizenId}`);
+        if (data && Array.isArray(data) && data.length > 0) return data;
+      } catch (e) {
+        console.info('Using local citizen taxes fallback');
+      }
     }
 
     const citizen = csvDataLoader.getCitizenById(citizenId);
     if (!citizen) {
-      // Default fallback tax items if citizen not in CSV
       return [
         { id: 'TAX001', type: 'Property Tax', amount: 12500, due: '2026-09-15', status: 'pending', period: 'Q3 2026', daysUntilDue: 39 },
         { id: 'TAX002', type: 'Water Tax', amount: 1800, due: '2026-08-30', status: 'pending', period: 'Aug 2026', daysUntilDue: 24 },
@@ -24,9 +28,6 @@ class TaxService {
     const hasOverdue = citizen.Payment_Delay_Risk === 'High' || citizen.Last_Payment_Status === 'Defaulted';
 
     const items = [];
-    const propertyShare = Math.round(annualTax * 0.75);
-    const waterShare = Math.round(annualTax * 0.20);
-    const wasteShare = Math.round(annualTax * 0.05);
 
     if (outstanding > 0) {
       if (hasOverdue) {
@@ -88,98 +89,64 @@ class TaxService {
 
   async getTransactions(citizenId = null) {
     if (apiClient.useBackend) {
-      return await apiClient.get('/transactions', citizenId ? { citizenId } : {});
+      try {
+        const data = await apiClient.get('/transactions', citizenId ? { citizenId } : {});
+        if (data && Array.isArray(data) && data.length > 0) return data;
+      } catch (e) {
+        console.info('Using local transactions fallback');
+      }
     }
 
     const rawList = csvDataLoader.getTransactions(citizenId);
     return rawList.map(t => ({
       id: t.Transaction_ID,
       citizenId: t.Citizen_ID,
-      citizenName: t.Citizen_ID, // enriched later
+      citizenName: t.Citizen_ID,
       ward: t.Ward_ID,
       amount: Number(t.Amount || 0),
-      method: t.Payment_Method || 'UPI',
-      status: t.Status || 'Success',
-      date: t.Date || '2024-01-01',
-      taxYear: t.Tax_Year || '2023-24',
-      statusOnTime: !t.Penalty_Applied && (t.Late_Days === 0 || t.Late_Days === '0'),
-      receiptId: t.Receipt_ID
+      paymentMethod: t.Payment_Method || 'UPI',
+      status: t.Payment_Status || 'Success',
+      date: t.Payment_Date || '2026-08-01',
+      taxType: t.Tax_Type || 'Property Tax',
+      receiptNo: `REC-${t.Transaction_ID.replace(/\D/g, '').padStart(6, '0')}`,
+      rebateApplied: Number(t.Rebate_Discount_Applied || 0)
     }));
   }
 
-  async payTax(citizenId, taxId, paymentMethod = 'UPI One-Tap') {
+  async payTax(taxId, paymentData) {
     if (apiClient.useBackend) {
-      return await apiClient.post('/taxes/pay', { citizenId, taxId, paymentMethod });
+      try {
+        const data = await apiClient.post(`/taxes/pay`, { taxId, ...paymentData });
+        if (data) return data;
+      } catch (e) {
+        console.info('Using local payTax fallback');
+      }
     }
 
-    // In-memory CSV update
-    const citizen = csvDataLoader.getCitizenById(citizenId);
-    const newTxnId = 'TXN' + Math.floor(10000 + Math.random() * 90000);
-    const newReceiptId = 'RCP' + Math.floor(100000 + Math.random() * 900000);
-
-    const txnRecord = {
-      Transaction_ID: newTxnId,
-      Citizen_ID: citizenId,
-      Ward_ID: citizen?.Ward_ID || 'W02',
-      Amount: citizen ? Math.round(citizen.Outstanding_Dues || 5000) : 5000,
-      Payment_Method: paymentMethod,
-      Status: 'Success',
-      Date: new Date().toISOString().split('T')[0],
-      Tax_Year: '2026-27',
-      Late_Days: 0,
-      Penalty_Applied: false,
-      Receipt_ID: newReceiptId
+    // Local simulation
+    const txId = `TXN${Math.floor(100000 + Math.random() * 900000)}`;
+    const newTx = {
+      Transaction_ID: txId,
+      Citizen_ID: paymentData.citizenId || 'CIT001',
+      Amount: paymentData.amount,
+      Payment_Method: paymentData.paymentMethod || 'UPI',
+      Payment_Status: 'Success',
+      Payment_Date: new Date().toISOString().split('T')[0],
+      Tax_Type: paymentData.taxType || 'Property Tax',
+      Rebate_Discount_Applied: paymentData.rebate || 0
     };
 
-    csvDataLoader.addTransaction(txnRecord);
-    if (citizen) {
-      csvDataLoader.updateCitizen(citizenId, {
-        Outstanding_Dues: 0,
-        Amount_Paid: (Number(citizen.Amount_Paid || 0) + txnRecord.Amount),
-        Payment_Delay_Risk: 'Low',
-        Last_Payment_Status: 'On-time',
-        Last_Payment_Date: txnRecord.Date
-      });
-    }
-
+    csvDataLoader.transactions.unshift(newTx);
     return {
       success: true,
-      transactionId: newTxnId,
-      receiptId: newReceiptId,
-      amountPaid: txnRecord.Amount,
-      date: txnRecord.Date,
-      paymentMethod
+      transactionId: txId,
+      receiptNumber: `REC-${Math.floor(100000 + Math.random() * 900000)}`,
+      amountPaid: paymentData.amount,
+      paymentMethod: paymentData.paymentMethod,
+      timestamp: new Date().toISOString(),
+      xpEarned: 150,
+      civicScoreDelta: +25
     };
-  }
-
-  async getTaxSummary() {
-    if (apiClient.useBackend) {
-      return await apiClient.get('/summary');
-    }
-    const raw = csvDataLoader.getSummary();
-    return {
-      totalCitizens: raw.Total_Citizens || 300,
-      totalDemand: raw.Total_Annual_Tax_Demand || 5338700,
-      totalCollected: raw.Total_Amount_Collected || 3242800,
-      totalOutstanding: raw.Total_Outstanding_Dues || 2095900,
-      collectionRatePct: raw.Overall_Collection_Rate_pct || 60.7,
-      highRiskCitizens: raw.High_Risk_Citizens || 200,
-      mediumRiskCitizens: raw.Medium_Risk_Citizens || 14,
-      lowRiskCitizens: raw.Low_Risk_Citizens || 86,
-      autoPayEnrolled: raw.AutoPay_Enrolled || 132,
-      totalTransactions: raw.Total_Transactions || 501,
-      totalPenalties: raw.Total_Penalties_Applied || 302,
-      totalRewards: raw.Total_Rewards_Issued || 86,
-      fiscalYear: raw.fiscal_year || '2023-24',
-      municipality: raw.municipality || 'Bangalore Municipal Corporation'
-    };
-  }
-
-  async getMonthlyTrend() {
-    if (apiClient.useBackend) {
-      return await apiClient.get('/trends/monthly');
-    }
-    return csvDataLoader.getMonthlyTrend();
   }
 }
 

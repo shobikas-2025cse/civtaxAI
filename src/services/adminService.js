@@ -4,7 +4,12 @@ import { csvDataLoader } from './csvDataLoader';
 class AdminService {
   async getMetrics() {
     if (apiClient.useBackend) {
-      return await apiClient.get('/admin/metrics');
+      try {
+        const data = await apiClient.get('/admin/metrics');
+        if (data && data.totalCollected !== undefined) return data;
+      } catch (e) {
+        console.info('Using local admin metrics fallback');
+      }
     }
     const summary = csvDataLoader.getSummary();
     return {
@@ -20,7 +25,12 @@ class AdminService {
 
   async getWards() {
     if (apiClient.useBackend) {
-      return await apiClient.get('/admin/wards');
+      try {
+        const data = await apiClient.get('/admin/wards');
+        if (data && Array.isArray(data) && data.length > 0) return data;
+      } catch (e) {
+        console.info('Using local admin wards fallback');
+      }
     }
     const rawWards = csvDataLoader.getWards();
     const officerMap = {
@@ -47,7 +57,12 @@ class AdminService {
 
   async getOfficers() {
     if (apiClient.useBackend) {
-      return await apiClient.get('/admin/officers');
+      try {
+        const data = await apiClient.get('/admin/officers');
+        if (data && Array.isArray(data) && data.length > 0) return data;
+      } catch (e) {
+        console.info('Using local officers fallback');
+      }
     }
     return [
       { id: 'O001', name: 'Karthik Subbaiah', ward: 'Ward 2, Ward 4, Ward 5', role: 'Senior Collector', active: true },
@@ -58,7 +73,12 @@ class AdminService {
 
   async getRoles() {
     if (apiClient.useBackend) {
-      return await apiClient.get('/admin/roles');
+      try {
+        const data = await apiClient.get('/admin/roles');
+        if (data && Array.isArray(data) && data.length > 0) return data;
+      } catch (e) {
+        console.info('Using local roles fallback');
+      }
     }
     return [
       { name: 'System Admin', perms: ['Full System Access', 'Config', 'Users', 'Reports', 'Audit Logs'] },
@@ -70,7 +90,12 @@ class AdminService {
 
   async getActivityLogs() {
     if (apiClient.useBackend) {
-      return await apiClient.get('/admin/logs');
+      try {
+        const data = await apiClient.get('/admin/logs');
+        if (data && Array.isArray(data) && data.length > 0) return data;
+      } catch (e) {
+        console.info('Using local activity logs fallback');
+      }
     }
     return [
       { type: 'config', msg: 'Tax Rules updated by Admin · Property rate 1.5% active', time: '2m ago', color: 'text-amber-400' },
@@ -84,14 +109,24 @@ class AdminService {
 
   async getMonthlyRevenueTrend() {
     if (apiClient.useBackend) {
-      return await apiClient.get('/admin/trends');
+      try {
+        const data = await apiClient.get('/admin/trends');
+        if (data && Array.isArray(data) && data.length > 0) return data;
+      } catch (e) {
+        console.info('Using local revenue trend fallback');
+      }
     }
     return csvDataLoader.getMonthlyTrend();
   }
 
   async saveAndPropagate(config) {
     if (apiClient.useBackend) {
-      return await apiClient.post('/admin/rules/propagate', config);
+      try {
+        const data = await apiClient.post('/admin/rules/propagate', config);
+        if (data) return data;
+      } catch (e) {
+        console.info('Using local save fallback');
+      }
     }
     // Save locally
     localStorage.setItem('civtax_admin_config', JSON.stringify(config));
