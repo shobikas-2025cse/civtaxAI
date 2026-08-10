@@ -15,14 +15,14 @@ import { adminService, wardService, citizenService, taxService } from '../servic
 // ─────────────────────────────────────────────────────────────────────────────
 function Badge({ label, color = 'amber' }) {
   const map = {
-    amber: 'bg-amber-500/15 text-amber-400 border-amber-500/30',
-    green: 'bg-green-500/15 text-green-400 border-green-500/30',
+    amber: 'bg-[#E5B80B]/15 text-[#FFDC69] border-[#E5B80B]/40',
+    green: 'bg-emerald-500/15 text-emerald-400 border-emerald-500/30',
     red:   'bg-red-500/15 text-red-400 border-red-500/30',
-    blue:  'bg-blue-500/15 text-blue-400 border-blue-500/30',
-    gray:  'bg-gray-700 text-gray-300 border-gray-600',
+    blue:  'bg-cyan-500/15 text-cyan-400 border-cyan-500/30',
+    gray:  'bg-[#262B3A] text-gray-300 border-[#32394C]',
   };
   return (
-    <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-bold border ${map[color] || map.amber}`}>
+    <span className={`inline-flex items-center px-3 py-1 rounded-full text-[11px] font-extrabold border ${map[color] || map.amber}`}>
       {label}
     </span>
   );
@@ -30,7 +30,7 @@ function Badge({ label, color = 'amber' }) {
 
 function Card({ children, className = '' }) {
   return (
-    <div className={`bg-[#111318] border border-gray-800 rounded-2xl p-5 ${className}`}>
+    <div className={`bg-[#151822] border-2 border-[#262B3A] rounded-3xl p-6 shadow-xl shadow-black/25 ${className}`}>
       {children}
     </div>
   );
@@ -38,10 +38,10 @@ function Card({ children, className = '' }) {
 
 function FieldRow({ label, children, hint }) {
   return (
-    <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 py-3.5 border-b border-gray-800 last:border-0">
+    <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 py-3.5 border-b border-[#262B3A] last:border-0">
       <div className="sm:w-48 flex-shrink-0">
-        <span className="text-sm font-semibold text-gray-300">{label}</span>
-        {hint && <p className="text-[11px] text-gray-600 mt-0.5">{hint}</p>}
+        <span className="text-sm font-bold text-gray-200">{label}</span>
+        {hint && <p className="text-[11px] text-gray-400 mt-0.5">{hint}</p>}
       </div>
       <div className="flex-1">{children}</div>
     </div>
@@ -50,15 +50,15 @@ function FieldRow({ label, children, hint }) {
 
 function Input({ value, onChange, prefix, suffix, type = 'text', className = '' }) {
   return (
-    <div className={`flex items-center bg-[#1A1D25] border border-gray-700 rounded-xl overflow-hidden focus-within:border-amber-500 transition-colors ${className}`}>
-      {prefix && <span className="px-3 text-gray-500 text-sm border-r border-gray-700">{prefix}</span>}
+    <div className={`flex items-center bg-[#181B26] border border-[#2D3346] rounded-xl overflow-hidden focus-within:border-[#E5B80B] transition-colors ${className}`}>
+      {prefix && <span className="px-3 text-gray-400 text-sm border-r border-[#2D3346] font-bold">{prefix}</span>}
       <input
         type={type}
         value={value}
         onChange={onChange}
-        className="flex-1 bg-transparent text-white text-sm px-3 py-2.5 outline-none placeholder-gray-600"
+        className="flex-1 bg-transparent text-white font-medium text-sm px-3.5 py-2.5 outline-none placeholder-gray-500"
       />
-      {suffix && <span className="px-3 text-gray-500 text-sm border-l border-gray-700">{suffix}</span>}
+      {suffix && <span className="px-3 text-gray-400 text-sm border-l border-[#2D3346] font-bold">{suffix}</span>}
     </div>
   );
 }
@@ -68,7 +68,7 @@ function Toggle({ checked, onChange, label }) {
     <label className="flex items-center gap-3 cursor-pointer group">
       <div
         onClick={onChange}
-        className={`relative w-10 h-5.5 rounded-full transition-colors cursor-pointer ${checked ? 'bg-amber-500' : 'bg-gray-700'}`}
+        className={`relative w-10 h-5.5 rounded-full transition-colors cursor-pointer ${checked ? 'bg-[#E5B80B]' : 'bg-[#292E3E]'}`}
         style={{ height: 22, width: 40 }}
       >
         <span
@@ -76,7 +76,7 @@ function Toggle({ checked, onChange, label }) {
           style={{ width: 18, height: 18, transition: 'transform 0.2s' }}
         />
       </div>
-      {label && <span className="text-sm text-gray-400 group-hover:text-gray-200 transition-colors">{label}</span>}
+      {label && <span className="text-sm text-gray-300 group-hover:text-white font-medium transition-colors">{label}</span>}
     </label>
   );
 }
@@ -762,47 +762,47 @@ export default function AdminPage() {
   return (
     <div className="space-y-4 animate-fade-in-up">
       {/* ── Page Header ──────────────────────────────────────────────── */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-[#151822] border-2 border-[#262B3A] rounded-3xl p-6 shadow-xl shadow-black/25">
         <div>
-          <div className="flex items-center gap-2 mb-0.5">
-            <ShieldCheck className="w-4 h-4 text-amber-400" />
-            <span className="text-amber-400 text-[11px] font-extrabold uppercase tracking-widest">ULB Command Center</span>
+          <div className="flex items-center gap-2 mb-1">
+            <ShieldCheck className="w-5 h-5 text-[#E5B80B]" />
+            <span className="text-[#E5B80B] text-xs font-extrabold uppercase tracking-wider">ULB Command Center</span>
           </div>
-          <h1 className="text-2xl font-black text-white tracking-tight">Admin Control Panel</h1>
-          <p className="text-gray-500 text-xs mt-0.5">Bangalore Municipal Corporation · Connected to CSV Data Layer & DIGIT APIs</p>
+          <h1 className="text-2xl sm:text-3xl font-black text-white tracking-tight">Admin Control Panel</h1>
+          <p className="text-gray-400 text-xs sm:text-sm mt-0.5">Bangalore Municipal Corporation · Connected to Fast-Track Data Layer & DIGIT APIs</p>
         </div>
-        <div className="flex items-center gap-2">
-          <div className="flex items-center gap-1.5 text-xs text-green-400 bg-green-500/10 border border-green-500/20 px-3 py-1.5 rounded-xl">
-            <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
-            CSV Data Engine Active
+        <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 text-xs text-emerald-400 bg-emerald-500/15 border border-emerald-500/30 px-3.5 py-2 rounded-xl font-bold">
+            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+            FastAPI Live Synced
           </div>
-          <Badge label="Admin Access" color="amber" />
+          <Badge label="Super Admin" color="amber" />
         </div>
       </div>
 
       {/* ── Two-column layout ─────────────────────────────────────────── */}
-      <div className="flex gap-4 min-h-[600px]">
+      <div className="flex gap-5 min-h-[600px]">
 
         {/* SIDEBAR */}
-        <aside className="w-56 flex-shrink-0 hidden md:flex flex-col gap-1">
+        <aside className="w-60 flex-shrink-0 hidden md:flex flex-col gap-2 bg-[#151822] border border-[#262B3A] rounded-3xl p-4 shadow-xl shadow-black/20 self-start">
           {SECTIONS.map(section => (
             <div key={section.group}>
               {/* group header */}
               <button
                 onClick={() => toggleGroup(section.group)}
-                className="flex items-center justify-between w-full px-3 py-2 text-left group"
+                className="flex items-center justify-between w-full px-3 py-2 text-left group cursor-pointer"
               >
                 <div className="flex items-center gap-2">
-                  <section.icon className="w-3.5 h-3.5 text-gray-500" />
-                  <span className="text-[11px] font-extrabold text-gray-500 uppercase tracking-widest">{section.group}</span>
+                  <section.icon className="w-4 h-4 text-gray-400" />
+                  <span className="text-[11px] font-black text-gray-400 uppercase tracking-wider">{section.group}</span>
                 </div>
                 {openGroups[section.group]
-                  ? <ChevronUp className="w-3 h-3 text-gray-600" />
-                  : <ChevronDown className="w-3 h-3 text-gray-600" />}
+                  ? <ChevronUp className="w-3.5 h-3.5 text-gray-500" />
+                  : <ChevronDown className="w-3.5 h-3.5 text-gray-500" />}
               </button>
 
               {openGroups[section.group] && (
-                <div className="flex flex-col gap-0.5 pl-1 mb-2">
+                <div className="flex flex-col gap-1 pl-1 mb-2">
                   {section.items.map(item => {
                     const Icon = item.icon;
                     const isActive = activeId === item.id;
@@ -810,13 +810,12 @@ export default function AdminPage() {
                       <button
                         key={item.id}
                         onClick={() => setActiveId(item.id)}
-                        className={`flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-sm transition-all text-left w-full ${
+                        className={`flex items-center gap-2.5 px-3.5 py-2.5 rounded-2xl text-xs font-bold transition-all text-left w-full cursor-pointer ${
                           isActive
-                            ? 'bg-amber-500/15 text-amber-400 border border-amber-500/30 font-bold'
-                            : 'text-gray-400 hover:text-white hover:bg-white/5'
+                            ? 'bg-[#E5B80B] text-black shadow-md shadow-[#E5B80B]/25 font-black'
+                            : 'text-gray-300 hover:text-white hover:bg-[#1C202E]'
                         }`}
                       >
-                        <Icon className={`w-3.5 h-3.5 flex-shrink-0 ${isActive ? 'text-amber-400' : 'text-gray-600'}`} />
                         <span className="truncate text-xs">{item.label}</span>
                       </button>
                     );

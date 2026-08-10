@@ -114,8 +114,8 @@ export default function DashboardPage() {
       {/* ========================================================================= */}
       {/* 1. DASHBOARD HEADER: Citizen Profile, Civic Score (780 - Gold), Ward Rank  */}
       {/* ========================================================================= */}
-      <div className="bg-gradient-to-r from-[#0C0E15] via-[#121522] to-[#0C0E15] border border-[#222838] rounded-3xl p-6 sm:p-8 text-white relative overflow-hidden shadow-2xl">
-        <div className="absolute top-0 right-0 w-96 h-96 bg-[#FF8C00]/10 rounded-full blur-3xl pointer-events-none" />
+      <div className="bg-gradient-to-r from-[#11131B] via-[#161924] to-[#11131B] border-2 border-[#262B3A] rounded-3xl p-6 sm:p-8 text-white relative overflow-hidden shadow-2xl shadow-black/35">
+        <div className="absolute top-0 right-0 w-96 h-96 bg-[#E5B80B]/10 rounded-full blur-3xl pointer-events-none" />
         
         <div className="relative z-10 space-y-6">
           <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
@@ -124,15 +124,15 @@ export default function DashboardPage() {
             <div className="space-y-1.5">
               <div className="flex items-center gap-2">
                 <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse" />
-                <p className="text-[#FF8C00] text-xs font-bold uppercase tracking-wider">
+                <p className="text-[#E5B80B] text-xs font-bold uppercase tracking-wider">
                   Citizen Portal • {user?.status === 'Defaulter' ? 'Action Required' : 'Active Resident'}
                 </p>
               </div>
               <h1 className="text-2xl sm:text-3xl lg:text-4xl font-black text-white tracking-tight">
                 {user?.name || 'Citizen'}
               </h1>
-              <p className="text-gray-400 text-xs sm:text-sm">
-                {user?.ward || 'Ward 02 - Rajajinagar'} • Property ID: <span className="text-gray-200 font-mono font-bold">{user?.propertyId || 'PROP-W02-0001'}</span>
+              <p className="text-gray-300 text-xs sm:text-sm">
+                {user?.ward || 'Ward 02 - Rajajinagar'} • Property ID: <span className="text-gray-100 font-mono font-bold">{user?.propertyId || 'PROP-W02-0001'}</span>
               </p>
             </div>
 
@@ -140,14 +140,14 @@ export default function DashboardPage() {
             <div className="flex flex-wrap items-center gap-3.5">
               
               {/* Civic Score Gauge Card */}
-              <div className="bg-[#161A28] border border-[#2B3349] px-4 py-3 rounded-2xl flex items-center gap-3.5 shadow-md">
-                <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-amber-400 to-amber-600 text-black flex items-center justify-center font-black text-lg shadow-md shadow-amber-500/20">
+              <div className="bg-[#171A26] border border-[#292E3E] px-4 py-3 rounded-2xl flex items-center gap-3.5 shadow-md">
+                <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-[#FFDC69] to-[#D1A000] text-black flex items-center justify-center font-black text-lg shadow-md shadow-[#E5B80B]/20">
                   <Trophy className="w-5 h-5 text-black" />
                 </div>
                 <div>
                   <p className="text-gray-400 text-[10px] uppercase font-bold tracking-wider">Civic Credit Score</p>
                   <div className="flex items-center gap-2">
-                    <span className="text-xl font-black text-amber-400">{user?.civicCreditScore || 780}</span>
+                    <span className="text-xl font-black text-[#E5B80B]">{user?.civicCreditScore || 780}</span>
                     <span className="text-[11px] font-bold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/30">
                       {user?.civicCreditScore >= 800 ? 'Gold Tier 🌟' : user?.civicCreditScore >= 650 ? 'Silver Tier' : 'Needs Action 🚨'}
                     </span>
@@ -156,7 +156,7 @@ export default function DashboardPage() {
               </div>
 
               {/* Ward Ranking Badge Card */}
-              <div className="bg-[#161A28] border border-[#2B3349] px-4 py-3 rounded-2xl flex items-center gap-3.5 shadow-md">
+              <div className="bg-[#171A26] border border-[#292E3E] px-4 py-3 rounded-2xl flex items-center gap-3.5 shadow-md">
                 <div className="w-11 h-11 rounded-xl bg-cyan-500/20 border border-cyan-500/40 text-cyan-400 flex items-center justify-center font-black text-lg">
                   #{user?.rank || (user?.civicCreditScore >= 800 ? 3 : 12)}
                 </div>
@@ -184,24 +184,24 @@ export default function DashboardPage() {
           </div>
 
           {/* Quick Metrics Strip */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3.5 pt-4 border-t border-[#222838]">
-            <div className="bg-[#111420] p-3.5 rounded-2xl border border-[#202636]">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3.5 pt-4 border-t border-[#252A38]">
+            <div className="bg-[#151822] p-3.5 rounded-2xl border border-[#252A38]">
               <p className="text-gray-400 text-[10px] font-bold uppercase tracking-wider">Total Pending Dues</p>
-              <p className="text-xl sm:text-2xl font-black text-[#FF8C00] mt-0.5">₹{totalDue.toLocaleString()}</p>
+              <p className="text-xl sm:text-2xl font-black text-[#E5B80B] mt-0.5">₹{totalDue.toLocaleString()}</p>
             </div>
-            <div className="bg-[#111420] p-3.5 rounded-2xl border border-[#202636]">
+            <div className="bg-[#151822] p-3.5 rounded-2xl border border-[#252A38]">
               <p className="text-gray-400 text-[10px] font-bold uppercase tracking-wider">Payment Streak</p>
               <p className="text-xl sm:text-2xl font-black text-emerald-400 mt-0.5 flex items-center gap-1">
                 <Flame className="w-5 h-5 text-orange-400 fill-orange-400" /> {user?.streak || 3} Months
               </p>
             </div>
-            <div className="bg-[#111420] p-3.5 rounded-2xl border border-[#202636]">
+            <div className="bg-[#151822] p-3.5 rounded-2xl border border-[#252A38]">
               <p className="text-gray-400 text-[10px] font-bold uppercase tracking-wider">Total Taxes Paid</p>
               <p className="text-xl sm:text-2xl font-black text-white mt-0.5">₹{(user?.amountPaid || 0).toLocaleString()}</p>
             </div>
-            <div className="bg-[#111420] p-3.5 rounded-2xl border border-[#202636]">
+            <div className="bg-[#151822] p-3.5 rounded-2xl border border-[#252A38]">
               <p className="text-gray-400 text-[10px] font-bold uppercase tracking-wider">Citizen XP Score</p>
-              <p className="text-xl sm:text-2xl font-black text-amber-300 mt-0.5">{user?.xp || 2250} XP</p>
+              <p className="text-xl sm:text-2xl font-black text-[#FFDC69] mt-0.5">{user?.xp || 2250} XP</p>
             </div>
           </div>
 
@@ -211,13 +211,13 @@ export default function DashboardPage() {
       {/* ========================================================================= */}
       {/* 2. MAIN HUB TABS NAVIGATION                                               */}
       {/* ========================================================================= */}
-      <div className="flex items-center gap-2 border-b border-[#222838] pb-3 overflow-x-auto">
+      <div className="flex items-center gap-2 border-b border-[#262B3A] pb-3 overflow-x-auto">
         <button
           onClick={() => setActiveHubTab('pending')}
           className={`px-5 py-2.5 rounded-2xl text-xs sm:text-sm font-extrabold flex items-center gap-2 transition-all cursor-pointer whitespace-nowrap ${
             activeHubTab === 'pending'
-              ? 'bg-[#FF8C00] text-black shadow-lg shadow-[#FF8C00]/25'
-              : 'bg-[#111420] text-gray-400 hover:text-white border border-[#222838]'
+              ? 'bg-[#E5B80B] text-black shadow-lg shadow-[#E5B80B]/25 font-black'
+              : 'bg-[#151822] text-gray-300 hover:text-white border border-[#262B3A]'
           }`}
         >
           <CreditCard className="w-4 h-4" />
@@ -228,8 +228,8 @@ export default function DashboardPage() {
           onClick={() => setActiveHubTab('ranking')}
           className={`px-5 py-2.5 rounded-2xl text-xs sm:text-sm font-extrabold flex items-center gap-2 transition-all cursor-pointer whitespace-nowrap ${
             activeHubTab === 'ranking'
-              ? 'bg-[#FF8C00] text-black shadow-lg shadow-[#FF8C00]/25'
-              : 'bg-[#111420] text-gray-400 hover:text-white border border-[#222838]'
+              ? 'bg-[#E5B80B] text-black shadow-lg shadow-[#E5B80B]/25 font-black'
+              : 'bg-[#151822] text-gray-300 hover:text-white border border-[#262B3A]'
           }`}
         >
           <Trophy className="w-4 h-4" />
@@ -240,8 +240,8 @@ export default function DashboardPage() {
           onClick={() => setActiveHubTab('history')}
           className={`px-5 py-2.5 rounded-2xl text-xs sm:text-sm font-extrabold flex items-center gap-2 transition-all cursor-pointer whitespace-nowrap ${
             activeHubTab === 'history'
-              ? 'bg-[#FF8C00] text-black shadow-lg shadow-[#FF8C00]/25'
-              : 'bg-[#111420] text-gray-400 hover:text-white border border-[#222838]'
+              ? 'bg-[#E5B80B] text-black shadow-lg shadow-[#E5B80B]/25 font-black'
+              : 'bg-[#151822] text-gray-300 hover:text-white border border-[#262B3A]'
           }`}
         >
           <FileText className="w-4 h-4" />
@@ -257,7 +257,7 @@ export default function DashboardPage() {
           
           {/* Overdue Warning Notice if applicable */}
           {overdueTaxes.length > 0 && (
-            <div className="bg-red-500/10 border-2 border-red-500/40 rounded-3xl p-5 sm:p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-lg shadow-red-500/5">
+            <div className="bg-[#181B26] border-2 border-red-500/50 rounded-3xl p-5 sm:p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-xl shadow-black/25">
               <div className="flex items-center gap-4">
                 <div className="w-12 h-12 bg-red-500/20 border border-red-500/40 rounded-2xl flex items-center justify-center text-red-400 flex-shrink-0">
                   <AlertTriangle className="w-6 h-6" />
@@ -289,11 +289,11 @@ export default function DashboardPage() {
             {/* Left 2 Columns: Itemized Tax Cards */}
             <div className="lg:col-span-2 space-y-4">
               <div className="flex items-center justify-between">
-                <h2 className="text-lg font-bold text-white flex items-center gap-2">
-                  <CreditCard className="w-5 h-5 text-[#FF8C00]" />
+                <h2 className="text-lg font-black text-[#1A1D27] flex items-center gap-2">
+                  <CreditCard className="w-5 h-5 text-[#B8860B]" />
                   Itemized Municipal Tax Dues
                 </h2>
-                <span className="text-xs text-gray-400 font-medium">Auto-Synced with DIGIT / UPYOG</span>
+                <span className="text-xs text-[#555C6E] font-bold">Auto-Synced with DIGIT / UPYOG</span>
               </div>
 
               <div className="space-y-4">
@@ -305,22 +305,22 @@ export default function DashboardPage() {
                   return (
                     <div 
                       key={tax.id} 
-                      className={`bg-[#0F121C] border-2 rounded-3xl p-5 sm:p-6 transition-all relative overflow-hidden ${
-                        isOverdue ? 'border-red-500/40 hover:border-red-500' : 'border-[#222838] hover:border-[#FF8C00]/50'
+                      className={`bg-[#151822] border-2 rounded-3xl p-5 sm:p-6 transition-all relative overflow-hidden shadow-lg shadow-black/20 ${
+                        isOverdue ? 'border-red-500/40 hover:border-red-500' : 'border-[#262B3A] hover:border-[#E5B80B]/60'
                       }`}
                     >
                       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                         
                         {/* Tax Type & Details */}
                         <div className="flex items-start sm:items-center gap-3.5">
-                          <div className="w-12 h-12 bg-[#161B28] border border-[#2B3349] rounded-2xl flex items-center justify-center flex-shrink-0">
+                          <div className="w-12 h-12 bg-[#1B1F2D] border border-[#2D3448] rounded-2xl flex items-center justify-center flex-shrink-0">
                             {getTaxIcon(tax.type)}
                           </div>
                           <div>
                             <div className="flex items-center gap-2">
                               <h3 className="font-extrabold text-white text-base sm:text-lg">{tax.type}</h3>
                               <span className={`text-[10px] font-black px-2.5 py-0.5 rounded-full uppercase border ${
-                                isOverdue ? 'bg-red-500/20 text-red-400 border-red-500/40' : 'bg-[#FF8C00]/20 text-[#FF8C00] border-[#FF8C00]/40'
+                                isOverdue ? 'bg-red-500/20 text-red-400 border-red-500/40' : 'bg-[#E5B80B]/20 text-[#E5B80B] border-[#E5B80B]/40'
                               }`}>
                                 {tax.period}
                               </span>
@@ -333,7 +333,7 @@ export default function DashboardPage() {
                         </div>
 
                         {/* Due Countdown Pill & Amount */}
-                        <div className="flex items-center justify-between sm:justify-end gap-4 border-t sm:border-t-0 pt-3 sm:pt-0 border-[#222838]">
+                        <div className="flex items-center justify-between sm:justify-end gap-4 border-t sm:border-t-0 pt-3 sm:pt-0 border-[#262B3A]">
                           
                           {/* Countdown Indicator */}
                           <div className={`px-3 py-1.5 rounded-xl text-xs font-black flex items-center gap-1.5 ${
@@ -355,7 +355,7 @@ export default function DashboardPage() {
                           {/* Individual Pay Button */}
                           <button
                             onClick={() => handleOpenPaymentModal(tax)}
-                            className="bg-[#FF8C00] hover:bg-[#E07B00] text-black font-extrabold px-5 py-2.5 rounded-xl text-xs flex items-center gap-1.5 shadow-md shadow-[#FF8C00]/20 transition-all cursor-pointer"
+                            className="bg-[#E5B80B] hover:bg-[#D1A000] text-black font-extrabold px-5 py-2.5 rounded-xl text-xs flex items-center gap-1.5 shadow-md shadow-[#E5B80B]/20 transition-all cursor-pointer"
                           >
                             Pay Bill
                             <ChevronRight className="w-3.5 h-3.5" />
@@ -369,12 +369,12 @@ export default function DashboardPage() {
                 })}
 
                 {pendingTaxes.length === 0 && overdueTaxes.length === 0 && (
-                  <div className="bg-[#0F121C] border border-[#222838] rounded-3xl p-10 text-center space-y-3">
+                  <div className="bg-[#151822] border border-[#262B3A] rounded-3xl p-10 text-center space-y-3">
                     <div className="w-16 h-16 bg-emerald-500/20 text-emerald-400 rounded-full flex items-center justify-center mx-auto">
                       <CheckCircle2 className="w-8 h-8" />
                     </div>
                     <h3 className="text-xl font-black text-white">All Municipal Dues Cleared!</h3>
-                    <p className="text-gray-400 text-xs sm:text-sm max-w-md mx-auto">
+                    <p className="text-gray-300 text-xs sm:text-sm max-w-md mx-auto">
                       You have 0 pending dues. Thank you for being a Gold Model Citizen and supporting your ward's development.
                     </p>
                   </div>
@@ -386,23 +386,23 @@ export default function DashboardPage() {
             <div className="space-y-6">
               
               {/* Grand Total Pay Now Card */}
-              <div className="bg-gradient-to-br from-[#141724] to-[#0D101A] border-2 border-[#FF8C00]/40 rounded-3xl p-6 shadow-xl space-y-5">
+              <div className="bg-gradient-to-br from-[#161925] to-[#10121B] border-2 border-[#E5B80B]/40 rounded-3xl p-6 shadow-xl shadow-black/30 space-y-5">
                 <div className="flex items-center justify-between">
-                  <span className="text-xs font-extrabold text-[#FF8C00] uppercase tracking-wider">Quick Checkout</span>
+                  <span className="text-xs font-extrabold text-[#E5B80B] uppercase tracking-wider">Quick Checkout</span>
                   <span className="text-[10px] font-bold bg-emerald-500/20 text-emerald-400 px-2 py-0.5 rounded-full border border-emerald-500/30">
                     5% Yearly Discount Active
                   </span>
                 </div>
 
                 <div>
-                  <p className="text-gray-400 text-xs">Total Outstanding Municipal Balance</p>
+                  <p className="text-gray-300 text-xs">Total Outstanding Municipal Balance</p>
                   <p className="text-3xl sm:text-4xl font-black text-white mt-1">₹{totalDue.toLocaleString()}</p>
                 </div>
 
                 <button
                   onClick={() => handleOpenPaymentModal(null)}
                   disabled={totalDue === 0}
-                  className="w-full bg-[#FF8C00] hover:bg-[#E07B00] disabled:opacity-40 disabled:cursor-not-allowed text-black font-black py-4 rounded-2xl text-base flex items-center justify-center gap-2 shadow-lg shadow-[#FF8C00]/25 transition-all cursor-pointer"
+                  className="w-full bg-[#E5B80B] hover:bg-[#D1A000] disabled:opacity-40 disabled:cursor-not-allowed text-black font-black py-4 rounded-2xl text-base flex items-center justify-center gap-2 shadow-lg shadow-[#E5B80B]/25 transition-all cursor-pointer"
                 >
                   <Zap className="w-5 h-5 fill-black" />
                   Pay Total Dues Now
@@ -414,9 +414,9 @@ export default function DashboardPage() {
               </div>
 
               {/* Penalty Warning Timeline Indicator (+30 / +60 / +90 Days Escalation) */}
-              <div className="bg-[#0F121C] border border-[#222838] rounded-3xl p-6 space-y-4">
+              <div className="bg-[#151822] border border-[#262B3A] rounded-3xl p-6 space-y-4">
                 <div className="flex items-center gap-2">
-                  <AlertTriangle className="w-4 h-4 text-amber-400" />
+                  <AlertTriangle className="w-4 h-4 text-[#E5B80B]" />
                   <h3 className="font-extrabold text-white text-sm">Penalty Escalation Timeline</h3>
                 </div>
                 
@@ -471,34 +471,34 @@ export default function DashboardPage() {
             <div className="lg:col-span-2 space-y-6">
               
               {/* Payment Streak & Loss Aversion Banner */}
-              <div className="bg-gradient-to-r from-[#171B2A] to-[#111420] border-2 border-[#FF8C00]/40 rounded-3xl p-6 sm:p-8 space-y-5 shadow-xl">
+              <div className="bg-gradient-to-r from-[#171A27] to-[#12141F] border-2 border-[#E5B80B]/40 rounded-3xl p-6 sm:p-8 space-y-5 shadow-xl shadow-black/30">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                   <div className="flex items-center gap-4">
-                    <div className="w-14 h-14 bg-[#FF8C00]/20 border-2 border-[#FF8C00] rounded-2xl flex items-center justify-center text-[#FF8C00] shadow-lg shadow-[#FF8C00]/20">
-                      <Flame className="w-8 h-8 fill-[#FF8C00]" />
+                    <div className="w-14 h-14 bg-[#E5B80B]/20 border-2 border-[#E5B80B] rounded-2xl flex items-center justify-center text-[#E5B80B] shadow-lg shadow-[#E5B80B]/20">
+                      <Flame className="w-8 h-8 fill-[#E5B80B]" />
                     </div>
                     <div>
-                      <span className="text-xs font-extrabold text-[#FF8C00] uppercase tracking-wider">Active Payment Streak</span>
+                      <span className="text-xs font-extrabold text-[#E5B80B] uppercase tracking-wider">Active Payment Streak</span>
                       <h3 className="text-2xl sm:text-3xl font-black text-white">{user?.streak || 6} Months Unbroken</h3>
                     </div>
                   </div>
 
-                  <div className="bg-[#0B0D14] px-4 py-2 rounded-2xl border border-[#232A3E] text-right">
+                  <div className="bg-[#0E1017] px-4 py-2 rounded-2xl border border-[#262B3A] text-right">
                     <p className="text-gray-400 text-[10px] uppercase font-bold">Next Milestone</p>
-                    <p className="text-sm font-black text-amber-300">12 Months (Diamond Pass)</p>
+                    <p className="text-sm font-black text-[#FFDC69]">12 Months (Diamond Pass)</p>
                   </div>
                 </div>
 
                 <p className="text-gray-300 text-xs sm:text-sm leading-relaxed">
-                  Protect your streak to preserve your <strong className="text-amber-400">Gold Model Citizen</strong> standing and maintain priority access to municipal permits.
+                  Protect your streak to preserve your <strong className="text-[#E5B80B]">Gold Model Citizen</strong> standing and maintain priority access to municipal permits.
                 </p>
               </div>
 
               {/* Active Badges Grid */}
-              <div className="bg-[#0F121C] border border-[#222838] rounded-3xl p-6 space-y-4">
+              <div className="bg-[#151822] border border-[#262B3A] rounded-3xl p-6 space-y-4 shadow-lg shadow-black/20">
                 <div className="flex items-center justify-between">
                   <h3 className="font-extrabold text-white text-base flex items-center gap-2">
-                    <Award className="w-5 h-5 text-[#FF8C00]" />
+                    <Award className="w-5 h-5 text-[#E5B80B]" />
                     Earned Municipal Badges
                   </h3>
                   <span className="text-xs text-gray-400">4 of 6 Unlocked</span>
@@ -507,7 +507,7 @@ export default function DashboardPage() {
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
                   {[
                     { title: 'Streak Master', desc: '6 months on-time', icon: '🔥', active: true, color: 'border-orange-500/40 bg-orange-500/10' },
-                    { title: 'Early Bird', desc: 'Paid in grace window', icon: '⚡', active: true, color: 'border-amber-500/40 bg-amber-500/10' },
+                    { title: 'Early Bird', desc: 'Paid in grace window', icon: '⚡', active: true, color: 'border-[#E5B80B]/40 bg-[#E5B80B]/10' },
                     { title: 'Zero Waste Hero', desc: 'Pledged segregation', icon: '🌱', active: true, color: 'border-emerald-500/40 bg-emerald-500/10' },
                     { title: 'Gold Taxpayer', desc: 'Civic score >750', icon: '🏆', active: true, color: 'border-cyan-500/40 bg-cyan-500/10' },
                   ].map((b) => (
@@ -521,9 +521,9 @@ export default function DashboardPage() {
               </div>
 
               {/* Unlocked Civic Perks */}
-              <div className="bg-[#0F121C] border border-[#222838] rounded-3xl p-6 space-y-4">
+              <div className="bg-[#151822] border border-[#262B3A] rounded-3xl p-6 space-y-4 shadow-lg shadow-black/20">
                 <h3 className="font-extrabold text-white text-base flex items-center gap-2">
-                  <Sparkles className="w-5 h-5 text-amber-400" />
+                  <Sparkles className="w-5 h-5 text-[#E5B80B]" />
                   Unlocked Civic Perks & Benefits
                 </h3>
 
@@ -533,7 +533,7 @@ export default function DashboardPage() {
                     { perk: '10% Extra Cashback Coupon on Water Tax', value: 'Saved ₹220', icon: '🎁', status: 'Claimed' },
                     { perk: 'Community Hall 25% Booking Rebate', value: 'Applicable across Ward 12', icon: '🏛️', status: 'Active' },
                   ].map((p) => (
-                    <div key={p.perk} className="flex items-center justify-between p-3.5 rounded-2xl bg-[#141724] border border-[#232A3E]">
+                    <div key={p.perk} className="flex items-center justify-between p-3.5 rounded-2xl bg-[#181B26] border border-[#292E3E]">
                       <div className="flex items-center gap-3">
                         <span className="text-xl">{p.icon}</span>
                         <div>
@@ -553,10 +553,10 @@ export default function DashboardPage() {
 
             {/* Right 1 Column: Ward Leaderboard */}
             <div className="space-y-6">
-              <div className="bg-[#0F121C] border border-[#222838] rounded-3xl p-6 space-y-4">
+              <div className="bg-[#151822] border border-[#262B3A] rounded-3xl p-6 space-y-4 shadow-lg shadow-black/20">
                 <div className="flex items-center justify-between">
                   <h3 className="font-extrabold text-white text-base flex items-center gap-2">
-                    <Trophy className="w-5 h-5 text-amber-400" />
+                    <Trophy className="w-5 h-5 text-[#E5B80B]" />
                     Ward Leaderboard
                   </h3>
                   <span className="text-[11px] text-gray-400">Live Collection %</span>
@@ -574,13 +574,13 @@ export default function DashboardPage() {
                       key={w.ward} 
                       className={`p-3.5 rounded-2xl border flex items-center justify-between ${
                         w.ward.includes('Ward 12') 
-                          ? 'bg-[#FF8C00]/10 border-[#FF8C00]/50 shadow-md' 
-                          : 'bg-[#141724] border-[#222838]'
+                          ? 'bg-[#E5B80B]/10 border-[#E5B80B]/50 shadow-md' 
+                          : 'bg-[#181B26] border-[#292E3E]'
                       }`}
                     >
                       <div className="flex items-center gap-3">
                         <span className={`w-6 h-6 rounded-lg flex items-center justify-center text-xs font-black ${
-                          w.rank === 1 ? 'bg-amber-400 text-black' : 'bg-[#222838] text-gray-300'
+                          w.rank === 1 ? 'bg-[#E5B80B] text-black' : 'bg-[#292E3E] text-gray-200'
                         }`}>
                           {w.rank}
                         </span>
@@ -589,7 +589,7 @@ export default function DashboardPage() {
                           <p className="text-[10px] text-gray-400">{w.prize}</p>
                         </div>
                       </div>
-                      <span className="font-black text-xs text-amber-400">{w.eff}</span>
+                      <span className="font-black text-xs text-[#E5B80B]">{w.eff}</span>
                     </div>
                   ))}
                 </div>
@@ -607,13 +607,13 @@ export default function DashboardPage() {
       {activeHubTab === 'history' && (
         <div className="space-y-6 animate-fade-in-up">
           
-          <div className="bg-[#0F121C] border border-[#222838] rounded-3xl p-6 sm:p-8 space-y-6">
+          <div className="bg-[#151822] border border-[#262B3A] rounded-3xl p-6 sm:p-8 space-y-6 shadow-xl shadow-black/25">
             
             {/* Header & Export Actions */}
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#222838] pb-6">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#262B3A] pb-6">
               <div>
                 <h2 className="text-xl font-black text-white flex items-center gap-2">
-                  <FileText className="w-5 h-5 text-[#FF8C00]" />
+                  <FileText className="w-5 h-5 text-[#E5B80B]" />
                   Verified Tax Payment History & Receipts
                 </h2>
                 <p className="text-gray-400 text-xs sm:text-sm mt-1">
@@ -624,9 +624,9 @@ export default function DashboardPage() {
               <div className="flex items-center gap-3">
                 <button
                   onClick={() => handleDownloadPDF('STATEMENT-2025-26', 'Annual Consolidated Statement')}
-                  className="bg-[#161B28] hover:bg-[#20273A] border border-[#2B3349] text-gray-200 font-bold px-4 py-2.5 rounded-xl text-xs flex items-center gap-2 transition-all cursor-pointer"
+                  className="bg-[#1B1F2D] hover:bg-[#252A3D] border border-[#2D354B] text-gray-200 font-bold px-4 py-2.5 rounded-xl text-xs flex items-center gap-2 transition-all cursor-pointer shadow-sm"
                 >
-                  <Download className="w-4 h-4 text-[#FF8C00]" />
+                  <Download className="w-4 h-4 text-[#E5B80B]" />
                   Export FY 2025–26 Statement
                 </button>
               </div>
@@ -638,7 +638,7 @@ export default function DashboardPage() {
                 paymentHistory.map((item) => (
                   <div 
                     key={item.id}
-                    className="p-4 sm:p-5 rounded-2xl bg-[#141724] border border-[#222838] hover:border-[#FF8C00]/40 transition-all flex flex-col sm:flex-row sm:items-center justify-between gap-4"
+                    className="p-4 sm:p-5 rounded-2xl bg-[#181B26] border border-[#292E3E] hover:border-[#E5B80B]/50 transition-all flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-sm"
                   >
                     <div className="flex items-center gap-4">
                       <div className="w-11 h-11 rounded-xl bg-emerald-500/20 border border-emerald-500/40 text-emerald-400 flex items-center justify-center flex-shrink-0">
@@ -647,17 +647,17 @@ export default function DashboardPage() {
                       <div>
                         <div className="flex items-center gap-2">
                           <h4 className="font-extrabold text-white text-sm sm:text-base">{item.type}</h4>
-                          <span className="text-[10px] font-mono bg-[#1E2436] text-gray-300 px-2 py-0.5 rounded border border-[#2F3750]">
+                          <span className="text-[10px] font-mono bg-[#11131B] text-gray-300 px-2 py-0.5 rounded border border-[#292E3E]">
                             {item.id}
                           </span>
                         </div>
                         <p className="text-gray-400 text-xs mt-0.5">
-                          Paid on {item.date} via <strong className="text-gray-300">{item.method}</strong> • {item.ward}
+                          Paid on {item.date} via <strong className="text-gray-200">{item.method}</strong> • {item.ward}
                         </p>
                       </div>
                     </div>
 
-                    <div className="flex items-center justify-between sm:justify-end gap-4 border-t sm:border-t-0 pt-3 sm:pt-0 border-[#222838]">
+                    <div className="flex items-center justify-between sm:justify-end gap-4 border-t sm:border-t-0 pt-3 sm:pt-0 border-[#262B3A]">
                       <div className="text-right">
                         <p className="font-black text-emerald-400 text-base sm:text-lg">₹{item.amount.toLocaleString()}</p>
                         <p className="text-[10px] text-gray-400">100% Cleared</p>
@@ -667,7 +667,7 @@ export default function DashboardPage() {
                       <button
                         onClick={() => handleDownloadPDF(item.id, item.type)}
                         disabled={downloadingReceiptId === item.id}
-                        className="bg-[#1B2030] hover:bg-[#FF8C00] hover:text-black border border-[#2E374E] text-gray-300 font-bold px-4 py-2 rounded-xl text-xs flex items-center gap-1.5 transition-all cursor-pointer"
+                        className="bg-[#1F2433] hover:bg-[#E5B80B] hover:text-black border border-[#30384E] text-gray-200 font-bold px-4 py-2 rounded-xl text-xs flex items-center gap-1.5 transition-all cursor-pointer shadow-sm"
                       >
                         {downloadingReceiptId === item.id ? (
                           <div className="w-3.5 h-3.5 border-2 border-black/30 border-t-black rounded-full animate-spin" />
@@ -697,7 +697,7 @@ export default function DashboardPage() {
       {/* ========================================================================= */}
       {isPaymentModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-fade-in">
-          <div className="bg-[#0D1018] border-2 border-[#252C3E] rounded-3xl w-full max-w-xl p-6 sm:p-8 space-y-6 shadow-2xl relative">
+          <div className="bg-[#12141C] border-2 border-[#2A3042] rounded-3xl w-full max-w-xl p-6 sm:p-8 space-y-6 shadow-2xl shadow-black/70 relative">
             
             {/* Close Button */}
             <button 
@@ -713,8 +713,8 @@ export default function DashboardPage() {
                 {/* Modal Title */}
                 <div>
                   <div className="flex items-center gap-2 mb-1">
-                    <ShieldCheck className="w-4 h-4 text-[#FF8C00]" />
-                    <span className="text-[#FF8C00] text-xs font-bold uppercase tracking-wider">One-Tap Municipal Checkout</span>
+                    <ShieldCheck className="w-4 h-4 text-[#E5B80B]" />
+                    <span className="text-[#E5B80B] text-xs font-bold uppercase tracking-wider">One-Tap Municipal Checkout</span>
                   </div>
                   <h3 className="text-2xl font-black text-white">Choose Payment Mode</h3>
                   <p className="text-gray-400 text-xs sm:text-sm">
@@ -725,14 +725,14 @@ export default function DashboardPage() {
                 </div>
 
                 {/* Mode Selector Tabs: Monthly Instalments vs Yearly Payment */}
-                <div className="grid grid-cols-2 gap-3 p-1.5 bg-[#141724] border border-[#232A3E] rounded-2xl">
+                <div className="grid grid-cols-2 gap-3 p-1.5 bg-[#181B26] border border-[#2A3042] rounded-2xl">
                   <button
                     type="button"
                     onClick={() => setPaymentMode('monthly')}
                     className={`py-3 px-4 rounded-xl text-xs sm:text-sm font-extrabold transition-all cursor-pointer ${
                       paymentMode === 'monthly'
-                        ? 'bg-[#FF8C00] text-black shadow-md'
-                        : 'text-gray-400 hover:text-white'
+                        ? 'bg-[#E5B80B] text-black shadow-md font-black'
+                        : 'text-gray-300 hover:text-white'
                     }`}
                   >
                     Monthly Instalments
@@ -743,8 +743,8 @@ export default function DashboardPage() {
                     onClick={() => setPaymentMode('yearly')}
                     className={`py-3 px-4 rounded-xl text-xs sm:text-sm font-extrabold transition-all cursor-pointer relative ${
                       paymentMode === 'yearly'
-                        ? 'bg-[#FF8C00] text-black shadow-md'
-                        : 'text-gray-400 hover:text-white'
+                        ? 'bg-[#E5B80B] text-black shadow-md font-black'
+                        : 'text-gray-300 hover:text-white'
                     }`}
                   >
                     <span>Yearly Lump Sum</span>
@@ -756,19 +756,19 @@ export default function DashboardPage() {
 
                 {/* Mode Details Card */}
                 {paymentMode === 'monthly' ? (
-                  <div className="p-5 rounded-2xl bg-[#141724] border border-[#232A3E] space-y-4 animate-fade-in-up">
+                  <div className="p-5 rounded-2xl bg-[#181B26] border border-[#2A3042] space-y-4 animate-fade-in-up">
                     <div className="flex items-center justify-between">
                       <div>
                         <h4 className="font-bold text-white text-sm">3 Equal Monthly Instalments (0% Interest)</h4>
                         <p className="text-gray-400 text-xs mt-0.5">Split payments across 3 cycles with zero penalty.</p>
                       </div>
-                      <span className="text-lg font-black text-amber-400">
+                      <span className="text-lg font-black text-[#E5B80B]">
                         ₹{Math.round((selectedTaxToPay ? (selectedTaxToPay.amount + (selectedTaxToPay.arrears || 0)) : totalDue) / 3).toLocaleString()}/mo
                       </span>
                     </div>
 
                     {/* Auto-pay Toggle */}
-                    <div className="flex items-center justify-between p-3 rounded-xl bg-[#0F121C] border border-[#222838]">
+                    <div className="flex items-center justify-between p-3 rounded-xl bg-[#11131B] border border-[#252A38]">
                       <div className="flex items-center gap-2.5">
                         <RefreshCw className="w-4 h-4 text-emerald-400" />
                         <div>
@@ -819,7 +819,7 @@ export default function DashboardPage() {
                   type="button"
                   onClick={handleExecutePayment}
                   disabled={isProcessingPayment}
-                  className="w-full bg-[#FF8C00] hover:bg-[#E07B00] text-black font-black py-4 rounded-2xl text-base flex items-center justify-center gap-2 shadow-lg shadow-[#FF8C00]/25 transition-all cursor-pointer"
+                  className="w-full bg-[#E5B80B] hover:bg-[#D1A000] text-black font-black py-4 rounded-2xl text-base flex items-center justify-center gap-2 shadow-lg shadow-[#E5B80B]/25 transition-all cursor-pointer"
                 >
                   {isProcessingPayment ? (
                     <div className="w-6 h-6 border-3 border-black/30 border-t-black rounded-full animate-spin" />
@@ -845,11 +845,11 @@ export default function DashboardPage() {
                 </div>
 
                 {paymentSuccessData.rewardCertificate && (
-                  <div className="p-4 rounded-2xl bg-amber-500/15 border border-amber-500/40 text-left space-y-1">
-                    <p className="text-amber-300 font-bold text-xs flex items-center gap-1.5">
+                  <div className="p-4 rounded-2xl bg-[#E5B80B]/15 border border-[#E5B80B]/40 text-left space-y-1">
+                    <p className="text-[#FFDC69] font-bold text-xs flex items-center gap-1.5">
                       <Award className="w-4 h-4" /> Reward Certificate Unlocked!
                     </p>
-                    <p className="text-gray-300 text-xs">{paymentSuccessData.rewardCertificate}</p>
+                    <p className="text-gray-200 text-xs">{paymentSuccessData.rewardCertificate}</p>
                   </div>
                 )}
 
@@ -858,13 +858,13 @@ export default function DashboardPage() {
                     onClick={() => handleDownloadPDF(paymentSuccessData.txnId, selectedTaxToPay?.type || 'Property Tax')}
                     className="flex-1 bg-[#181D2C] hover:bg-[#22293E] border border-[#2B3349] text-white font-bold py-3 rounded-xl text-xs flex items-center justify-center gap-2 transition-all cursor-pointer"
                   >
-                    <Download className="w-4 h-4 text-[#FF8C00]" />
+                    <Download className="w-4 h-4 text-[#E5B80B]" />
                     Download Receipt
                   </button>
 
                   <button
                     onClick={() => setIsPaymentModalOpen(false)}
-                    className="flex-1 bg-[#FF8C00] hover:bg-[#E07B00] text-black font-black py-3 rounded-xl text-xs transition-all cursor-pointer"
+                    className="flex-1 bg-[#E5B80B] hover:bg-[#D1A000] text-black font-black py-3 rounded-xl text-xs transition-all cursor-pointer shadow-md shadow-[#E5B80B]/20"
                   >
                     Return to Dashboard
                   </button>

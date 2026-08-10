@@ -1,23 +1,23 @@
 @import "tailwindcss";
 
 @theme {
-  --color-mustard: #E5A100;
-  --color-mustard-dark: #C48A00;
-  --color-mustard-light: #FFD54F;
-  --color-mustard-50: rgba(229, 161, 0, 0.05);
-  --color-mustard-100: rgba(229, 161, 0, 0.12);
-  --color-mustard-200: rgba(229, 161, 0, 0.25);
-  --color-mustard-300: #FFD54F;
-  --color-mustard-400: #FFCA28;
-  --color-mustard-500: #E5A100;
-  --color-mustard-600: #C48A00;
-  --color-mustard-700: #A37200;
-  --color-civic-black: #0A0A0C;
-  --color-civic-dark: #12151C;
-  --color-civic-card: #181B24;
-  --color-civic-border: #1E222D;
-  --color-civic-gray: #8E8E93;
-  --color-civic-light: #E5E5EA;
+  --color-mustard: #E5B80B;
+  --color-mustard-dark: #D1A000;
+  --color-mustard-light: #FFDC69;
+  --color-mustard-50: rgba(229, 184, 11, 0.06);
+  --color-mustard-100: rgba(229, 184, 11, 0.14);
+  --color-mustard-200: rgba(229, 184, 11, 0.28);
+  --color-mustard-300: #FFDC69;
+  --color-mustard-400: #F3C623;
+  --color-mustard-500: #E5B80B;
+  --color-mustard-600: #D1A000;
+  --color-mustard-700: #B38600;
+  --color-civic-black: #0A0B0E;
+  --color-civic-dark: #12141A;
+  --color-civic-card: #151821;
+  --color-civic-border: #262A36;
+  --color-civic-gray: #949AA8;
+  --color-civic-light: #F3F4F6;
   --color-civic-white: #FFFFFF;
   --color-success: #22C55E;
   --color-warning: #F59E0B;
@@ -31,7 +31,7 @@ html, body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  background-color: #050608;
+  background-color: #F6F3EB;
   color: #FFFFFF;
   font-family: var(--font-sans);
   overflow-x: hidden;
@@ -44,24 +44,40 @@ html, body {
   overflow-x: hidden;
 }
 
-/* Glassmorphism Card System */
+/* Rich Warm Cream, Soft Beige & Subtle Mustard App Backdrop */
+.app-theme-bg {
+  background-color: #F6F3EB;
+  background-image: 
+    radial-gradient(at 15% 12%, rgba(229, 184, 11, 0.14) 0px, transparent 48%),
+    radial-gradient(at 85% 10%, rgba(214, 178, 111, 0.20) 0px, transparent 55%),
+    radial-gradient(at 50% 50%, rgba(245, 241, 232, 0.85) 0px, transparent 100%),
+    radial-gradient(at 80% 88%, rgba(209, 160, 0, 0.10) 0px, transparent 50%),
+    radial-gradient(at 10% 90%, rgba(229, 184, 11, 0.08) 0px, transparent 45%),
+    linear-gradient(180deg, #FAF8F2 0%, #F2ECE0 50%, #EAE2D2 100%);
+  background-attachment: fixed;
+  min-height: 100vh;
+}
+
+/* Deep Matte Dark Card & Panel System */
 .civic-card {
-  background-color: #1E1E1E;
-  border: 1px solid #333333;
+  background-color: #151821;
+  border: 1px solid #262B38;
   border-radius: 1.25rem;
+  box-shadow: 0 12px 30px -8px rgba(0, 0, 0, 0.45);
   transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   overflow: hidden;
 }
 
 .civic-card-hover:hover {
-  border-color: #E5A100;
-  box-shadow: 0 12px 32px rgba(229, 161, 0, 0.12);
+  border-color: #E5B80B;
+  box-shadow: 0 16px 36px -6px rgba(0, 0, 0, 0.6), 0 0 20px rgba(229, 184, 11, 0.15);
   transform: translateY(-2px);
 }
 
 .civic-card-accent {
-  background: linear-gradient(135deg, #252525 0%, #1E1E1E 100%);
-  border: 1px solid rgba(229, 161, 0, 0.3);
+  background: linear-gradient(135deg, #1A1D27 0%, #13151D 100%);
+  border: 1px solid rgba(229, 184, 11, 0.35);
+  box-shadow: 0 12px 32px -8px rgba(0, 0, 0, 0.5);
 }
 
 /* Login page hero overlay */
