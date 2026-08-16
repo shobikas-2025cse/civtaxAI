@@ -1,14 +1,24 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+import logging
 
 import models
 from database import engine
 
 # Import routers
-from routers import citizens, taxes, collector, admin, ai
+from routers import citizens, taxes, collector, admin, ai, auth
 
-# Ensure tables are created
-models.Base.metadata.create_all(bind=engine)
+logger = logging.getLogger(__name__)
+
+# Create tables on startup — wrapped so the server starts even if DB is temporarily unreachable
+try:
+    models.Base.metadata.create_all(bind=engine)
+    logger.info("✅ Database tables created/verified successfully.")
+except Exception as e:
+    logger.warning(
+        f"⚠️  Database connection failed at startup (will retry on first request): {e}. "
+        "Twilio OTP auth will still work. DB endpoints will fail until Supabase is reachable."
+    )
 
 app = FastAPI(
     title="CivTax API",
@@ -33,7 +43,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Root level endpoints that might not fit perfectly into one of the routers
 from routers.taxes import router as taxes_router
 import crud
 from database import get_db
@@ -46,6 +55,8 @@ app.include_router(taxes_router, prefix="/api/v1")
 app.include_router(collector.router, prefix="/api/v1")
 app.include_router(admin.router, prefix="/api/v1")
 app.include_router(ai.router, prefix="/api/v1")
+app.include_router(auth.router, prefix="/api/v1")
+app.include_router(auth.router)  # Also mounts /auth/* (without prefix)
 
 @app.get("/api/v1/wards")
 def get_wards(db: Session = Depends(get_db)):
@@ -58,4 +69,3 @@ def get_leaderboard(limit: int = 5, db: Session = Depends(get_db)):
 @app.get("/")
 def read_root():
     return {"message": "Welcome to CivTax API. Go to /docs for the swagger documentation."}
-

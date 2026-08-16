@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
+import { authService } from '../services';
 import { Shield, Phone, ArrowRight, CheckCircle2, Landmark, Sparkles, Lock, Star, Trophy, Award, Zap, ShieldCheck, Users, Moon, IndianRupee, UserCheck, Briefcase, Settings, ChevronRight, ArrowLeft } from 'lucide-react';
 
 // Count-up animation hook for statistics
@@ -114,24 +115,25 @@ export default function LoginPage() {
     setError('');
   };
 
-  const handleSendOTP = (e) => {
+  const handleSendOTP = async (e) => {
     e.preventDefault();
     if (phone.length < 10) {
-      setError('Please enter a valid 10-digit number');
+      setError('Please enter a valid 10-digit mobile number');
       return;
     }
     setError('');
     setIsLoading(true);
 
-    setTimeout(() => {
+    try {
+      await authService.sendOTP(phone);
       setIsLoading(false);
       setStep('otp');
       setTimer(30);
-      // Auto-fill demo OTP (123456)
-      setTimeout(() => {
-        setOtp(['1', '2', '3', '4', '5', '6']);
-      }, 1200);
-    }, 800);
+      setOtp(['', '', '', '', '', '']);
+    } catch (err) {
+      setIsLoading(false);
+      setError(err.message || 'Failed to send SMS OTP. Please check your mobile number.');
+    }
   };
 
   const handleOTPChange = (index, value) => {
@@ -151,7 +153,7 @@ export default function LoginPage() {
     }
   };
 
-  const handleVerifyOTP = (e) => {
+  const handleVerifyOTP = async (e) => {
     e.preventDefault();
     const otpString = otp.join('');
     if (otpString.length !== 6) {
@@ -162,26 +164,32 @@ export default function LoginPage() {
     setError('');
     setIsLoading(true);
 
-    setTimeout(() => {
-      if (otpString === '123456') {
-        setStep('success');
-        setTimeout(() => {
-          login(phone, selectedRole);   // pass role → isolated workspace
-        }, 1200);
-      } else {
-        setError('Invalid OTP. Use demo OTP: 123456');
-        setIsLoading(false);
-      }
-    }, 600);
+    try {
+      await authService.verifyOTP(phone, otpString);
+      setStep('success');
+      setTimeout(() => {
+        login(phone, selectedRole);
+      }, 1000);
+    } catch (err) {
+      setIsLoading(false);
+      setError(err.message || 'Invalid or expired OTP code.');
+    }
   };
 
-  const handleResendOTP = () => {
+  const handleResendOTP = async () => {
     if (timer > 0) return;
-    setOtp(['', '', '', '', '', '']);
-    setTimer(30);
-    setTimeout(() => {
-      setOtp(['1', '2', '3', '4', '5', '6']);
-    }, 1200);
+    setError('');
+    setIsLoading(true);
+
+    try {
+      await authService.sendOTP(phone);
+      setIsLoading(false);
+      setOtp(['', '', '', '', '', '']);
+      setTimer(30);
+    } catch (err) {
+      setIsLoading(false);
+      setError(err.message || 'Failed to resend SMS OTP.');
+    }
   };
 
   const currentRoleConfig = selectedRole ? roleConfig[selectedRole] : roleConfig.citizen;
@@ -559,8 +567,9 @@ export default function LoginPage() {
                         ))}
                       </div>
 
-                      <p className="text-gray-500 text-xs text-center font-medium">
-                        Demo OTP: <span className="text-[#FF8C00] font-mono font-bold">123456</span>
+                      <p className="text-gray-500 text-xs text-center font-medium flex items-center justify-center gap-1.5">
+                        <ShieldCheck className="w-3.5 h-3.5 text-green-400" />
+                        Twilio SMS OTP Security
                       </p>
 
                       {error && (

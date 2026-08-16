@@ -25,11 +25,13 @@ connect_args = {}
 if SQLALCHEMY_DATABASE_URL.startswith("sqlite"):
     connect_args = {"check_same_thread": False}
 
-# Create engine with connection pool pre-ping to ensure active connection to PostgreSQL/Supabase
+# Create engine — using a short connect_timeout so startup doesn't hang for 60s
 engine = create_engine(
     SQLALCHEMY_DATABASE_URL,
-    connect_args=connect_args,
-    pool_pre_ping=True if not SQLALCHEMY_DATABASE_URL.startswith("sqlite") else False
+    connect_args={**connect_args, "connect_timeout": 10} if not SQLALCHEMY_DATABASE_URL.startswith("sqlite") else connect_args,
+    pool_pre_ping=True if not SQLALCHEMY_DATABASE_URL.startswith("sqlite") else False,
+    pool_timeout=10,
+    pool_recycle=300,
 )
 
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)

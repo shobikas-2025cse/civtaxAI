@@ -15,3 +15,4 @@ export * from './wardService';
 export * from './collectorService';
 export * from './adminService';
 export * from './aiService';
+export * from './authService';
