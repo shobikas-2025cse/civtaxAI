@@ -1,6 +1,8 @@
 import { useState, useRef, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useAuth } from '../context/AuthContext';
 import { authService } from '../services';
+import LanguageSelector from '../components/LanguageSelector';
 import { Shield, Phone, ArrowRight, CheckCircle2, Landmark, Sparkles, Lock, Star, Trophy, Award, Zap, ShieldCheck, Users, Moon, IndianRupee, UserCheck, Briefcase, Settings, ChevronRight, ArrowLeft } from 'lucide-react';
 
 // Count-up animation hook for statistics
@@ -34,10 +36,10 @@ function useCountUp(endValue, duration = 2000, isPercentage = false, prefix = ''
 }
 
 export default function LoginPage() {
+  const { t } = useTranslation();
   const { login } = useAuth();
 
   // 2-Step State Logic
-  // role: null (State 1: Role Selection) | 'citizen' | 'collector' | 'admin' (State 2: Login Form)
   const [selectedRole, setSelectedRole] = useState(null);
   const [step, setStep] = useState('input'); // 'input' | 'otp' | 'success'
   const [phone, setPhone] = useState('');
@@ -66,8 +68,8 @@ export default function LoginPage() {
       title: 'Welcome, Citizen! 👋',
       subtitle: 'Enter your registered mobile number to get started.',
       badge: 'SECURE LOGIN',
-      label: 'Mobile Number',
-      placeholder: 'Enter 10-digit number',
+      label: t('login.mobileNumber'),
+      placeholder: t('login.enterMobilePlaceholder'),
       prefix: '+91',
       demos: [
         { label: '9128492780 (Rekha)', phone: '9128492780' },
@@ -79,8 +81,8 @@ export default function LoginPage() {
       title: 'Welcome, Tax Officer! 📋',
       subtitle: 'Enter Officer Mobile / Staff ID to access municipal collection portal.',
       badge: 'FIELD OFFICER ACCESS',
-      label: 'Officer Registered Mobile',
-      placeholder: 'Enter 10-digit officer phone',
+      label: t('login.mobileNumber'),
+      placeholder: t('login.enterMobilePlaceholder'),
       prefix: '+91',
       demos: [
         { label: '9800112233 (Officer Anand)', phone: '9800112233' }
@@ -90,8 +92,8 @@ export default function LoginPage() {
       title: 'Welcome, System Admin! 🔐',
       subtitle: 'Enter Admin credentials to access ULB Command Center.',
       badge: 'ULB COMMAND ACCESS',
-      label: 'Admin Authorization Mobile',
-      placeholder: 'Enter registered admin phone',
+      label: t('login.mobileNumber'),
+      placeholder: t('login.enterMobilePlaceholder'),
       prefix: '+91',
       demos: [
         { label: '9900000001 (ULB Superadmin)', phone: '9900000001' }
@@ -118,7 +120,7 @@ export default function LoginPage() {
   const handleSendOTP = async (e) => {
     e.preventDefault();
     if (phone.length < 10) {
-      setError('Please enter a valid 10-digit mobile number');
+      setError(t('login.invalidPhone'));
       return;
     }
     setError('');
@@ -133,7 +135,6 @@ export default function LoginPage() {
     setIsLoading(false);
     setStep('otp');
     setTimer(30);
-    // Auto-fill demo OTP (123456)
     setTimeout(() => {
       setOtp(['1', '2', '3', '4', '5', '6']);
     }, 800);
@@ -160,7 +161,7 @@ export default function LoginPage() {
     e.preventDefault();
     const otpString = otp.join('');
     if (otpString.length !== 6) {
-      setError('Please enter the complete 6-digit OTP');
+      setError(t('login.invalidOTP'));
       return;
     }
 
@@ -179,7 +180,7 @@ export default function LoginPage() {
       }, 1000);
     } else {
       setIsLoading(false);
-      setError('Invalid OTP. Use demo OTP: 123456');
+      setError(`${t('login.invalidOTP')}. ${t('login.demoOTP')}: 123456`);
     }
   };
 
@@ -210,7 +211,7 @@ export default function LoginPage() {
       {/* Outer Main Card Container matching reference frame */}
       <div className="w-full max-w-[1440px] bg-[#0A0C10] border border-[#1E222D] rounded-[28px] overflow-hidden shadow-2xl flex flex-col lg:flex-row relative">
 
-        {/* LEFT HERO PANEL — Smart City Night Backdrop */}
+        {/* LEFT HERO PANEL */}
         <div className="relative lg:w-[60%] w-full min-h-[520px] lg:min-h-[800px] overflow-hidden flex flex-col justify-between p-6 sm:p-10 lg:p-12 border-b lg:border-b-0 lg:border-r border-[#1E222D]">
 
           {/* Generated Smart City Night Image Background */}
@@ -227,7 +228,7 @@ export default function LoginPage() {
           {/* Content Layer */}
           <div className="relative z-10 flex flex-col justify-between h-full space-y-8">
 
-            {/* Top Brand Header */}
+            {/* Top Brand Header & Language Selector */}
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 bg-[#FF8C00] rounded-xl flex items-center justify-center shadow-lg shadow-[#FF8C00]/25 flex-shrink-0">
@@ -238,15 +239,13 @@ export default function LoginPage() {
                     <span className="font-extrabold text-white text-xl tracking-tight">CIVTAX</span>
                     <span className="font-extrabold text-[#FF8C00] text-xl tracking-tight">AI</span>
                   </div>
-                  <p className="text-[11px] text-gray-400 font-medium">Smart City. Smart Citizens.</p>
+                  <p className="text-[11px] text-gray-400 font-medium">{t('login.tagline')}</p>
                 </div>
               </div>
 
-              {/* Decorative Accent Dot Grid */}
-              <div className="hidden sm:grid grid-cols-6 gap-1.5 opacity-25">
-                {Array.from({ length: 18 }).map((_, i) => (
-                  <div key={i} className="w-1 h-1 rounded-full bg-gray-400" />
-                ))}
+              {/* Language Selector in Login Header */}
+              <div className="flex items-center gap-3">
+                <LanguageSelector variant="login" />
               </div>
             </div>
 
@@ -259,15 +258,14 @@ export default function LoginPage() {
                 <span>Citizen Engagement & Behaviour</span>
               </div>
 
-              {/* Main Heading — Clean without 'Rewarded.' */}
+              {/* Main Heading */}
               <h1 className="text-3xl sm:text-5xl lg:text-[56px] font-extrabold leading-[1.12] text-white tracking-tight">
-                Smart Municipal<br />
-                Tax Payments
+                {t('login.title')}
               </h1>
 
               {/* Description */}
               <p className="text-gray-300 text-sm sm:text-base leading-relaxed max-w-lg font-normal">
-                Pay property tax, water tax & more on time. Earn rewards, climb leaderboards, and help build a better city.
+                {t('login.subtitle')}
               </p>
 
               {/* 4 Stat Circles Grid */}
@@ -278,7 +276,7 @@ export default function LoginPage() {
                     <IndianRupee className="w-4 h-4" />
                   </div>
                   <p className="text-2xl sm:text-3xl font-black text-white">{taxCollected}</p>
-                  <p className="text-gray-400 text-xs font-medium">Tax Collected</p>
+                  <p className="text-gray-400 text-xs font-medium">{t('dashboard.amountPaid')}</p>
                 </div>
 
                 <div className="space-y-1.5">
@@ -286,7 +284,7 @@ export default function LoginPage() {
                     <Users className="w-4 h-4" />
                   </div>
                   <p className="text-2xl sm:text-3xl font-black text-white">{activeCitizens}</p>
-                  <p className="text-gray-400 text-xs font-medium">Active Citizens</p>
+                  <p className="text-gray-400 text-xs font-medium">{t('dashboard.activeResident')}</p>
                 </div>
 
                 <div className="space-y-1.5">
@@ -294,7 +292,7 @@ export default function LoginPage() {
                     <Moon className="w-4 h-4" />
                   </div>
                   <p className="text-2xl sm:text-3xl font-black text-[#FF8C00]">{complianceRate}</p>
-                  <p className="text-gray-400 text-xs font-medium">On-time Rate</p>
+                  <p className="text-gray-400 text-xs font-medium">{t('dashboard.compliant')}</p>
                 </div>
 
                 <div className="space-y-1.5">
@@ -302,7 +300,7 @@ export default function LoginPage() {
                     <Trophy className="w-4 h-4" />
                   </div>
                   <p className="text-2xl sm:text-3xl font-black text-white">{topRewarders}</p>
-                  <p className="text-gray-400 text-xs font-medium">Top Rewarders</p>
+                  <p className="text-gray-400 text-xs font-medium">{t('rewards.title')}</p>
                 </div>
 
               </div>
@@ -311,49 +309,47 @@ export default function LoginPage() {
               <div className="bg-[#12151C]/90 border border-[#242A38] rounded-2xl p-4 flex items-center gap-3 text-xs text-gray-300 backdrop-blur-md">
                 <ShieldCheck className="w-4 h-4 text-[#FF8C00] flex-shrink-0" />
                 <span>
-                  <strong className="text-white">Trusted by thousands of citizens</strong> across the nation.
+                  {t('login.trustedByThousands')}
                 </span>
               </div>
 
             </div>
 
-            {/* Bottom Footer Bar — Only 100% Secure & Your Data is Safe */}
+            {/* Bottom Footer Bar */}
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs text-gray-400 border-t border-[#1E222D] pt-5">
               <div className="flex items-center gap-6 flex-wrap">
                 <span className="flex items-center gap-1.5 text-gray-300 font-medium">
-                  <ShieldCheck className="w-3.5 h-3.5 text-[#FF8C00]" /> 100% Secure
+                  <ShieldCheck className="w-3.5 h-3.5 text-[#FF8C00]" /> {t('login.secure')}
                 </span>
                 <span className="flex items-center gap-1.5 text-gray-300 font-medium">
-                  <ShieldCheck className="w-3.5 h-3.5 text-[#FF8C00]" /> Your Data is Safe
+                  <ShieldCheck className="w-3.5 h-3.5 text-[#FF8C00]" /> {t('login.dataSafe')}
                 </span>
               </div>
 
               <a href="#terms" className="text-gray-400 hover:text-[#FF8C00] flex items-center gap-1 transition-colors font-medium">
-                Terms & Conditions <ArrowRight className="w-3 h-3" />
+                {t('login.terms')} <ArrowRight className="w-3 h-3" />
               </a>
             </div>
 
           </div>
         </div>
 
-        {/* RIGHT PANEL — PITCH-BLACK HIGH-CONTRAST PORTAL GATEWAY */}
+        {/* RIGHT PANEL — PORTAL GATEWAY */}
         <div className="lg:w-[40%] w-full bg-[#060709] p-6 sm:p-8 lg:p-10 flex flex-col justify-between space-y-6">
 
-          {/* Main Solid Pitch-Black Gateway Card with Crisp Borders & Generous Spacing */}
+          {/* Main Solid Pitch-Black Gateway Card */}
           <div className="bg-[#0A0A0C] border border-[#1E222D] rounded-[28px] p-6 sm:p-8 space-y-6 shadow-2xl relative">
 
-            {/* ========================================================================= */}
-            {/* STATE 1: ROLE SELECTION (3 Options: Citizen, Tax Collector, System Admin) */}
-            {/* ========================================================================= */}
+            {/* STATE 1: ROLE SELECTION */}
             {!selectedRole && (
               <div className="space-y-6 animate-fade-in-up">
                 <div>
                   <div className="flex items-center gap-2 mb-2">
                     <ShieldCheck className="w-4 h-4 text-[#FF8C00]" />
-                    <span className="text-[#FF8C00] text-xs font-bold uppercase tracking-wider">SELECT ACCESS ROLE</span>
+                    <span className="text-[#FF8C00] text-xs font-bold uppercase tracking-wider">{t('login.selectRole')}</span>
                   </div>
-                  <h2 className="text-2xl sm:text-3xl font-black text-white tracking-tight">Portal Gateway</h2>
-                  <p className="text-gray-400 text-xs sm:text-sm mt-1">Select your account profile type to proceed.</p>
+                  <h2 className="text-2xl sm:text-3xl font-black text-white tracking-tight">{t('login.portalGateway')}</h2>
+                  <p className="text-gray-400 text-xs sm:text-sm mt-1">{t('login.selectProfile')}</p>
                 </div>
 
                 <div className="space-y-3.5">
@@ -367,8 +363,8 @@ export default function LoginPage() {
                         <UserCheck className="w-5 h-5" />
                       </div>
                       <div>
-                        <h3 className="font-bold text-white text-base group-hover:text-[#FF8C00] transition-colors">Citizen</h3>
-                        <p className="text-gray-400 text-xs mt-1">Pay taxes, claim early-bird rebates, earn XP & perks.</p>
+                        <h3 className="font-bold text-white text-base group-hover:text-[#FF8C00] transition-colors">{t('login.citizen')}</h3>
+                        <p className="text-gray-400 text-xs mt-1">{t('login.citizenDesc')}</p>
                       </div>
                     </div>
                     <ChevronRight className="w-5 h-5 text-gray-500 group-hover:text-[#FF8C00] group-hover:translate-x-0.5 transition-all flex-shrink-0" />
@@ -384,14 +380,14 @@ export default function LoginPage() {
                         <Briefcase className="w-5 h-5" />
                       </div>
                       <div>
-                        <h3 className="font-bold text-white text-base group-hover:text-cyan-400 transition-colors">Tax Collector</h3>
-                        <p className="text-gray-400 text-xs mt-1">Doorstep collections, spot receipts & field assessments.</p>
+                        <h3 className="font-bold text-white text-base group-hover:text-cyan-400 transition-colors">{t('login.collector')}</h3>
+                        <p className="text-gray-400 text-xs mt-1">{t('login.collectorDesc')}</p>
                       </div>
                     </div>
                     <ChevronRight className="w-5 h-5 text-gray-500 group-hover:text-cyan-400 group-hover:translate-x-0.5 transition-all flex-shrink-0" />
                   </div>
 
-                  {/* Card 3: System Admin (Visually distinct & subtle border at bottom) */}
+                  {/* Card 3: System Admin */}
                   <div
                     onClick={() => handleSelectRole('admin')}
                     className="p-4 rounded-xl bg-[#0C0D12] border border-[#1E222D] hover:border-amber-400/60 hover:bg-[#141620] cursor-pointer transition-all duration-200 flex items-center justify-between group mt-5"
@@ -402,10 +398,10 @@ export default function LoginPage() {
                       </div>
                       <div>
                         <div className="flex items-center gap-2">
-                          <h4 className="font-semibold text-gray-200 text-xs group-hover:text-white transition-colors">System Admin</h4>
-                          <span className="text-[9px] font-bold text-gray-400 bg-[#161822] px-1.5 py-0.5 rounded border border-[#262B3A]">ULB Superuser</span>
+                          <h4 className="font-semibold text-gray-200 text-xs group-hover:text-white transition-colors">{t('login.admin')}</h4>
+                          <span className="text-[9px] font-bold text-gray-400 bg-[#161822] px-1.5 py-0.5 rounded border border-[#262B3A]">{t('login.ulbSuperuser')}</span>
                         </div>
-                        <p className="text-gray-500 text-[11px] mt-0.5">System management and analytics.</p>
+                        <p className="text-gray-500 text-[11px] mt-0.5">{t('login.adminDesc')}</p>
                       </div>
                     </div>
                     <ChevronRight className="w-4 h-4 text-gray-600 group-hover:text-gray-300 transition-colors flex-shrink-0" />
@@ -415,31 +411,29 @@ export default function LoginPage() {
                 {/* 3 Feature Pills */}
                 <div className="flex items-center justify-between text-[11px] text-gray-400 font-medium pt-3 border-t border-[#1E222D]">
                   <span className="flex items-center gap-1.5 text-green-400">
-                    <ShieldCheck className="w-3.5 h-3.5" /> OTP Verified
+                    <ShieldCheck className="w-3.5 h-3.5" /> {t('login.otpVerified')}
                   </span>
                   <span className="flex items-center gap-1.5 text-amber-300">
-                    <Trophy className="w-3.5 h-3.5" /> Earn Rewards
+                    <Trophy className="w-3.5 h-3.5" /> {t('login.earnRewards')}
                   </span>
                   <span className="flex items-center gap-1.5 text-amber-400">
-                    <Zap className="w-3.5 h-3.5" /> Instant Pay
+                    <Zap className="w-3.5 h-3.5" /> {t('login.instantPay')}
                   </span>
                 </div>
               </div>
             )}
 
-            {/* ========================================================================= */}
-            {/* STATE 2: DYNAMIC LOGIN VIEW FOR SELECTED ROLE                             */}
-            {/* ========================================================================= */}
+            {/* STATE 2: LOGIN FORM */}
             {selectedRole && (
               <div className="space-y-6 animate-fade-in-up">
 
-                {/* Back to Role Selection Button */}
+                {/* Back Button */}
                 <button
                   onClick={handleBackToRoles}
                   className="text-gray-400 hover:text-[#FF8C00] text-xs font-bold flex items-center gap-2 transition-colors group"
                 >
                   <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-                  Back to role selection
+                  {t('login.backToRoles')}
                 </button>
 
                 {/* STEP 1: PHONE/CREDENTIAL INPUT */}
@@ -460,7 +454,7 @@ export default function LoginPage() {
 
                     {/* Demo Helper Pills */}
                     <div className="space-y-2 bg-[#10121A] border border-[#202533] rounded-2xl p-3.5">
-                      <span className="text-[11px] text-gray-400 block font-medium">Demo: Click to auto-fill</span>
+                      <span className="text-[11px] text-gray-400 block font-medium">{t('login.demoClickAutoFill')}</span>
                       <div className="flex flex-wrap gap-2">
                         {currentRoleConfig.demos.map((demo) => (
                           <button
@@ -515,13 +509,13 @@ export default function LoginPage() {
                       <button
                         type="submit"
                         disabled={isLoading || phone.length < 10}
-                        className="w-full bg-[#FF8C00] hover:bg-[#E07B00] text-black font-extrabold py-4 rounded-2xl text-base transition-all duration-300 disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center gap-2 shadow-lg shadow-[#FF8C00]/20"
+                        className="w-full bg-[#FF8C00] hover:bg-[#E07B00] text-black font-extrabold py-4 rounded-2xl text-base transition-all duration-300 disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center gap-2 shadow-lg shadow-[#FF8C00]/20 font-sans"
                       >
                         {isLoading ? (
                           <div className="w-5 h-5 border-2 border-black/30 border-t-black rounded-full animate-spin" />
                         ) : (
                           <>
-                            Send OTP
+                            {t('login.sendOTP')}
                             <ArrowRight className="w-4 h-4" />
                           </>
                         )}
@@ -531,13 +525,13 @@ export default function LoginPage() {
                     {/* 3 Feature Pills */}
                     <div className="flex items-center justify-between text-[11px] text-gray-400 font-medium pt-2 border-t border-[#1E222D]">
                       <span className="flex items-center gap-1.5 text-green-400">
-                        <ShieldCheck className="w-3.5 h-3.5" /> OTP Verified
+                        <ShieldCheck className="w-3.5 h-3.5" /> {t('login.otpVerified')}
                       </span>
                       <span className="flex items-center gap-1.5 text-amber-300">
-                        <Trophy className="w-3.5 h-3.5" /> Earn Rewards
+                        <Trophy className="w-3.5 h-3.5" /> {t('login.earnRewards')}
                       </span>
                       <span className="flex items-center gap-1.5 text-amber-400">
-                        <Zap className="w-3.5 h-3.5" /> Instant Pay
+                        <Zap className="w-3.5 h-3.5" /> {t('login.instantPay')}
                       </span>
                     </div>
                   </div>
@@ -551,9 +545,9 @@ export default function LoginPage() {
                         <Shield className="w-4 h-4 text-[#FF8C00]" />
                         <span className="text-[#FF8C00] text-xs font-bold uppercase tracking-wider">VERIFICATION</span>
                       </div>
-                      <h2 className="text-2xl sm:text-3xl font-black text-white tracking-tight">Enter OTP</h2>
+                      <h2 className="text-2xl sm:text-3xl font-black text-white tracking-tight">{t('login.enterOTP')}</h2>
                       <p className="text-gray-400 text-xs sm:text-sm mt-1">
-                        We've sent a 6-digit code to <span className="text-[#FF8C00] font-bold">+91 {phone}</span>
+                        {t('login.sentOTPCode')} <span className="text-[#FF8C00] font-bold">+91 {phone}</span>
                       </p>
                     </div>
 
@@ -578,7 +572,7 @@ export default function LoginPage() {
                       </div>
 
                       <p className="text-gray-500 text-xs text-center font-medium">
-                        Demo OTP: <span className="text-[#FF8C00] font-mono font-bold">123456</span>
+                        {t('login.demoOTP')}: <span className="text-[#FF8C00] font-mono font-bold">123456</span>
                       </p>
 
                       {error && (
@@ -597,23 +591,23 @@ export default function LoginPage() {
                           <div className="w-5 h-5 border-2 border-black/30 border-t-black rounded-full animate-spin" />
                         ) : (
                           <>
-                            Verify & Access Portal
+                            {t('login.verifyAndAccess')}
                             <CheckCircle2 className="w-4 h-4" />
                           </>
                         )}
                       </button>
 
                       <div className="text-center text-xs text-gray-500">
-                        Didn't receive code?{' '}
+                        {t('login.didntReceive')}{' '}
                         {timer > 0 ? (
-                          <span className="text-gray-400 font-medium">Resend in {timer}s</span>
+                          <span className="text-gray-400 font-medium">{t('login.resendIn')} {timer}s</span>
                         ) : (
                           <button
                             type="button"
                             onClick={handleResendOTP}
                             className="text-[#FF8C00] font-bold hover:underline"
                           >
-                            Resend OTP Now
+                            {t('login.resendNow')}
                           </button>
                         )}
                       </div>
@@ -627,8 +621,8 @@ export default function LoginPage() {
                     <div className="w-16 h-16 bg-green-500/20 border border-green-500/40 rounded-full flex items-center justify-center mx-auto shadow-xl shadow-green-500/20">
                       <CheckCircle2 className="w-8 h-8 text-green-400" />
                     </div>
-                    <h2 className="text-2xl font-black text-white">Identity Verified!</h2>
-                    <p className="text-gray-400 text-xs">Redirecting to your CIVTAX AI portal...</p>
+                    <h2 className="text-2xl font-black text-white">{t('login.identityVerified')}</h2>
+                    <p className="text-gray-400 text-xs">{t('login.redirecting')}</p>
                     <div className="pt-2 flex justify-center">
                       <div className="w-6 h-6 border-2 border-[#FF8C00]/30 border-t-[#FF8C00] rounded-full animate-spin" />
                     </div>
@@ -640,7 +634,7 @@ export default function LoginPage() {
 
           </div>
 
-          {/* Graphic Banner Box at Bottom Right matching reference image */}
+          {/* Graphic Banner Box */}
           <div className="bg-[#0A0A0C] border border-[#1E222D] rounded-[24px] p-6 text-center space-y-3 relative overflow-hidden shadow-xl">
             <div className="flex items-center justify-center gap-3 py-2">
               <div className="w-12 h-12 rounded-2xl bg-[#10121A] border border-[#202533] flex items-center justify-center text-2xl shadow">

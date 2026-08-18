@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
   IndianRupee, MapPin, Users, TrendingUp, RefreshCw, CircleDollarSign,
   Clock, AlertTriangle, Cpu, Trophy, BarChart3, ChevronUp, ChevronDown,
@@ -118,6 +119,7 @@ const NAV_ITEMS = [
 ];
 
 export default function TaxCollectorPage() {
+  const { t } = useTranslation();
   const [activeNav, setActiveNav] = useState('revenue');
   const [syncTime, setSyncTime] = useState('Just now');
 
@@ -320,11 +322,11 @@ export default function TaxCollectorPage() {
             <div className="flex items-center gap-2.5">
               <Building2 className="w-5 h-5 text-[#E5B80B]" />
               <h1 className="text-lg sm:text-2xl font-black text-white tracking-tight">
-                Tax Collector — Municipality Operations
+                {t('collector.title')}
               </h1>
             </div>
             <p className="text-gray-400 text-xs sm:text-sm">
-              Bangalore Municipal Corporation &nbsp;·&nbsp; FY 2025–26 &nbsp;·&nbsp; Officer Anand Verma (Zone 4)
+              {t('collector.subtitle')} &nbsp;·&nbsp; Officer Anand Verma (Zone 4)
             </p>
           </div>
 

@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useAuth } from '../context/AuthContext';
 import {
   ShieldCheck, LayoutGrid, Settings2, Users, BarChart3, Save, ChevronRight,
@@ -750,6 +751,7 @@ function renderSection(id) {
 // Main Admin Page export
 // ─────────────────────────────────────────────────────────────────────────────
 export default function AdminPage() {
+  const { t } = useTranslation();
   const [activeId, setActiveId] = useState('tax-rules');
   const [openGroups, setOpenGroups] = useState({ 'Core Configuration': true, 'Management & Governance': true, 'Monitoring & Analytics': true });
   const [saved, setSaved] = useState(false);
@@ -766,10 +768,10 @@ export default function AdminPage() {
         <div>
           <div className="flex items-center gap-2 mb-1">
             <ShieldCheck className="w-5 h-5 text-[#E5B80B]" />
-            <span className="text-[#E5B80B] text-xs font-extrabold uppercase tracking-wider">ULB Command Center</span>
+            <span className="text-[#E5B80B] text-xs font-extrabold uppercase tracking-wider">{t('admin.title')}</span>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-black text-white tracking-tight">Admin Control Panel</h1>
-          <p className="text-gray-400 text-xs sm:text-sm mt-0.5">Bangalore Municipal Corporation · Connected to Fast-Track Data Layer & DIGIT APIs</p>
+          <h1 className="text-2xl sm:text-3xl font-black text-white tracking-tight">{t('admin.title')}</h1>
+          <p className="text-gray-400 text-xs sm:text-sm mt-0.5">{t('admin.subtitle')}</p>
         </div>
         <div className="flex items-center gap-3">
           <div className="flex items-center gap-2 text-xs text-emerald-400 bg-emerald-500/15 border border-emerald-500/30 px-3.5 py-2 rounded-xl font-bold">

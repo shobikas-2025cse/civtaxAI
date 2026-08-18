@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useAuth } from '../context/AuthContext';
 import { 
   Building2, Droplets, Trash2, Clock, TrendingUp, ChevronRight, CalendarDays, 
@@ -10,6 +11,7 @@ import PaymentAuthenticationModal from '../components/PaymentAuthenticationModal
 import { generateReceiptPDF } from '../utils/generateReceiptPDF';
 
 export default function DashboardPage() {
+  const { t } = useTranslation();
   const { user, getTaxes, payTax, getPaymentHistory, refreshCitizenTaxes } = useAuth();
   const taxes = getTaxes();
   const paymentHistory = getPaymentHistory().filter(p => !user || p.citizenId === user.id);
@@ -122,14 +124,14 @@ export default function DashboardPage() {
               <div className="flex items-center gap-2">
                 <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse" />
                 <p className="text-[#E5B80B] text-xs font-bold uppercase tracking-wider">
-                  Citizen Portal • {user?.status === 'Defaulter' ? 'Action Required' : 'Active Resident'}
+                  {t('nav.citizenPortal')} • {user?.status === 'Defaulter' ? t('dashboard.actionRequired') : t('dashboard.activeResident')}
                 </p>
               </div>
               <h1 className="text-2xl sm:text-3xl lg:text-4xl font-black text-white tracking-tight">
                 {user?.name || 'Citizen'}
               </h1>
               <p className="text-gray-300 text-xs sm:text-sm">
-                {user?.ward || 'Ward 02 - Rajajinagar'} • Property ID: <span className="text-gray-100 font-mono font-bold">{user?.propertyId || 'PROP-W02-0001'}</span>
+                {user?.ward || 'Ward 02 - Rajajinagar'} • {t('dashboard.propertyId')}: <span className="text-gray-100 font-mono font-bold">{user?.propertyId || 'PROP-W02-0001'}</span>
               </p>
             </div>
 
@@ -142,7 +144,7 @@ export default function DashboardPage() {
                   <Trophy className="w-5 h-5 text-black" />
                 </div>
                 <div>
-                  <p className="text-gray-400 text-[10px] uppercase font-bold tracking-wider">Civic Credit Score</p>
+                  <p className="text-gray-400 text-[10px] uppercase font-bold tracking-wider">{t('dashboard.civicScore')}</p>
                   <div className="flex items-center gap-2">
                     <span className="text-xl font-black text-[#E5B80B]">{user?.civicCreditScore || 780}</span>
                     <span className="text-[11px] font-bold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/30">
@@ -158,7 +160,7 @@ export default function DashboardPage() {
                   #{user?.rank || (user?.civicCreditScore >= 800 ? 3 : 12)}
                 </div>
                 <div>
-                  <p className="text-gray-400 text-[10px] uppercase font-bold tracking-wider">Ward Ranking</p>
+                  <p className="text-gray-400 text-[10px] uppercase font-bold tracking-wider">{t('dashboard.wardRank')}</p>
                   <p className="text-sm font-black text-white">#{user?.rank || (user?.civicCreditScore >= 800 ? 3 : 12)} in {user?.wardName || 'Ward'}</p>
                   <p className="text-[10px] text-gray-400">Top {user?.civicCreditScore >= 800 ? '2%' : '15%'} on-time taxpayer</p>
                 </div>
@@ -172,7 +174,7 @@ export default function DashboardPage() {
                     : 'bg-emerald-500/20 text-emerald-400 border-emerald-500/40'
                 }`}>
                   {user?.status === 'Defaulter' ? <ShieldAlert className="w-4 h-4" /> : <ShieldCheck className="w-4 h-4" />}
-                  <span>{user?.status || 'Compliant'}</span>
+                  <span>{user?.status === 'Defaulter' ? t('dashboard.defaulter') : t('dashboard.compliant')}</span>
                 </span>
               </div>
 
@@ -183,21 +185,21 @@ export default function DashboardPage() {
           {/* Quick Metrics Strip */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3.5 pt-4 border-t border-[#252A38]">
             <div className="bg-[#151822] p-3.5 rounded-2xl border border-[#252A38]">
-              <p className="text-gray-400 text-[10px] font-bold uppercase tracking-wider">Total Pending Dues</p>
+              <p className="text-gray-400 text-[10px] font-bold uppercase tracking-wider">{t('dashboard.outstandingDues')}</p>
               <p className="text-xl sm:text-2xl font-black text-[#E5B80B] mt-0.5">₹{totalDue.toLocaleString()}</p>
             </div>
             <div className="bg-[#151822] p-3.5 rounded-2xl border border-[#252A38]">
-              <p className="text-gray-400 text-[10px] font-bold uppercase tracking-wider">Payment Streak</p>
+              <p className="text-gray-400 text-[10px] font-bold uppercase tracking-wider">{t('rewards.streak')}</p>
               <p className="text-xl sm:text-2xl font-black text-emerald-400 mt-0.5 flex items-center gap-1">
-                <Flame className="w-5 h-5 text-orange-400 fill-orange-400" /> {user?.streak || 3} Months
+                <Flame className="w-5 h-5 text-orange-400 fill-orange-400" /> {user?.streak || 3} {t('rewards.consecutiveOnTime')}
               </p>
             </div>
             <div className="bg-[#151822] p-3.5 rounded-2xl border border-[#252A38]">
-              <p className="text-gray-400 text-[10px] font-bold uppercase tracking-wider">Total Taxes Paid</p>
+              <p className="text-gray-400 text-[10px] font-bold uppercase tracking-wider">{t('dashboard.amountPaid')}</p>
               <p className="text-xl sm:text-2xl font-black text-white mt-0.5">₹{(user?.amountPaid || 0).toLocaleString()}</p>
             </div>
             <div className="bg-[#151822] p-3.5 rounded-2xl border border-[#252A38]">
-              <p className="text-gray-400 text-[10px] font-bold uppercase tracking-wider">Citizen XP Score</p>
+              <p className="text-gray-400 text-[10px] font-bold uppercase tracking-wider">{t('rewards.totalXP')}</p>
               <p className="text-xl sm:text-2xl font-black text-[#FFDC69] mt-0.5">{user?.xp || 2250} XP</p>
             </div>
           </div>
@@ -218,7 +220,7 @@ export default function DashboardPage() {
           }`}
         >
           <CreditCard className="w-4 h-4" />
-          Pending Payments ({pendingTaxes.length + overdueTaxes.length})
+          {t('dashboard.pendingTaxes')} ({pendingTaxes.length + overdueTaxes.length})
         </button>
 
         <button
@@ -230,7 +232,7 @@ export default function DashboardPage() {
           }`}
         >
           <Trophy className="w-4 h-4" />
-          Citizen Ranking & Rewards
+          {t('rewards.title')}
         </button>
 
         <button
@@ -242,7 +244,7 @@ export default function DashboardPage() {
           }`}
         >
           <FileText className="w-4 h-4" />
-          Payment History & Receipts ({paymentHistory.length + paidTaxes.length})
+          {t('dashboard.paidTaxes')} ({paymentHistory.length + paidTaxes.length})
         </button>
       </div>
 
@@ -288,9 +290,9 @@ export default function DashboardPage() {
               <div className="flex items-center justify-between">
                 <h2 className="text-lg font-black text-[#1A1D27] flex items-center gap-2">
                   <CreditCard className="w-5 h-5 text-[#B8860B]" />
-                  Itemized Municipal Tax Dues
+                  {t('dashboard.itemizedDues')}
                 </h2>
-                <span className="text-xs text-[#555C6E] font-bold">Auto-Synced with DIGIT / UPYOG</span>
+                <span className="text-xs text-[#555C6E] font-bold">{t('dashboard.autoSynced')}</span>
               </div>
 
               <div className="space-y-4">
@@ -323,8 +325,8 @@ export default function DashboardPage() {
                               </span>
                             </div>
                             <p className="text-gray-400 text-xs mt-0.5">
-                              Due Date: <span className="text-gray-200 font-medium">{tax.due}</span>
-                              {tax.arrears && <span className="text-red-400 ml-2 font-bold">(Includes ₹{tax.arrears} arrears)</span>}
+                              {t('dashboard.dueDate')}: <span className="text-gray-200 font-medium">{tax.due}</span>
+                              {tax.arrears && <span className="text-red-400 ml-2 font-bold">(+₹{tax.arrears} {t('dashboard.arrearsPenalty')})</span>}
                             </p>
                           </div>
                         </div>
@@ -341,20 +343,20 @@ export default function DashboardPage() {
                               : 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'
                           }`}>
                             <Clock className="w-3.5 h-3.5" />
-                            <span>{isOverdue ? `${Math.abs(daysLeft)} Days Overdue` : `${daysLeft} Days Left`}</span>
+                            <span>{isOverdue ? `${Math.abs(daysLeft)} ${t('dashboard.daysOverdue')}` : `${daysLeft} ${t('dashboard.daysLeft')}`}</span>
                           </div>
 
                           <div className="text-right">
                             <p className="text-2xl font-black text-white">₹{totalTaxAmount.toLocaleString()}</p>
-                            <p className="text-[10px] text-gray-400">Net Payable</p>
+                            <p className="text-[10px] text-gray-400">{t('payment.totalPayable')}</p>
                           </div>
 
                           {/* Individual Pay Button */}
                           <button
                             onClick={() => handleOpenPaymentModal(tax)}
-                            className="bg-[#E5B80B] hover:bg-[#D1A000] text-black font-extrabold px-5 py-2.5 rounded-xl text-xs flex items-center gap-1.5 shadow-md shadow-[#E5B80B]/20 transition-all cursor-pointer"
+                            className="bg-[#E5B80B] hover:bg-[#D1A000] text-black font-extrabold px-5 py-2.5 rounded-xl text-xs flex items-center gap-1.5 shadow-md shadow-[#E5B80B]/20 transition-all cursor-pointer font-sans"
                           >
-                            Pay Bill
+                            {t('dashboard.payNow')}
                             <ChevronRight className="w-3.5 h-3.5" />
                           </button>
 
@@ -611,7 +613,7 @@ export default function DashboardPage() {
               <div>
                 <h2 className="text-xl font-black text-white flex items-center gap-2">
                   <FileText className="w-5 h-5 text-[#E5B80B]" />
-                  Verified Tax Payment History & Receipts
+                  {t('dashboard.paidTaxes')}
                 </h2>
                 <p className="text-gray-400 text-xs sm:text-sm mt-1">
                   Download official digitally signed municipal receipts and yearly statements.

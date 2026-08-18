@@ -1,14 +1,16 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Sparkles, Trophy, Award, TrendingUp, CheckCircle, ShieldCheck, X, Zap } from 'lucide-react';
 
 export default function PostPaymentRewardModal({ reward, onClose }) {
+  const { t } = useTranslation();
   const [scratched, setScratched] = useState(false);
 
   if (!reward) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-fade-in-up">
-      <div className="bg-[#12141C] border-2 border-[#2A3042] rounded-3xl p-6 lg:p-8 max-w-lg w-full relative shadow-2xl shadow-black/80 space-y-6">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-fade-in-up font-sans">
+      <div className="bg-[#12141C] border-2 border-[#2A3042] rounded-3xl p-6 lg:p-8 max-w-lg w-full relative shadow-2xl shadow-black/80 space-y-6 text-white">
         
         {/* Close Button */}
         <button
@@ -24,12 +26,12 @@ export default function PostPaymentRewardModal({ reward, onClose }) {
             <CheckCircle className="w-10 h-10 text-[#E5B80B]" />
           </div>
           <span className="bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 text-[10px] font-extrabold px-3 py-1 rounded-full uppercase tracking-wider">
-            Payment Confirmed • Arrears Cleared
+            {t('payment.paymentSuccess')}
           </span>
-          <h2 className="text-2xl font-black text-white tracking-tight">Payment Success! 🎉</h2>
+          <h2 className="text-2xl font-black text-white tracking-tight">{t('payment.paymentSuccess')} 🎉</h2>
           <p className="text-gray-300 text-xs">
-            Paid <span className="text-white font-bold">₹{reward.amountPaid.toLocaleString()}</span> for {reward.taxType}
-            {reward.clearedArrears > 0 && <span className="text-emerald-400 font-semibold"> (Arrears of ₹{reward.clearedArrears} auto-cleared)</span>}
+            {t('dashboard.amountPaid')} <span className="text-white font-bold">₹{reward.amountPaid.toLocaleString()}</span> for {reward.taxType}
+            {reward.clearedArrears > 0 && <span className="text-emerald-400 font-semibold"> (+₹{reward.clearedArrears})</span>}
           </p>
         </div>
 
@@ -37,7 +39,7 @@ export default function PostPaymentRewardModal({ reward, onClose }) {
         <div className="bg-[#181B26] border border-[#2A3042] rounded-2xl p-5 text-center relative overflow-hidden shadow-md">
           <div className="flex items-center justify-between mb-3">
             <span className="text-[#E5B80B] text-xs font-extrabold uppercase tracking-wider flex items-center gap-1.5">
-              <Sparkles className="w-4 h-4" /> Instant Reward Scratch Card
+              <Sparkles className="w-4 h-4" /> {t('login.earnRewards')}
             </span>
             <span className="text-gray-400 text-[10px]">Tap card to reveal</span>
           </div>
@@ -71,7 +73,7 @@ export default function PostPaymentRewardModal({ reward, onClose }) {
             <TrendingUp className="w-5 h-5" />
           </div>
           <div className="flex-1 min-w-0">
-            <p className="text-xs text-gray-400">Live Ward Rank Update</p>
+            <p className="text-xs text-gray-400">{t('dashboard.wardRank')}</p>
             <p className="font-bold text-white text-sm truncate">{reward.wardRankBoost}</p>
           </div>
           <span className="text-emerald-400 font-extrabold text-xs bg-emerald-500/20 border border-emerald-500/40 px-2.5 py-1 rounded-full">
@@ -79,14 +81,14 @@ export default function PostPaymentRewardModal({ reward, onClose }) {
           </span>
         </div>
 
-        {/* LOOP STEP 3: Civic Credit Score Increment & Perk Unlock */}
+        {/* LOOP STEP 3: Civic Credit Score Increment */}
         <div className="bg-[#181B26] border border-[#E5B80B]/40 rounded-2xl p-4 flex items-center justify-between shadow-md">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-xl bg-[#E5B80B]/20 text-[#E5B80B] border border-[#E5B80B]/40 flex items-center justify-center font-extrabold text-sm">
               +25
             </div>
             <div>
-              <p className="text-xs text-gray-400">Civic Credit Score Boost</p>
+              <p className="text-xs text-gray-400">{t('dashboard.civicScore')}</p>
               <p className="font-extrabold text-white text-base">{reward.newCreditScore} <span className="text-[#E5B80B] text-xs font-bold">CRED Score</span></p>
             </div>
           </div>
@@ -98,9 +100,9 @@ export default function PostPaymentRewardModal({ reward, onClose }) {
         {/* Action Button */}
         <button
           onClick={onClose}
-          className="w-full bg-[#E5B80B] hover:bg-[#D1A000] text-black font-black py-4 rounded-2xl text-base transition-all shadow-lg shadow-[#E5B80B]/25 cursor-pointer"
+          className="w-full bg-[#E5B80B] hover:bg-[#D1A000] text-black font-extrabold py-3.5 rounded-2xl text-base transition-all shadow-lg shadow-[#E5B80B]/20 cursor-pointer"
         >
-          Claim All Rewards & Continue
+          {t('payment.backToDashboard')}
         </button>
 
       </div>
