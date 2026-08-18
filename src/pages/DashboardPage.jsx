@@ -10,7 +10,7 @@ import PaymentAuthenticationModal from '../components/PaymentAuthenticationModal
 import { generateReceiptPDF } from '../utils/generateReceiptPDF';
 
 export default function DashboardPage() {
-  const { user, getTaxes, payTax, getPaymentHistory } = useAuth();
+  const { user, getTaxes, payTax, getPaymentHistory, refreshCitizenTaxes } = useAuth();
   const taxes = getTaxes();
   const paymentHistory = getPaymentHistory().filter(p => !user || p.citizenId === user.id);
   
@@ -54,15 +54,17 @@ export default function DashboardPage() {
     setIsAuthModalOpen(false);
   };
 
-  // Execute Payment Simulation (Triggered after successful demo PIN authentication)
-  const handleExecutePayment = (authData = null) => {
+  // Execute Payment (Triggered after successful demo PIN authentication)
+  const handleExecutePayment = async (authData = null) => {
     setIsProcessingPayment(true);
     const targetTaxId = selectedTaxToPay ? selectedTaxToPay.id : (overdueTaxes[0]?.id || pendingTaxes[0]?.id || 'TAX001');
     
-    setTimeout(() => {
-      setIsProcessingPayment(false);
-      const rewardResult = payTax(targetTaxId, paymentMode === 'yearly' ? 'Yearly Lump Sum (5% Rebate)' : 'Monthly Auto-Debit (Instalment 1/3)');
-      
+    try {
+      const rewardResult = await payTax(
+        targetTaxId,
+        paymentMode === 'yearly' ? 'Yearly Lump Sum (5% Rebate)' : 'Monthly Auto-Debit (Instalment 1/3)'
+      );
+
       const paymentAmount = selectedTaxToPay 
         ? (selectedTaxToPay.amount + (selectedTaxToPay.arrears || 0))
         : totalDue;
@@ -72,7 +74,8 @@ export default function DashboardPage() {
         : Math.round(paymentAmount / 3);
 
       setPaymentSuccessData({
-        txnId: authData?.txnId || ('TXN-' + Math.floor(100000 + Math.random() * 900000)),
+        txnId: rewardResult?.backendTxnId || authData?.txnId || ('TXN-' + Math.floor(100000 + Math.random() * 900000)),
+        receiptId: rewardResult?.backendReceiptId || authData?.receiptId || ('RCP' + Math.floor(100000 + Math.random() * 900000)),
         amountPaid: discountedAmount,
         discountApplied: paymentMode === 'yearly' ? Math.round(paymentAmount * 0.05) : 0,
         mode: paymentMode,
@@ -80,7 +83,9 @@ export default function DashboardPage() {
         date: authData?.date || new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }),
         rewardCertificate: paymentMode === 'yearly' ? '🌟 Gold Model Citizen Tax Compliance Certificate' : null
       });
-    }, 600);
+    } finally {
+      setIsProcessingPayment(false);
+    }
   };
 
   // Download PDF Receipt

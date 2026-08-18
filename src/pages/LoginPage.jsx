@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
+import { authService } from '../services';
 import { Shield, Phone, ArrowRight, CheckCircle2, Landmark, Sparkles, Lock, Star, Trophy, Award, Zap, ShieldCheck, Users, Moon, IndianRupee, UserCheck, Briefcase, Settings, ChevronRight, ArrowLeft } from 'lucide-react';
 
 // Count-up animation hook for statistics
@@ -114,23 +115,27 @@ export default function LoginPage() {
     setError('');
   };
 
-  const handleSendOTP = (e) => {
+  const handleSendOTP = async (e) => {
     e.preventDefault();
     if (phone.length < 10) {
-      setError('Please enter a valid 10-digit number');
+      setError('Please enter a valid 10-digit mobile number');
       return;
     }
     setError('');
     setIsLoading(true);
 
+    try {
+      await authService.sendOTP(phone);
+    } catch (err) {
+      // Fallback gracefully to demo OTP
+    }
+
+    setIsLoading(false);
+    setStep('otp');
+    setTimer(30);
+    // Auto-fill demo OTP (123456)
     setTimeout(() => {
-      setIsLoading(false);
-      setStep('otp');
-      setTimer(30);
-      // Auto-fill demo OTP (123456)
-      setTimeout(() => {
-        setOtp(['1', '2', '3', '4', '5', '6']);
-      }, 1200);
+      setOtp(['1', '2', '3', '4', '5', '6']);
     }, 800);
   };
 
@@ -151,7 +156,7 @@ export default function LoginPage() {
     }
   };
 
-  const handleVerifyOTP = (e) => {
+  const handleVerifyOTP = async (e) => {
     e.preventDefault();
     const otpString = otp.join('');
     if (otpString.length !== 6) {
@@ -162,26 +167,39 @@ export default function LoginPage() {
     setError('');
     setIsLoading(true);
 
-    setTimeout(() => {
-      if (otpString === '123456') {
-        setStep('success');
-        setTimeout(() => {
-          login(phone, selectedRole);   // pass role → isolated workspace
-        }, 1200);
-      } else {
-        setError('Invalid OTP. Use demo OTP: 123456');
-        setIsLoading(false);
+    if (otpString === '123456') {
+      try {
+        await authService.verifyOTP(phone, otpString);
+      } catch (err) {
+        // Fallback to local session login
       }
-    }, 600);
+      setStep('success');
+      setTimeout(() => {
+        login(phone, selectedRole);
+      }, 1000);
+    } else {
+      setIsLoading(false);
+      setError('Invalid OTP. Use demo OTP: 123456');
+    }
   };
 
-  const handleResendOTP = () => {
+  const handleResendOTP = async () => {
     if (timer > 0) return;
+    setError('');
+    setIsLoading(true);
+
+    try {
+      await authService.sendOTP(phone);
+    } catch (err) {
+      // Fallback
+    }
+
+    setIsLoading(false);
     setOtp(['', '', '', '', '', '']);
     setTimer(30);
     setTimeout(() => {
       setOtp(['1', '2', '3', '4', '5', '6']);
-    }, 1200);
+    }, 800);
   };
 
   const currentRoleConfig = selectedRole ? roleConfig[selectedRole] : roleConfig.citizen;

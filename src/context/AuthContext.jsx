@@ -6,6 +6,7 @@ import {
   csvDataLoader,
   formatCitizenFromCSV 
 } from '../services';
+import { apiClient } from '../services/apiClient';
 
 const AuthContext = createContext(null);
 
@@ -169,49 +170,96 @@ export function AuthProvider({ children }) {
     return paymentHistory.filter(p => p.citizenId === targetId || p.Citizen_ID === targetId);
   };
 
-  // One-Tap Payment with Service Layer Integration
-  const payTax = (taxId, paymentMethod = 'UPI One-Tap') => {
+  // Re-fetch taxes for one citizen from backend and update taxDataStore
+  const refreshCitizenTaxes = async (citizenId) => {
+    try {
+      const freshTaxes = await taxService.getCitizenTaxes(citizenId);
+      if (freshTaxes && Array.isArray(freshTaxes)) {
+        setTaxDataStore(prev => ({ ...prev, [citizenId]: freshTaxes }));
+      }
+    } catch (e) {
+      console.warn('refreshCitizenTaxes failed, dashboard may show stale data until next load', e);
+    }
+  };
+
+  // One-Tap Payment — calls backend API to persist payment, then refreshes tax state
+  const payTax = async (taxId, paymentMethod = 'UPI One-Tap') => {
     if (!user) return;
-    
-    // Call tax service to record transaction
-    taxService.payTax(user.id, taxId, paymentMethod);
 
     const currentTaxes = taxDataStore[user.id] || getTaxes();
     const targetBill = currentTaxes.find(t => t.id === taxId);
-    
-    // If a specific bill was selected (e.g. Water Tax), calculate its exact amount
-    const paidAmount = targetBill 
+
+    const paidAmount = targetBill
       ? Number(targetBill.amount || 0)
       : Number(user.outstandingDues || 8300);
-      
+
     const clearedArrears = (targetBill && targetBill.arrears) ? Number(targetBill.arrears) : 0;
     const currentOutstanding = Number(user.outstandingDues !== undefined ? user.outstandingDues : 8300);
     const newOutstanding = Math.max(0, currentOutstanding - paidAmount);
 
-    // Record in local history
+    // ── OPTIMISTIC UI: immediately mark as paid in local state ──────────────
+    const todayStr = new Date().toISOString().split('T')[0];
+    const localReceiptId = 'RCP' + Math.floor(100000 + Math.random() * 900000);
+
     const newRecord = {
       id: 'PAY' + Date.now().toString().slice(-4),
       citizenId: user.id,
       citizenName: user.name,
       type: targetBill ? `${targetBill.type} Payment` : 'Property & Municipal Tax',
       amount: paidAmount + clearedArrears,
-      date: new Date().toISOString().split('T')[0],
+      date: todayStr,
       method: paymentMethod,
       ward: user.ward ? user.ward.split(' - ')[0] : 'W02',
       statusOnTime: true,
-      receiptId: 'RCP' + Math.floor(100000 + Math.random() * 900000)
+      receiptId: localReceiptId
     };
 
     setPaymentHistory(prev => [newRecord, ...prev]);
 
-    // Update tax items store to mark this specific bill as paid
+    // Optimistically mark tax as paid in taxDataStore
     setTaxDataStore(prev => {
       const current = prev[user.id] || currentTaxes;
-      const updated = current.map(t => (t.id === taxId || (!taxId && newOutstanding === 0)) ? { ...t, status: 'paid', paidOn: newRecord.date, arrears: 0 } : t);
+      const updated = current.map(t =>
+        (t.id === taxId || (!taxId && newOutstanding === 0))
+          ? { ...t, status: 'paid', paidOn: todayStr, arrears: 0 }
+          : t
+      );
       return { ...prev, [user.id]: updated };
     });
 
-    // Update citizen gamification & metrics
+    // ── BACKEND: persist payment to PostgreSQL/Supabase ─────────────────────
+    let backendResult = null;
+    try {
+      backendResult = await apiClient.post('/taxes/pay', {
+        citizenId: user.id,
+        taxId: taxId,
+        paymentMethod: paymentMethod
+      });
+
+      if (backendResult) {
+        // Re-fetch updated taxes from backend so dashboard stays consistent after refresh
+        await refreshCitizenTaxes(user.id);
+
+        // Refresh payment history from backend
+        try {
+          const freshHistory = await taxService.getTransactions(user.id);
+          if (freshHistory && Array.isArray(freshHistory) && freshHistory.length > 0) {
+            setPaymentHistory(prev => {
+              // Merge: backend transactions first, then any local-only ones
+              const backendIds = new Set(freshHistory.map(t => t.id || t.transaction_id));
+              const localOnly = prev.filter(p => !backendIds.has(p.id));
+              return [...freshHistory, ...localOnly];
+            });
+          }
+        } catch (e) {
+          console.warn('Could not refresh payment history from backend', e);
+        }
+      }
+    } catch (e) {
+      console.warn('Backend payment API failed — payment recorded locally only:', e);
+    }
+
+    // ── Update citizen gamification & metrics ────────────────────────────────
     const addedXp = 150;
     const newXp = (user.xp || 0) + addedXp;
     const newStreak = (user.streak || 0) + 1;
@@ -233,11 +281,9 @@ export function AuthProvider({ children }) {
 
     setUser(updatedUser);
     localStorage.setItem('civtax_user', JSON.stringify(updatedUser));
-
-    // Update in citizen service list
     setAllCitizens(prev => prev.map(c => c.id === user.id ? updatedUser : c));
 
-    // Set reward modal payload
+    // ── Reward modal payload ─────────────────────────────────────────────────
     const rewardPayload = {
       taxType: targetBill ? targetBill.type : 'Property & Municipal Tax',
       amountPaid: paidAmount + clearedArrears,
@@ -248,7 +294,9 @@ export function AuthProvider({ children }) {
       newCreditScore,
       unlockedBadge: newStreak >= 3 ? '🔥 Streak Master' : '⚡ Swift Payer',
       rewardScratchPrize: '5% Extra Municipal Cash-Back Voucher + 100 Bonus XP',
-      wardRankBoost: `${user.ward ? user.ward.split(' - ')[1] || 'Ward' : 'Ward'} ranked #1 in compliance`
+      wardRankBoost: `${user.ward ? user.ward.split(' - ')[1] || 'Ward' : 'Ward'} ranked #1 in compliance`,
+      backendTxnId: backendResult?.transactionId || backendResult?.id || null,
+      backendReceiptId: backendResult?.receiptId || localReceiptId
     };
     setLastPaymentReward(rewardPayload);
     return rewardPayload;
@@ -268,6 +316,7 @@ export function AuthProvider({ children }) {
       getPaymentHistory,
       getCitizenHistory,
       payTax,
+      refreshCitizenTaxes,
       togglePledge,
       lastPaymentReward,
       clearRewardModal,
