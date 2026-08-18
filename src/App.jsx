@@ -1,13 +1,15 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useAuth } from './context/AuthContext';
 import LoginPage from './pages/LoginPage';
 import DashboardPage from './pages/DashboardPage';
-import AIProfilePage from './pages/AIProfilePage'; // kept for collector/admin if needed
+import AIProfilePage from './pages/AIProfilePage';
 import AIChatbotPage from './pages/AIChatbotPage';
 import RewardsPage from './pages/RewardsPage';
 import PaymentPage from './pages/PaymentPage';
 import AdminPage from './pages/AdminPage';
 import TaxCollectorPage from './pages/TaxCollectorPage';
+import LanguageSelector from './components/LanguageSelector';
 import {
   LayoutDashboard, Trophy, CreditCard, LogOut, Landmark,
   Bell, User, BrainCircuit, ShieldAlert, ShieldCheck,
@@ -15,9 +17,10 @@ import {
 } from 'lucide-react';
 
 // ─────────────────────────────────────────────────────────────────────────────
-// Shared header building block (keeps DRY across three shells)
+// Shared header building block
 // ─────────────────────────────────────────────────────────────────────────────
 function AppHeader({ tabs, activeTab, setActiveTab, user, logout, rolePill }) {
+  const { t } = useTranslation();
   const isDefaulter = user?.status === 'Defaulter';
 
   return (
@@ -43,7 +46,7 @@ function AppHeader({ tabs, activeTab, setActiveTab, user, logout, rolePill }) {
           {rolePill && (
             <div className="hidden sm:flex items-center gap-1.5 px-3 py-1 rounded-xl border text-[11px] font-bold flex-shrink-0 bg-[#181C26] border-[#2A3040] text-gray-200 shadow-sm">
               {rolePill.icon}
-              <span>{rolePill.label}</span>
+              <span>{rolePill.labelKey ? t(rolePill.labelKey) : rolePill.label}</span>
             </div>
           )}
 
@@ -63,14 +66,14 @@ function AppHeader({ tabs, activeTab, setActiveTab, user, logout, rolePill }) {
                   }`}
                 >
                   <Icon className={`w-4 h-4 ${isActive ? 'text-black' : 'text-gray-400'}`} />
-                  {tab.label}
+                  {t(tab.labelKey)}
                 </button>
               );
             })}
           </nav>
 
           {/* Right side */}
-          <div className="flex items-center gap-2.5 sm:gap-3 flex-shrink-0">
+          <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
             {/* Citizen-specific compliance badge */}
             {user?.role === 'citizen' && (
               <div
@@ -83,9 +86,12 @@ function AppHeader({ tabs, activeTab, setActiveTab, user, logout, rolePill }) {
                 {isDefaulter
                   ? <ShieldAlert className="w-3.5 h-3.5" />
                   : <ShieldIcon className="w-3.5 h-3.5" />}
-                <span>{user?.status || 'Compliant'}</span>
+                <span>{isDefaulter ? t('dashboard.defaulter') : t('dashboard.compliant')}</span>
               </div>
             )}
+
+            {/* Language Selector */}
+            <LanguageSelector />
 
             <button className="relative w-9 h-9 bg-[#181C26] border border-[#2A3040] rounded-xl flex items-center justify-center hover:border-[#E5B80B] transition-colors cursor-pointer">
               <Bell className="w-4 h-4 text-gray-200" />
@@ -102,7 +108,7 @@ function AppHeader({ tabs, activeTab, setActiveTab, user, logout, rolePill }) {
             <button
               onClick={logout}
               className="w-9 h-9 bg-[#181C26] border border-[#2A3040] rounded-xl flex items-center justify-center hover:bg-red-500/20 hover:border-red-500/50 text-gray-400 hover:text-red-400 transition-all cursor-pointer"
-              title="Logout"
+              title={t('nav.logout')}
             >
               <LogOut className="w-4 h-4" />
             </button>
@@ -115,6 +121,7 @@ function AppHeader({ tabs, activeTab, setActiveTab, user, logout, rolePill }) {
 }
 
 function MobileNav({ tabs, activeTab, setActiveTab }) {
+  const { t } = useTranslation();
   return (
     <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-[#12141A] border-t border-[#262B38] z-50 px-2 py-1 shadow-2xl">
       <div className="flex items-center justify-around h-14">
@@ -130,7 +137,7 @@ function MobileNav({ tabs, activeTab, setActiveTab }) {
               }`}
             >
               <Icon className={`w-5 h-5 ${isActive ? 'text-[#E5B80B]' : 'text-gray-400'}`} />
-              <span className="text-[10px] font-medium leading-none">{tab.label}</span>
+              <span className="text-[10px] font-medium leading-none">{t(tab.labelKey)}</span>
             </button>
           );
         })}
@@ -140,13 +147,13 @@ function MobileNav({ tabs, activeTab, setActiveTab }) {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// WORKSPACE 1 — Citizen Module  (Dashboard · AI Assistant · Rewards · Pay Tax)
+// WORKSPACE 1 — Citizen Module
 // ─────────────────────────────────────────────────────────────────────────────
 const CITIZEN_TABS = [
-  { id: 'dashboard', label: 'Dashboard',   icon: LayoutDashboard },
-  { id: 'aichat',    label: 'AI Assistant', icon: BotMessageSquare },
-  { id: 'rewards',   label: 'Rewards',     icon: Trophy },
-  { id: 'payment',   label: 'Pay Tax',     icon: CreditCard },
+  { id: 'dashboard', labelKey: 'nav.dashboard',   icon: LayoutDashboard },
+  { id: 'aichat',    labelKey: 'nav.aiAssistant', icon: BotMessageSquare },
+  { id: 'rewards',   labelKey: 'nav.rewards',     icon: Trophy },
+  { id: 'payment',   labelKey: 'nav.payTax',      icon: CreditCard },
 ];
 
 function CitizenApp() {
@@ -171,7 +178,7 @@ function CitizenApp() {
         setActiveTab={setActiveTab}
         user={user}
         logout={logout}
-        rolePill={{ icon: <User className="w-3 h-3 text-[#E5B80B]" />, label: 'Citizen Portal' }}
+        rolePill={{ icon: <User className="w-3 h-3 text-[#E5B80B]" />, labelKey: 'nav.citizenPortal' }}
       />
       <main className="max-w-[1400px] w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 pb-24 md:pb-8">
         {renderPage()}
@@ -185,7 +192,7 @@ function CitizenApp() {
 // WORKSPACE 2 — Municipal Tax Collector Module
 // ─────────────────────────────────────────────────────────────────────────────
 const COLLECTOR_TABS = [
-  { id: 'collector', label: 'Collection Dashboard', icon: Briefcase },
+  { id: 'collector', labelKey: 'nav.collectionDashboard', icon: Briefcase },
 ];
 
 function CollectorApp() {
@@ -200,7 +207,7 @@ function CollectorApp() {
         setActiveTab={setActiveTab}
         user={user}
         logout={logout}
-        rolePill={{ icon: <Building2 className="w-3 h-3 text-[#E5B80B]" />, label: 'Municipal Tax Collector' }}
+        rolePill={{ icon: <Building2 className="w-3 h-3 text-[#E5B80B]" />, labelKey: 'nav.taxCollector' }}
       />
       <main className="max-w-[1400px] w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 pb-8">
         <TaxCollectorPage />
@@ -213,7 +220,7 @@ function CollectorApp() {
 // WORKSPACE 3 — Admin Module
 // ─────────────────────────────────────────────────────────────────────────────
 const ADMIN_TABS = [
-  { id: 'admin', label: 'Admin Control Centre', icon: Settings2 },
+  { id: 'admin', labelKey: 'nav.adminControlCentre', icon: Settings2 },
 ];
 
 function AdminApp() {
@@ -228,7 +235,7 @@ function AdminApp() {
         setActiveTab={setActiveTab}
         user={user}
         logout={logout}
-        rolePill={{ icon: <ShieldCheck className="w-3 h-3 text-[#E5B80B]" />, label: 'System Admin' }}
+        rolePill={{ icon: <ShieldCheck className="w-3 h-3 text-[#E5B80B]" />, labelKey: 'nav.systemAdmin' }}
       />
       <main className="max-w-[1400px] w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 pb-8">
         <AdminPage />
@@ -238,18 +245,15 @@ function AdminApp() {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// Root Router — mounts the correct isolated workspace based on role
+// Root Router
 // ─────────────────────────────────────────────────────────────────────────────
 export default function App() {
   const { isAuthenticated, userRole } = useAuth();
 
-  // Pre-login gate: always show the role-selection landing page
   if (!isAuthenticated) return <LoginPage />;
 
-  // Strict role → workspace dispatch  (complete unmount/remount on role change)
   if (userRole === 'collector') return <CollectorApp />;
   if (userRole === 'admin')     return <AdminApp />;
 
-  // Default: citizen workspace
   return <CitizenApp />;
 }
