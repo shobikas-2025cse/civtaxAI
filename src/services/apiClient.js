@@ -10,9 +10,12 @@
 
 import { csvDataLoader } from './csvDataLoader';
 
-// Defaults to live FastAPI backend at http://localhost:8000/api/v1 with auto-fallback
+// Defaults to live FastAPI backend configured via VITE_API_URL with auto-fallback
 const USE_BACKEND = import.meta.env.VITE_USE_BACKEND !== 'false';
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000/api/v1';
+const rawApiUrl = import.meta.env.VITE_API_URL || 'http://localhost:8000/api/v1';
+const API_BASE_URL = rawApiUrl.endsWith('/api/v1')
+  ? rawApiUrl
+  : `${rawApiUrl.replace(/\/$/, '')}/api/v1`;
 
 class ApiClient {
   constructor() {
