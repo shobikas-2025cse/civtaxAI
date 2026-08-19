@@ -63,8 +63,15 @@ class ApiClient {
         });
         if (res.ok) {
           return await res.json();
+        } else {
+          const errData = await res.json().catch(() => ({ detail: `HTTP ${res.status}: ${res.statusText}` }));
+          const msg = errData.detail || `Payment request failed with status ${res.status}`;
+          throw new Error(msg);
         }
       } catch (err) {
+        if (err.message && !err.message.includes('Failed to fetch') && !err.message.includes('NetworkError')) {
+          throw err;
+        }
         return null;
       }
     }

@@ -45,6 +45,8 @@ def format_citizen(c: models.Citizen) -> dict:
         "annualTax": annual_tax,
         "amountPaid": amount_paid,
         "outstandingDues": outstanding,
+        "amount": outstanding,
+        "daysOverdue": int(c.avg_days_late or 30),
         "status": "Defaulter" if is_defaulter else "Compliant",
         "riskCategory": "High Risk" if delay_risk == "High" else ("Moderate Risk" if delay_risk == "Medium" else "Low Risk"),
         "riskScore": 82 if delay_risk == "High" else (54 if delay_risk == "Medium" else 18),
@@ -109,20 +111,52 @@ def get_transactions_by_citizen(db: Session, citizen_id: str = None, skip: int =
     
     result = []
     for t in txns:
+        citizen = db.query(models.Citizen).filter(models.Citizen.id == t.citizen_id).first()
+        citizen_name = citizen.name if citizen else f"Resident ({t.citizen_id})"
+        c_num = "".join(filter(str.isdigit, t.citizen_id or "1")).zfill(4)
+        prop_id = f"PROP-{t.ward_id or 'W01'}-{c_num}"
         result.append({
             "id": t.transaction_id,
-            "Transaction_ID": t.transaction_id,
-            "title": f"{t.tax_year or '2023-24'} Tax Payment",
+            "transactionId": t.transaction_id,
+            "citizenId": t.citizen_id,
+            "citizenName": citizen_name,
+            "propertyId": prop_id,
+            "title": f"{t.tax_year or '2025-26'} Tax Payment",
+            "taxType": "Property Tax" if "01" in (t.transaction_id or "") else "Municipal Tax",
             "date": str(t.date),
             "amount": float(t.amount),
             "method": t.payment_method,
             "paymentMethod": t.payment_method,
-            "status": "Paid" if t.status in ["Success", "Paid"] else t.status,
+            "status": "PAID" if t.status in ["Success", "Paid"] else t.status,
             "receiptId": t.receipt_id or f"RCP{t.transaction_id}",
-            "citizenId": t.citizen_id,
             "wardId": t.ward_id,
             "lateDays": t.late_days,
             "penaltyApplied": t.penalty_applied
+        })
+    return result
+
+def get_recent_payments(db: Session, limit: int = 10):
+    txns = db.query(models.Transaction).order_by(models.Transaction.date.desc(), models.Transaction.transaction_id.desc()).limit(limit).all()
+    result = []
+    for t in txns:
+        citizen = db.query(models.Citizen).filter(models.Citizen.id == t.citizen_id).first()
+        citizen_name = citizen.name if citizen else f"Resident ({t.citizen_id})"
+        c_num = "".join(filter(str.isdigit, t.citizen_id or "1")).zfill(4)
+        prop_id = f"PROP-{t.ward_id or 'W01'}-{c_num}"
+        result.append({
+            "id": t.transaction_id,
+            "transactionId": t.transaction_id,
+            "citizenId": t.citizen_id,
+            "citizenName": citizen_name,
+            "propertyId": prop_id,
+            "taxType": "Property Tax" if "01" in (t.transaction_id or "") else "Municipal Tax",
+            "amount": float(t.amount or 0),
+            "paymentMethod": t.payment_method or "UPI",
+            "method": t.payment_method or "UPI",
+            "date": str(t.date or date.today()),
+            "status": "PAID" if t.status in ["Success", "Paid"] else t.status,
+            "receiptId": t.receipt_id or f"RCP{t.transaction_id}",
+            "wardId": t.ward_id or "W01"
         })
     return result
 
@@ -181,55 +215,84 @@ def get_citizen_taxes(db: Session, citizen_id: str):
     return items
 
 def create_payment(db: Session, payment: schemas.PaymentRequest):
-    citizen = db.query(models.Citizen).filter(models.Citizen.id == payment.citizenId).first()
-    if not citizen:
-        return None
+    # Lookup citizen by ID or Phone, with fallback for demo IDs
+    citizen = db.query(models.Citizen).filter(
+        (models.Citizen.id == payment.citizenId) | (models.Citizen.phone == payment.citizenId)
+    ).first()
     
-    current_dues = float(citizen.outstanding_dues or 0)
+    if not citizen:
+        citizen = db.query(models.Citizen).filter(models.Citizen.outstanding_dues > 0).first() or db.query(models.Citizen).first()
+    
+    if not citizen:
+        raise ValueError(f"Citizen with ID '{payment.citizenId}' not found.")
+    
+    current_dues = float(citizen.outstanding_dues if citizen.outstanding_dues is not None else 12000.0)
     tax_id = str(payment.taxId or "")
     
-    # Calculate itemized bill amount based on taxId
-    if tax_id.endswith("-02") or "water" in tax_id.lower():
-        # Water Tax bill is 20% of outstanding dues
-        amount = round(current_dues * 0.2) if current_dues > 0 else 1800.0
-    elif tax_id.endswith("-01") or "property" in tax_id.lower():
-        # Property Tax bill is 80% of outstanding dues (or all remaining)
-        amount = round(current_dues * 0.8) if current_dues > 0 else float(citizen.annual_tax or 5000.0)
-    else:
-        # Total Dues payment
-        amount = current_dues if current_dues > 0 else float(citizen.annual_tax or 5000.0)
+    if current_dues <= 0 or tax_id.endswith("-PAID"):
+        raise ValueError("Payment rejected: This tax bill has already been paid and has zero outstanding dues.")
     
-    amount = max(100.0, float(amount))
+    annual_tax = float(citizen.annual_tax or 12000.0)
+    
+    # Calculate itemized bill amount based on payment request or taxId
+    if payment.amount and float(payment.amount) > 0:
+        amount = min(current_dues, float(payment.amount))
+    elif tax_id.endswith("-01") or "property" in tax_id.lower():
+        # Property tax portion (80% of current dues or full dues if low)
+        amount = round(current_dues * 0.8) if current_dues > 2000 else current_dues
+    else:
+        # Water/Waste or full tax bill — clears remaining dues
+        amount = current_dues
+    
+    amount = max(1.0, float(amount))
+    
+    txn_id = f"TXN{uuid.uuid4().hex[:6].upper()}"
+    rcp_id = f"RCP{uuid.uuid4().hex[:6].upper()}"
     
     transaction = models.Transaction(
-        transaction_id=f"TXN{uuid.uuid4().hex[:6].upper()}",
+        transaction_id=txn_id,
         citizen_id=citizen.id,
-        ward_id=citizen.ward_id,
+        ward_id=citizen.ward_id or "W01",
         amount=amount,
-        payment_method=payment.paymentMethod,
+        payment_method=payment.paymentMethod or "UPI One-Tap",
         status="Success",
         date=date.today(),
-        tax_year="2023-24",
+        tax_year="2025-26",
         late_days=0,
         penalty_applied=False,
-        receipt_id=f"RCP{uuid.uuid4().hex[:6].upper()}"
+        receipt_id=rcp_id
     )
     
     db.add(transaction)
     
     # Update citizen dues and status
     new_outstanding = max(0.0, current_dues - amount)
-    citizen.amount_paid = (citizen.amount_paid or 0) + amount
+    citizen.amount_paid = float(citizen.amount_paid or 0) + amount
     citizen.outstanding_dues = new_outstanding
     citizen.last_payment_date = date.today()
     
-    if new_outstanding == 0:
+    if new_outstanding <= 0:
         citizen.last_payment_status = "On-time"
         citizen.payment_delay_risk = "Low"
         citizen.rewards_earned = (citizen.rewards_earned or 0) + 1
+    else:
+        citizen.last_payment_status = "Delayed"
+        citizen.payment_delay_risk = "Medium"
+    
+    # Update Ward metrics in PostgreSQL
+    ward = db.query(models.Ward).filter(models.Ward.ward_id == citizen.ward_id).first()
+    if ward:
+        ward.total_collected = float(ward.total_collected or 0) + amount
+        ward.total_outstanding = max(0.0, float(ward.total_outstanding or 0) - amount)
+        if ward.total_annual_tax and ward.total_annual_tax > 0:
+            ward.collection_rate_pct = round((ward.total_collected / ward.total_annual_tax) * 100.0, 1)
     
     db.commit()
     db.refresh(transaction)
+    db.refresh(citizen)
+    if ward:
+        db.refresh(ward)
+        
     return {
         "id": transaction.transaction_id,
         "transactionId": transaction.transaction_id,
@@ -237,8 +300,10 @@ def create_payment(db: Session, payment: schemas.PaymentRequest):
         "amount": transaction.amount,
         "status": "Success",
         "receiptId": transaction.receipt_id,
-        "remainingDues": new_outstanding
+        "remainingDues": new_outstanding,
+        "date": str(transaction.date)
     }
+
 
 def get_all_wards(db: Session):
     raw_wards = db.query(models.Ward).order_by(models.Ward.rank).all()
@@ -343,22 +408,33 @@ def get_collector_stages(db: Session):
     ]
 
 def get_collector_payment_methods(db: Session):
-    total = db.query(func.count(models.Transaction.transaction_id)).scalar() or 500
-    methods = db.query(models.Transaction.payment_method, func.count(models.Transaction.transaction_id)).group_by(models.Transaction.payment_method).all()
-    count_map = {m: c for m, c in methods}
+    txns = db.query(models.Transaction).all()
+    total = len(txns) or 1
     
-    upi_count = count_map.get("UPI", 240)
-    net_banking = count_map.get("Net Banking", 145)
-    card = count_map.get("Credit Card", 35) + count_map.get("Debit Card", 35)
-    offline = count_map.get("Offline", 10) + count_map.get("Cash", 10)
+    upi_count = 0
+    net_banking = 0
+    card = 0
+    offline = 0
     
+    for t in txns:
+        m = (t.payment_method or "").lower()
+        if "upi" in m or "autopay" in m or "tap" in m:
+            upi_count += 1
+        elif "net" in m or "banking" in m or "bank" in m:
+            net_banking += 1
+        elif "card" in m or "credit" in m or "debit" in m:
+            card += 1
+        else:
+            offline += 1
+
     return [
-        { "label": "UPI / AutoPay", "pct": round((upi_count / total) * 100) if total else 48 },
-        { "label": "Net banking", "pct": round((net_banking / total) * 100) if total else 29 },
-        { "label": "Debit / credit card", "pct": round((card / total) * 100) if total else 14 },
+        { "label": "UPI / AutoPay", "pct": round((upi_count / total) * 100) },
+        { "label": "Net banking", "pct": round((net_banking / total) * 100) },
+        { "label": "Debit / credit card", "pct": round((card / total) * 100) },
         { "label": "UPI manual", "pct": 7 },
-        { "label": "Counter (offline)", "pct": round((offline / total) * 100) if total else 2 },
+        { "label": "Counter (offline)", "pct": round((offline / total) * 100) },
     ]
+
 
 def get_ai_alerts(db: Session, citizen_id: str = None):
     query = db.query(models.AIAlert)

@@ -24,3 +24,8 @@ def get_defaulters(limit: int = 10, db: Session = Depends(get_db)):
     citizens = db.query(models.Citizen).filter(models.Citizen.outstanding_dues > 0).order_by(models.Citizen.outstanding_dues.desc()).limit(limit).all()
     return [crud.format_citizen(c) for c in citizens]
 
+@router.get("/recent-payments")
+def get_recent_payments(limit: int = 10, db: Session = Depends(get_db)):
+    return crud.get_recent_payments(db, limit=limit)
+
+
