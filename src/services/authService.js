@@ -1,7 +1,10 @@
 /**
  * Authentication Service for Twilio Verify SMS OTP
  */
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000/api/v1';
+const rawApiUrl = import.meta.env.VITE_API_URL || 'http://localhost:8000/api/v1';
+const API_BASE_URL = rawApiUrl.endsWith('/api/v1')
+  ? rawApiUrl
+  : `${rawApiUrl.replace(/\/$/, '')}/api/v1`;
 
 export const authService = {
   /**
@@ -29,7 +32,7 @@ export const authService = {
       return data;
     } catch (err) {
       if (err.name === 'TypeError' && err.message.includes('fetch')) {
-        throw new Error('Backend server is offline. Please make sure FastAPI backend is running on http://localhost:8000.');
+        throw new Error(`Backend server is offline. Please make sure backend is running at ${API_BASE_URL}.`);
       }
       throw err;
     }
@@ -64,7 +67,7 @@ export const authService = {
       return data;
     } catch (err) {
       if (err.name === 'TypeError' && err.message.includes('fetch')) {
-        throw new Error('Backend server is offline. Please make sure FastAPI backend is running on http://localhost:8000.');
+        throw new Error(`Backend server is offline. Please make sure backend is running at ${API_BASE_URL}.`);
       }
       throw err;
     }
