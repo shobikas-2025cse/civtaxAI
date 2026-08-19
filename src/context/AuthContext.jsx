@@ -182,6 +182,20 @@ export function AuthProvider({ children }) {
     }
   };
 
+  // Re-fetch all global lists from backend
+  const refreshAllData = async () => {
+    try {
+      const citizensList = await citizenService.getAllCitizens();
+      if (citizensList && Array.isArray(citizensList) && citizensList.length > 0) {
+        setAllCitizens(citizensList);
+      }
+      const wardsList = await wardService.getWardSummaries();
+      if (wardsList) setWardRankings(wardsList);
+    } catch (e) {
+      console.warn('Could not refresh global data:', e);
+    }
+  };
+
   // One-Tap Payment — calls backend API to persist payment, then refreshes tax state
   const payTax = async (taxId, paymentMethod = 'UPI One-Tap') => {
     if (!user) return;
@@ -197,12 +211,25 @@ export function AuthProvider({ children }) {
     const currentOutstanding = Number(user.outstandingDues !== undefined ? user.outstandingDues : 8300);
     const newOutstanding = Math.max(0, currentOutstanding - paidAmount);
 
-    // ── OPTIMISTIC UI: immediately mark as paid in local state ──────────────
+    // ── BACKEND: persist payment to PostgreSQL/Supabase ─────────────────────
+    let backendResult = null;
+    try {
+      backendResult = await apiClient.post('/taxes/pay', {
+        citizenId: user.id,
+        taxId: taxId,
+        paymentMethod: paymentMethod
+      });
+    } catch (err) {
+      console.error('Backend payment error:', err);
+      // Re-throw so caller (PaymentPage / DashboardPage) handles error
+      throw err;
+    }
+
     const todayStr = new Date().toISOString().split('T')[0];
-    const localReceiptId = 'RCP' + Math.floor(100000 + Math.random() * 900000);
+    const localReceiptId = backendResult?.receiptId || ('RCP' + Math.floor(100000 + Math.random() * 900000));
 
     const newRecord = {
-      id: 'PAY' + Date.now().toString().slice(-4),
+      id: backendResult?.transactionId || backendResult?.id || ('PAY' + Date.now().toString().slice(-4)),
       citizenId: user.id,
       citizenName: user.name,
       type: targetBill ? `${targetBill.type} Payment` : 'Property & Municipal Tax',
@@ -216,7 +243,7 @@ export function AuthProvider({ children }) {
 
     setPaymentHistory(prev => [newRecord, ...prev]);
 
-    // Optimistically mark tax as paid in taxDataStore
+    // Update taxDataStore
     setTaxDataStore(prev => {
       const current = prev[user.id] || currentTaxes;
       const updated = current.map(t =>
@@ -227,37 +254,8 @@ export function AuthProvider({ children }) {
       return { ...prev, [user.id]: updated };
     });
 
-    // ── BACKEND: persist payment to PostgreSQL/Supabase ─────────────────────
-    let backendResult = null;
-    try {
-      backendResult = await apiClient.post('/taxes/pay', {
-        citizenId: user.id,
-        taxId: taxId,
-        paymentMethod: paymentMethod
-      });
-
-      if (backendResult) {
-        // Re-fetch updated taxes from backend so dashboard stays consistent after refresh
-        await refreshCitizenTaxes(user.id);
-
-        // Refresh payment history from backend
-        try {
-          const freshHistory = await taxService.getTransactions(user.id);
-          if (freshHistory && Array.isArray(freshHistory) && freshHistory.length > 0) {
-            setPaymentHistory(prev => {
-              // Merge: backend transactions first, then any local-only ones
-              const backendIds = new Set(freshHistory.map(t => t.id || t.transaction_id));
-              const localOnly = prev.filter(p => !backendIds.has(p.id));
-              return [...freshHistory, ...localOnly];
-            });
-          }
-        } catch (e) {
-          console.warn('Could not refresh payment history from backend', e);
-        }
-      }
-    } catch (e) {
-      console.warn('Backend payment API failed — payment recorded locally only:', e);
-    }
+    await refreshCitizenTaxes(user.id);
+    await refreshAllData();
 
     // ── Update citizen gamification & metrics ────────────────────────────────
     const addedXp = 150;
@@ -296,7 +294,7 @@ export function AuthProvider({ children }) {
       rewardScratchPrize: '5% Extra Municipal Cash-Back Voucher + 100 Bonus XP',
       wardRankBoost: `${user.ward ? user.ward.split(' - ')[1] || 'Ward' : 'Ward'} ranked #1 in compliance`,
       backendTxnId: backendResult?.transactionId || backendResult?.id || null,
-      backendReceiptId: backendResult?.receiptId || localReceiptId
+      backendReceiptId: localReceiptId
     };
     setLastPaymentReward(rewardPayload);
     return rewardPayload;
@@ -317,6 +315,7 @@ export function AuthProvider({ children }) {
       getCitizenHistory,
       payTax,
       refreshCitizenTaxes,
+      refreshAllData,
       togglePledge,
       lastPaymentReward,
       clearRewardModal,

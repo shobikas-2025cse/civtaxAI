@@ -122,6 +122,37 @@ class CollectorService {
       schedule: i % 2 === 0 ? 'Scheduled Today, 4:00 PM' : 'Scheduled Tomorrow, 10:00 AM'
     }));
   }
+
+  async getRecentPayments(limit = 10) {
+    if (apiClient.useBackend) {
+      try {
+        const data = await apiClient.get('/collector/recent-payments', { limit });
+        if (data && Array.isArray(data) && data.length > 0) return data;
+      } catch (e) {
+        console.info('Using local recent payments fallback');
+      }
+    }
+    const transactions = csvDataLoader.getTransactions().slice(0, limit);
+    const citizens = csvDataLoader.getCitizens();
+    return transactions.map((t, i) => {
+      const c = citizens.find(c => c.Citizen_ID === t.Citizen_ID) || citizens[i % citizens.length] || {};
+      return {
+        id: t.Transaction_ID || `TXN-${i + 1}`,
+        transactionId: t.Transaction_ID || `TXN-${i + 1}`,
+        citizenId: t.Citizen_ID || c.Citizen_ID || `C${i + 1}`,
+        citizenName: c.Name || `Resident ${i + 1}`,
+        propertyId: `PROP-${t.Ward_ID || 'W01'}-${(t.Citizen_ID || 'C01').replace(/\D/g, '')}`,
+        taxType: t.Tax_Type || 'Property Tax',
+        amount: Number(t.Amount || 3690),
+        paymentMethod: t.Payment_Method || 'UPI',
+        method: t.Payment_Method || 'UPI',
+        date: t.Date || 'Today',
+        status: 'PAID',
+        receiptId: t.Receipt_ID || `RCP${t.Transaction_ID || i + 100}`,
+        wardId: t.Ward_ID || 'W01'
+      };
+    });
+  }
 }
 
 export const collectorService = new CollectorService();

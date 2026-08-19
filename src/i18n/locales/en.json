@@ -162,7 +162,11 @@
     "citizenList": "Field Taxpayer Registry",
     "spotCollection": "Record Spot Payment",
     "issueReceipt": "Issue Spot Receipt",
-    "searchPlaceholder": "Search citizen by name, phone or Property ID..."
+    "searchPlaceholder": "Search citizen by name, phone or Property ID...",
+    "recentPayments": "Recent Payments",
+    "noRecentPayments": "No recent tax payments",
+    "noPendingPayments": "No pending tax payments",
+    "newPaymentReceived": "New Tax Payment Received"
   },
   "admin": {
     "title": "ULB Command & Analytics Center",

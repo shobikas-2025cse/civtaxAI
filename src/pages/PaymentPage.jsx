@@ -31,13 +31,20 @@ export default function PaymentPage() {
     return 0;
   };
 
-  const handleOneTapPay = () => {
+  const [paymentError, setPaymentError] = useState(null);
+
+  const handleOneTapPay = async () => {
     setStep('processing');
-    setTimeout(() => {
-      const reward = payTax(selectedTax.id, paymentMethod === 'upi' ? 'One-Tap UPI' : 'Credit/Debit Card');
+    setPaymentError(null);
+    try {
+      const reward = await payTax(selectedTax.id, paymentMethod === 'upi' ? 'One-Tap UPI' : 'Credit/Debit Card');
       setRewardLoopData(reward);
       setStep('success');
-    }, 1200);
+    } catch (err) {
+      console.error('Payment execution failed:', err);
+      setPaymentError(err.message || 'Payment failed. Please try again.');
+      setStep('review');
+    }
   };
 
   const resetPayment = () => {
@@ -46,6 +53,7 @@ export default function PaymentPage() {
     setStep('select');
     setIsAuthModalOpen(false);
     setRewardLoopData(null);
+    setPaymentError(null);
   };
 
   // Selection Step
@@ -146,6 +154,13 @@ export default function PaymentPage() {
           <h1 className="text-2xl font-extrabold text-white">{t('payment.title')}</h1>
           <p className="text-gray-400 text-sm mt-1">{t('payment.summary')}</p>
         </div>
+
+        {paymentError && (
+          <div className="bg-red-500/10 border-2 border-red-500/40 rounded-2xl p-4 flex items-center gap-3 text-red-400 text-sm font-bold animate-fade-in-up">
+            <XCircle className="w-5 h-5 flex-shrink-0 text-red-400" />
+            <span>{paymentError}</span>
+          </div>
+        )}
 
         {/* Itemized Breakdown */}
         <div className="civic-card p-6 shadow-lg space-y-4">

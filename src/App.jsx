@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from './context/AuthContext';
+import { collectorService } from './services/collectorService';
 import LoginPage from './pages/LoginPage';
 import DashboardPage from './pages/DashboardPage';
 import AIProfilePage from './pages/AIProfilePage';
@@ -22,6 +23,25 @@ import {
 function AppHeader({ tabs, activeTab, setActiveTab, user, logout, rolePill }) {
   const { t } = useTranslation();
   const isDefaulter = user?.status === 'Defaulter';
+
+  const [notifications, setNotifications] = useState([]);
+  const [isNotifOpen, setIsNotifOpen] = useState(false);
+
+  useEffect(() => {
+    async function loadNotifs() {
+      try {
+        const txns = await collectorService.getRecentPayments(6);
+        if (txns && Array.isArray(txns)) {
+          setNotifications(txns);
+        }
+      } catch (e) {
+        console.warn('Could not load notification bell payments:', e);
+      }
+    }
+    loadNotifs();
+    const interval = setInterval(loadNotifs, 8000);
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <header className="bg-[#12141A] border-b border-[#262B38] sticky top-0 z-50 shadow-xl shadow-black/25 w-full">
@@ -93,10 +113,59 @@ function AppHeader({ tabs, activeTab, setActiveTab, user, logout, rolePill }) {
             {/* Language Selector */}
             <LanguageSelector />
 
-            <button className="relative w-9 h-9 bg-[#181C26] border border-[#2A3040] rounded-xl flex items-center justify-center hover:border-[#E5B80B] transition-colors cursor-pointer">
-              <Bell className="w-4 h-4 text-gray-200" />
-              <span className="absolute -top-1 -right-1 w-4 h-4 bg-[#E5B80B] text-black font-extrabold rounded-full text-[9px] flex items-center justify-center">2</span>
-            </button>
+            {/* Notification Bell Dropdown */}
+            <div className="relative">
+              <button
+                onClick={() => setIsNotifOpen(!isNotifOpen)}
+                className="relative w-9 h-9 bg-[#181C26] border border-[#2A3040] rounded-xl flex items-center justify-center hover:border-[#E5B80B] transition-colors cursor-pointer"
+                title="Recent Tax Payments"
+              >
+                <Bell className="w-4 h-4 text-gray-200" />
+                {notifications.length > 0 && (
+                  <span className="absolute -top-1 -right-1 w-4 h-4 bg-[#E5B80B] text-black font-extrabold rounded-full text-[9px] flex items-center justify-center animate-pulse">
+                    {notifications.length}
+                  </span>
+                )}
+              </button>
+
+              {isNotifOpen && (
+                <div className="absolute right-0 mt-2 w-80 sm:w-96 bg-[#151822] border-2 border-[#2A3040] rounded-2xl shadow-2xl z-50 p-4 space-y-3 animate-fade-in-up">
+                  <div className="flex items-center justify-between border-b border-[#2A3040] pb-2">
+                    <h3 className="text-xs font-extrabold text-white flex items-center gap-2">
+                      <Bell className="w-3.5 h-3.5 text-[#E5B80B]" />
+                      New Tax Payment Received
+                    </h3>
+                    <span className="text-[10px] bg-[#E5B80B]/20 text-[#E5B80B] px-2 py-0.5 rounded-full font-bold">
+                      Live DB Sync
+                    </span>
+                  </div>
+
+                  <div className="max-h-72 overflow-y-auto space-y-2 pr-1">
+                    {notifications.length > 0 ? (
+                      notifications.map((item, idx) => (
+                        <div key={item.id || idx} className="p-3 bg-[#1A1E2C] border border-[#2D3346] rounded-xl space-y-1">
+                          <div className="flex items-center justify-between text-xs">
+                            <span className="text-emerald-400 font-bold">New Tax Payment Received</span>
+                            <span className="text-gray-400 text-[10px]">{item.date || 'Just now'}</span>
+                          </div>
+                          <p className="text-xs font-semibold text-white">
+                            <strong className="text-[#E5B80B]">{item.citizenName || 'Resident'}</strong> paid {item.taxType || 'Property Tax'} ₹{(item.amount || 0).toLocaleString()}
+                          </p>
+                          <div className="flex items-center justify-between text-[10px] text-gray-400 font-mono pt-1 border-t border-[#262B3A]">
+                            <span>ID: {item.id || item.receiptId}</span>
+                            <span className="text-emerald-400 font-extrabold uppercase">{item.status || 'PAID'}</span>
+                          </div>
+                        </div>
+                      ))
+                    ) : (
+                      <div className="p-4 text-center text-xs text-gray-400 font-medium">
+                        No recent tax payments
+                      </div>
+                    )}
+                  </div>
+                </div>
+              )}
+            </div>
 
             <div className="hidden lg:flex items-center gap-2 bg-[#181C26] border border-[#2A3040] rounded-xl px-3 py-1.5">
               <div className="w-6 h-6 bg-[#E5B80B]/20 text-[#E5B80B] rounded-full flex items-center justify-center flex-shrink-0">

@@ -92,5 +92,8 @@ class MonthlyTrend(BaseModel):
 # Request Schemas
 class PaymentRequest(BaseModel):
     citizenId: str
-    taxId: str
-    paymentMethod: str
+    taxId: Optional[str] = None
+    paymentMethod: Optional[str] = "UPI One-Tap"
+    amount: Optional[float] = None
+    taxType: Optional[str] = None
+

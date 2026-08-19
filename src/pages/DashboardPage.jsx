@@ -48,10 +48,13 @@ export default function DashboardPage() {
     return Math.ceil((due - now) / (1000 * 60 * 60 * 24));
   };
 
+  const [paymentModalError, setPaymentModalError] = useState(null);
+
   // Open Payment Modal
   const handleOpenPaymentModal = (taxItem = null) => {
     setSelectedTaxToPay(taxItem);
     setPaymentSuccessData(null);
+    setPaymentModalError(null);
     setIsPaymentModalOpen(true);
     setIsAuthModalOpen(false);
   };
@@ -59,6 +62,7 @@ export default function DashboardPage() {
   // Execute Payment (Triggered after successful demo PIN authentication)
   const handleExecutePayment = async (authData = null) => {
     setIsProcessingPayment(true);
+    setPaymentModalError(null);
     const targetTaxId = selectedTaxToPay ? selectedTaxToPay.id : (overdueTaxes[0]?.id || pendingTaxes[0]?.id || 'TAX001');
     
     try {
@@ -85,6 +89,9 @@ export default function DashboardPage() {
         date: authData?.date || new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }),
         rewardCertificate: paymentMode === 'yearly' ? '🌟 Gold Model Citizen Tax Compliance Certificate' : null
       });
+    } catch (err) {
+      console.error('Dashboard payment execution failed:', err);
+      setPaymentModalError(err.message || 'Payment execution failed.');
     } finally {
       setIsProcessingPayment(false);
     }

@@ -18,10 +18,18 @@ def read_transactions(citizenId: Optional[str] = None, skip: int = 0, limit: int
 
 @router.post("/taxes/pay")
 def pay_tax(payment: schemas.PaymentRequest, db: Session = Depends(get_db)):
-    transaction = crud.create_payment(db, payment=payment)
-    if not transaction:
-        raise HTTPException(status_code=404, detail="Payment processing failed")
-    return transaction
+    try:
+        transaction = crud.create_payment(db, payment=payment)
+        if not transaction:
+            raise HTTPException(status_code=400, detail="Payment processing failed")
+        return transaction
+    except ValueError as ve:
+        db.rollback()
+        raise HTTPException(status_code=400, detail=str(ve))
+    except Exception as e:
+        db.rollback()
+        raise HTTPException(status_code=500, detail=f"Database error during payment processing: {str(e)}")
+
 
 @router.get("/summary")
 def get_tax_summary(db: Session = Depends(get_db)):

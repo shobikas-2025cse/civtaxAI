@@ -162,7 +162,11 @@
     "citizenList": "क्षेत्रीय करदाता रजिस्ट्रार",
     "spotCollection": "तत्काल भुगतान रिकॉर्ड करें",
     "issueReceipt": "तत्काल रसीद जारी करें",
-    "searchPlaceholder": "नाम या फोन से खोजें..."
+    "searchPlaceholder": "नाम या फोन से खोजें...",
+    "recentPayments": "हाल के भुगतान",
+    "noRecentPayments": "कोई हालिया कर भुगतान नहीं",
+    "noPendingPayments": "कोई लंबित कर भुगतान नहीं",
+    "newPaymentReceived": "नया कर भुगतान प्राप्त हुआ"
   },
   "admin": {
     "title": "यूएलबी कमान और विश्लेषण केंद्र",
